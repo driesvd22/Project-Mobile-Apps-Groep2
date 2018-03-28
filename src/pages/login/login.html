@@ -1,0 +1,21 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Login</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-list>
+        <img src="../../assets/imgs/erasmus_logo.jpg" alt="Logo" height="120" width="146"> 
+        <ion-item>
+          <ion-input id="username" type="text" placeholder="Gebruikersnaam"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input id="password" type="password" placeholder="Paswoord"></ion-input>
+        </ion-item>
+        <button ion-button color="secondary" round (click)="login()">Login</button>
+      </ion-list>
+</ion-content>
