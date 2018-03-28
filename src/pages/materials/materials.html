@@ -1,0 +1,30 @@
+<ion-header>
+    <ion-navbar class="pageHeader">
+      <button ion-button menuToggle>
+        <ion-icon name="menu" class="menuIcon"></ion-icon>
+      </button>
+      <ion-title class="pageTitle">Labo Materiaal</ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content padding>
+      
+      <ion-list>
+          <ion-item (click)="moreInfo('erlemeyer')">
+            <ion-thumbnail item-start>
+              <img src="../../assets/imgs/erlemeyer.png">
+            </ion-thumbnail>
+            <h2>erlemeyer</h2>
+          </ion-item>
+      </ion-list>
+
+      <ion-list>
+          <ion-item (click)="moreInfo('logo')">
+            <ion-thumbnail item-start>
+              <img src="../../assets/imgs/erasmus_logo.jpg">
+            </ion-thumbnail>
+            <h2>Iets anders</h2>
+          </ion-item>
+      </ion-list>
+  </ion-content>
+  
