@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-navbar class="pageHeader">
+    <button ion-button menuToggle>
+      <ion-icon name="menu" class="menuIcon"></ion-icon>
+    </button>
+    <ion-title class="pageTitle">Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  
+    <ion-card (click)="openTeMakenOefeningenPage()">
+        <ion-card-content>
+          <ion-card-title>
+            <em>Te Maken Oefeningen</em>
+          </ion-card-title>
+        </ion-card-content>
+        <img src="../../assets/imgs/pasOp.png" class="cardImage"/>
+    </ion-card>
+    
+    <ion-card (click)="openHermaakOefeningPage()">
+        <ion-card-content>
+          <ion-card-title>
+            <em>Hermaak Oefening</em>
+          </ion-card-title>
+        </ion-card-content>
+        <img src="../../assets/imgs/erasmus_logo.jpg" class="cardImage"/>
+    </ion-card>
+
+    <ion-card (click)="openMaterialPage()">
+        <ion-card-content>
+          <ion-card-title>
+            Labo Materiaal
+          </ion-card-title>
+        </ion-card-content>
+        <img src="../../assets/imgs/erlemeyer.png" class="cardImage"/>
+    </ion-card>
+
+    <ion-card (click)="openSettingsPage()">
+        <ion-card-content>
+          <ion-card-title>
+            Instellingen
+          </ion-card-title>
+        </ion-card-content>
+        <img src="../../assets/imgs/tandwiel.png" class="cardImage"/>
+    </ion-card>
+  
+  </ion-content>

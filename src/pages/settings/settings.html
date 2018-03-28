@@ -1,0 +1,17 @@
+<ion-header>
+    <ion-navbar class="pageHeader">
+      <button ion-button menuToggle>
+        <ion-icon name="menu" class="menuIcon"></ion-icon>
+      </button>
+      <ion-title class="pageTitle">Settings</ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content padding>
+      <ion-item>
+          <ion-range [(ngModel)]="brightness">
+            <ion-icon range-left small name="sunny"></ion-icon>
+            <ion-icon range-right name="sunny"></ion-icon>
+          </ion-range>
+        </ion-item>
+  </ion-content>
