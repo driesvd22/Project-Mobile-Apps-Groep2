@@ -9,10 +9,16 @@ import { TeMakenOefeningenPage } from '../pages/te-maken-oefeningen/te-maken-oef
 import { HermaakOefeningPage } from '../pages/hermaak-oefening/hermaak-oefening';
 import { SettingsPage } from '../pages/settings/settings';
 import { LoginPage } from '../pages/login/login';
-import { OefeningMakenPage } from '../pages/oefening-maken/oefening-maken';
+import { MatTempOefeningPage } from '../pages/mat-temp-oefening/mat-temp-oefening';
+import { VerwijzingsTempOefeningPage } from '../pages/verwijzings-temp-oefening/verwijzings-temp-oefening';
+import { AfvalTempOefeningPage } from '../pages/afval-temp-oefening/afval-temp-oefening';
+import { WerkwijzeTempOefeningPage } from '../pages/werkwijze-temp-oefening/werkwijze-temp-oefening';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+
+// http://masteringionic.com/blog/2017-12-15-creating-a-sortable-list-with-ionic-and-dragula/
+import { DragulaModule } from '../../node_modules/ng2-dragula';
 
 @NgModule({
   declarations: [
@@ -23,10 +29,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MaterialsPage, 
     SettingsPage, 
     LoginPage,
-    OefeningMakenPage 
+    MatTempOefeningPage,
+    VerwijzingsTempOefeningPage,
+    AfvalTempOefeningPage,
+    WerkwijzeTempOefeningPage 
   ],
   imports: [
     BrowserModule,
+    DragulaModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -38,7 +48,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MaterialsPage, 
     SettingsPage, 
     LoginPage,
-    OefeningMakenPage
+    MatTempOefeningPage,
+    VerwijzingsTempOefeningPage,
+    AfvalTempOefeningPage,
+    WerkwijzeTempOefeningPage
   ],
   providers: [
     StatusBar,

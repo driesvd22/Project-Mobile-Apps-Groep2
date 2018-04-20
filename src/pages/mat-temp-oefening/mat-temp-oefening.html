@@ -1,0 +1,54 @@
+<!--
+  Generated template for the MatTempOefeningPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Maken</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    
+  <!--
+    <p>Material Template Oefening</p>
+    <p>template ID: {{tempID}} </p>
+  -->
+    
+      <ion-card>
+        <ion-card-header>
+          Sleep het juiste materiaal op de tafel
+        </ion-card-header>
+      
+        <ion-card-content>
+          "Uitleg over het labo en wat je moet doen, zodat de studenten weten welk materiaal ze moeten nemen"
+        </ion-card-content>
+      </ion-card>
+
+      <ion-row>
+        <ion-col width-50 class="left">
+          <ion-list [dragula]="'my-bag'" [dragulaModel]="AllMaterials" class="allMaterials">
+            <div ion-button clear color="secondary" *ngFor="let item of AllMaterials" class="material">
+              <img src="{{item.afbeelding}}" width="48" height="48"> 
+              {{item.name}}
+            </div>
+          </ion-list>
+          <button ion-button round (click)="check()">Submit</button>
+        </ion-col>
+
+        <ion-col width-50 class="right">
+          <ion-list [dragula]="'my-bag'" [dragulaModel]="q2" class="choosenMaterials">
+            <div ion-button clear color="secondary" *ngFor="let item of q2" class="material">
+              <img src="{{item.afbeelding}}" width="48" height="48"> 
+            </div>
+          </ion-list>
+          <div class="tafelPoten1"></div>
+          <div class="tafelPoten2"></div>
+        </ion-col>
+      </ion-row>
+</ion-content>
