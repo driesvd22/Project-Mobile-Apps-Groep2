@@ -23,6 +23,46 @@ export class WerkwijzeTempOefeningPage {
   tempID: any;
   aantalKeerFout : number = 0;
 
+  stappen : any = [
+    {
+      id: 1,
+      step: 'Dit is stap 1',
+      midsteps: [
+        {
+          step: "Dit is de tussenstap 1 van stap 1",
+          question: "Dit is de vraag",
+          answer: "juist"
+        },
+        {
+          step: "Dit is de tussenstap 2 van stap 1",
+          question: "Dit is de tweede vraag",
+          answer: "juist"
+        }
+      ]
+    },
+    {
+      id: 2,
+      step: 'Dit is stap 2',
+      midsteps: null
+    },
+    { 
+      id: 3,
+      step: 'Dit is stap 3',
+      midsteps: null
+    },
+    {
+      id: 4,
+      step: 'Dit is stap 4',
+      midsteps: null
+    }
+  ];
+
+  juisteVolgorde : any = [1,2,3,4];
+
+  gegevenVolgorde : any = this.shuffle(this.stappen);
+
+  gekozenVolgorde : any = [];
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, public alertCtrl: AlertController, private dragulaService : DragulaService) {
     this.tempID = navParams.data.tempID;
 
@@ -31,6 +71,18 @@ export class WerkwijzeTempOefeningPage {
         console.log('Item Moved');
     });
   }
+
+  /**
+    * Shuffles array in place. ES6 version
+    * items An array containing the items.
+  */
+  shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  };
 
   //https://stackoverflow.com/questions/38652827/disable-swipe-to-view-sidemenu-ionic-2/38654644?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
   ionViewDidEnter() {
@@ -86,9 +138,19 @@ export class WerkwijzeTempOefeningPage {
 
   check(){
     
-    // Logic
-
     let ok: boolean = true;
+
+    let antwoord = [];
+
+    this.gekozenVolgorde.forEach(stap => {
+      antwoord.push(stap.id);
+    });
+    
+    for (let i in this.juisteVolgorde) {
+      if(antwoord[i] !== this.juisteVolgorde[i] || antwoord[i] == null){
+        ok = false;
+      }
+    }
 
     if(ok){
       this.showAlertJuist();

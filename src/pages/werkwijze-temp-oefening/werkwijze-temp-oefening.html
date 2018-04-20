@@ -7,15 +7,46 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>werkwijzeTempOefening</ion-title>
+    <ion-title>Maken</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-    <p>Werkwijze Template Oefening</p>
-    <p>template ID: {{tempID}} </p>
+    <!--
+      <p>Werkwijze Template Oefening</p>
+      <p>template ID: {{tempID}} </p>
+    -->
 
+    <ion-card>
+      <ion-card-header>
+        Sleep de verschillende stappen in de juiste volgorde
+      </ion-card-header>
+    
+      <ion-card-content>
+        "Uitleg over het labo en wat je moet doen, zodat de studenten weten welk materiaal ze moeten nemen"
+      </ion-card-content>
+    </ion-card>
+
+    <ion-row>
+      <ion-col width-50 class="left">
+        <ion-list [dragula]='"my-bag"' [dragulaModel]="gegevenVolgorde" class="table1">
+          <button ion-item *ngFor="let item of gegevenVolgorde" detail-none>
+            {{item.step}}
+        </button>
+        </ion-list>
+      </ion-col>
+
+      <ion-col width-50 class="right">
+        <ion-list [dragula]='"my-bag"' [dragulaModel]="gekozenVolgorde" class="table2">
+          <button ion-item *ngFor="let item of gekozenVolgorde" detail-none>
+            {{item.step}}
+          </button>
+        </ion-list>
+      </ion-col>
+    </ion-row>
     <button ion-button round (click)="check()">Submit</button>
+    
+
 </ion-content>
