@@ -57,14 +57,20 @@ export class WerkwijzeTempOefeningPage {
     }
   ];
 
-  juisteVolgorde : any = [1,2,3,4];
+  juisteVolgorde : any = [];
 
-  gegevenVolgorde : any = this.shuffle(this.stappen);
+  gegevenVolgorde : any = [];
 
   gekozenVolgorde : any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, public alertCtrl: AlertController, private dragulaService : DragulaService) {
     this.tempID = navParams.data.tempID;
+
+    this.stappen.forEach(stap => {
+      this.juisteVolgorde.push(stap.id);
+    });
+
+    this.gegevenVolgorde = this.shuffle(this.stappen);
 
     this.dragulaService.drop.subscribe((val) =>
     {
@@ -95,6 +101,7 @@ export class WerkwijzeTempOefeningPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WerkwijzeTempOefeningPage');
+    console.log(this.juisteVolgorde);
   }
 
   showAlert() {
