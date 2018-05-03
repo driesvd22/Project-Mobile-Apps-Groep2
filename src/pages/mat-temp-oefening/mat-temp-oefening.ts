@@ -7,6 +7,7 @@ import { AlertController } from 'ionic-angular';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { VerwijzingsTempOefeningPage } from '../verwijzings-temp-oefening/verwijzings-temp-oefening';
 import { HomePage } from '../home/home';
+import { SplitterPage } from '../splitter/splitter';
 
 /**
  * Generated class for the MatTempOefeningPage page.
@@ -22,11 +23,14 @@ import { HomePage } from '../home/home';
 })
 export class MatTempOefeningPage {
 
+  // Templates vanuit de splitterPage
   templates: any = [];
+  uitleg: any = [];
+  hint: any = [];
   
+  // De tweede div waar de antwoorden in worden geplaatst
   q2: any = [];
 
-  tempID: any;
   aantalKeerFout : number = 0;
 
   juisteMaterialen: any = [];
@@ -57,55 +61,16 @@ export class MatTempOefeningPage {
       id: 5,
       name: 'tandwiel',
       afbeelding: '../../assets/imgs/tandwiel.png'
-    },
-    { 
-      id: 6,
-      name: 'tandwiel',
-      afbeelding: '../../assets/imgs/tandwiel.png'
-    },
-    { 
-      id: 7,
-      name: 'tandwiel',
-      afbeelding: '../../assets/imgs/tandwiel.png'
-    },
-    { 
-      id: 8,
-      name: 'tandwiel',
-      afbeelding: '../../assets/imgs/tandwiel.png'
-    },
-    { 
-      id: 9,
-      name: 'tandwiel',
-      afbeelding: '../../assets/imgs/tandwiel.png'
-    },
-    { 
-      id: 10,
-      name: 'tandwiel',
-      afbeelding: '../../assets/imgs/tandwiel.png'
-    },
-    { 
-      id: 11,
-      name: 'tandwiel',
-      afbeelding: '../../assets/imgs/tandwiel.png'
-    },
-    { 
-      id: 12,
-      name: 'tandwiel',
-      afbeelding: '../../assets/imgs/tandwiel.png'
-    },
-    { 
-      id: 13,
-      name: 'tandwiel',
-      afbeelding: '../../assets/imgs/tandwiel.png'
     }
   ];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, public alertCtrl: AlertController, private dragulaService : DragulaService) {
+    
     this.templates = navParams.data.templates;
 
+    this.uitleg = this.templates[0].uitleg;
     this.juisteMaterialen = this.templates[0].juisteMaterialen;
-    
-    this.tempID = navParams.data.tempID;
+    this.hint = this.templates[0].hint;
 
     this.dragulaService.drop.subscribe((val) =>
     {
@@ -120,7 +85,7 @@ export class MatTempOefeningPage {
   //https://stackoverflow.com/questions/38652827/disable-swipe-to-view-sidemenu-ionic-2/38654644?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
   ionViewWillLeave() {
     this.menu.swipeEnable(true);
-   }
+  }
 
   ionViewDidLoad() {
     console.log(this.templates);
@@ -141,7 +106,7 @@ export class MatTempOefeningPage {
 
     let alert = this.alertCtrl.create({
       title: 'Hint',
-      subTitle: hint,
+      subTitle: this.hint,
       buttons: ['OK']
     });
     alert.present();
@@ -171,8 +136,6 @@ export class MatTempOefeningPage {
     let amountOfJuisteMaterialen: number = this.juisteMaterialen.length;
     let ok: boolean = true;
 
-    console.log(this.juisteMaterialen);
-
     if(amountOfChoosenItems == amountOfJuisteMaterialen){
       
       for (let materiaal of this.q2) {
@@ -180,7 +143,6 @@ export class MatTempOefeningPage {
           ok = false;
         }
       };
-
     }
     else{
       ok = false;
@@ -190,21 +152,9 @@ export class MatTempOefeningPage {
       this.showAlertJuist();
       this.templates.shift();
 
-      switch(this.templates[0].soort){
-        case "materialTemplate":{
-          this.navCtrl.setRoot(MatTempOefeningPage, {
-            templates: this.templates
-          });
-          break;
-        }
-        case "verwijzingstemplate":{
-          this.navCtrl.setRoot(VerwijzingsTempOefeningPage);
-          break;
-        }
-        default:{
-          this.navCtrl.setRoot(HomePage);
-        }
-      }
+      this.navCtrl.setRoot(SplitterPage, {
+        templates: this.templates
+      });
     }
     else{
       this.aantalKeerFout++;

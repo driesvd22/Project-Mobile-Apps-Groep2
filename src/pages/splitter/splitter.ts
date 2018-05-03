@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MatTempOefeningPage } from '../mat-temp-oefening/mat-temp-oefening';
 import { VerwijzingsTempOefeningPage } from '../verwijzings-temp-oefening/verwijzings-temp-oefening';
 import { HomePage } from '../home/home';
+import { TeMakenOefeningenPage } from '../te-maken-oefeningen/te-maken-oefeningen';
 
 /**
  * Generated class for the SplitterPage page.
@@ -18,32 +19,36 @@ import { HomePage } from '../home/home';
 })
 export class SplitterPage {
 
-  oefening: any = [];
-
   templates: any = [];
   
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.oefening = navParams.data.oefening;
-
-    this.oefening.templates.forEach(template => {
-      this.templates.push(template);
-    });
+    this.templates = navParams.data.templates;
   }
 
   ionViewDidLoad() {
-    switch(this.templates[0].soort){
-      case "materialTemplate":{
-        this.navCtrl.setRoot(MatTempOefeningPage, {
-          templates: this.templates
-        });
-        break;
-      }
-      case "verwijzingstemplate":{
-        this.navCtrl.setRoot(VerwijzingsTempOefeningPage);
-        break;
-      }
-      default:{
-        this.navCtrl.setRoot(HomePage);
+    if(this.templates == null){
+      this.navCtrl.setRoot(TeMakenOefeningenPage);
+    }
+    else if(this.templates[0] == null){
+      this.navCtrl.setRoot(TeMakenOefeningenPage);
+    }
+    else{
+      switch(this.templates[0].soort){
+        case "materialTemplate":{
+          this.navCtrl.setRoot(MatTempOefeningPage, {
+            templates: this.templates
+          });
+          break;
+        }
+        case "verwijzingstemplate":{
+          this.navCtrl.setRoot(VerwijzingsTempOefeningPage, {
+            templates: this.templates
+          });
+          break;
+        }
+        default:{
+          this.navCtrl.setRoot(HomePage);
+        }
       }
     }
   }

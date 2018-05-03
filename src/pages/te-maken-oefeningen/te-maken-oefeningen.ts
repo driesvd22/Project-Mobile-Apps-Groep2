@@ -19,41 +19,43 @@ export class TeMakenOefeningenPage {
   test: String;
 
   // Logic om alle open labo's binnen te trekken uit json-file
-  openLabos : any = [];
+  openLabos : any = [
+    {
+      laboNaam: "Labo 1",
+      inleverDatum: "22/05/18",
+      oefeningen: 
+      [
+        {
+          oefeningNaam: "Oefening 1",
+          templates: 
+          [
+            {
+              soort: "materialTemplate",
+              uitleg: "In dit labo is het de bedoeling om een oplossing van zout te maken, sleep hiervoor het juiste materiaal op tafel",
+              hint: "Gewoon slepen",
+              juisteMaterialen: [1,2,3]
+            },
+            {
+              soort: "verwijzingstemplate",
+              uitleg: "Het is de bedoeling dat je op deze link klikt en de inhoud bekijkt",
+              link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            }
+          ]
+        },
+        {
+          oefeningNaam: "Oefening 2",
+          templates: null
+        }
+      ]
+    }
+  ];
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.test = "test";
-    this.openLabos = [
-      {
-        laboNaam: "Labo 1",
-        inleverDatum: "22/05/18",
-        oefeningen: 
-        [
-          {
-            oefeningNaam: "Oefening 1",
-            templates: 
-            [
-              {
-                soort: "materialTemplate",
-                juisteMaterialen: [1,2]
-              },
-              {
-                soort: "verwijzingstemplate",
-                link: "http://test.com"
-              }
-            ]
-          },
-          {
-            oefeningNaam: "Oefening 2"
-          }
-        ]
-      }
-    ];
   }
 
   openOefening(oefening){
     this.navCtrl.setRoot(SplitterPage, {
-      oefening: oefening
+      templates: oefening.templates
     });
   }
 
