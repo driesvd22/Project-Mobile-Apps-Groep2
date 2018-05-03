@@ -1,21 +1,32 @@
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>Login</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
-    <ion-list>
-        <img src="../../assets/imgs/erasmus_logo.jpg" alt="Logo" height="120" width="146"> 
-        <ion-item>
-          <ion-input id="username" type="text" placeholder="Gebruikersnaam"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input id="password" type="password" placeholder="Paswoord"></ion-input>
-        </ion-item>
-        <button ion-button color="secondary" round (click)="login()">Login</button>
-      </ion-list>
-</ion-content>
+<!--  Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
+        See LICENSE in the source repository root for complete license information. -->
+        <ion-header>
+          <meta charset="utf-8">
+          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          <ion-title>Login</ion-title>
+          <base href="/">
+        
+          <!-- Third party dependencies. -->
+          <link rel="stylesheet" href="https://appsforoffice.microsoft.com/fabric/1.0/fabric.css">
+          <link rel="stylesheet" href="https://appsforoffice.microsoft.com/fabric/1.0/fabric.components.css">
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular-route.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.8.0/loading-bar.js"></script>
+          <script src="https://secure.aadcdn.microsoftonline-p.com/lib/0.1.1/js/msal.min.js"></script>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.8.0/loading-bar.css">
+        
+          <!--Include Graph SDK -->
+          <script src="/bower_components/graph-sdk/lib/graph-js-sdk-web.js"></script>
+        
+          <!-- App code. -->
+          <script src="/scripts/config.js"></script>
+          <script src="/scripts/app.js"></script>
+          <script src="/scripts/graphHelper.js"></script>
+          <script src="/controllers/mainController.js"></script>  
+        </ion-header>
+        
+        <ion-content class="ms-Grid">
+          <div ng-controller="MainController as main" ng-include="'views/main.html'"></div>
+        </ion-content>
+        
+    
