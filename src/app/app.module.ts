@@ -13,6 +13,7 @@ import { MatTempOefeningPage } from '../pages/mat-temp-oefening/mat-temp-oefenin
 import { VerwijzingsTempOefeningPage } from '../pages/verwijzings-temp-oefening/verwijzings-temp-oefening';
 import { AfvalTempOefeningPage } from '../pages/afval-temp-oefening/afval-temp-oefening';
 import { WerkwijzeTempOefeningPage } from '../pages/werkwijze-temp-oefening/werkwijze-temp-oefening';
+import { SplitterPage } from '../pages/splitter/splitter';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -32,7 +33,8 @@ import { DragulaModule } from '../../node_modules/ng2-dragula';
     MatTempOefeningPage,
     VerwijzingsTempOefeningPage,
     AfvalTempOefeningPage,
-    WerkwijzeTempOefeningPage 
+    WerkwijzeTempOefeningPage,
+    SplitterPage 
   ],
   imports: [
     BrowserModule,
@@ -51,7 +53,8 @@ import { DragulaModule } from '../../node_modules/ng2-dragula';
     MatTempOefeningPage,
     VerwijzingsTempOefeningPage,
     AfvalTempOefeningPage,
-    WerkwijzeTempOefeningPage
+    WerkwijzeTempOefeningPage,
+    SplitterPage
   ],
   providers: [
     StatusBar,

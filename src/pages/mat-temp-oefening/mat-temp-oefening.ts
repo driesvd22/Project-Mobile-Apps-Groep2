@@ -5,6 +5,8 @@ import { LoginPage } from '../login/login';
 import { AlertController } from 'ionic-angular';
 
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
+import { VerwijzingsTempOefeningPage } from '../verwijzings-temp-oefening/verwijzings-temp-oefening';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the MatTempOefeningPage page.
@@ -20,13 +22,14 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
 })
 export class MatTempOefeningPage {
 
+  templates: any = [];
+  
   q2: any = [];
 
   tempID: any;
   aantalKeerFout : number = 0;
 
-  // Logic dat een array terug geeft met de ID's van de juiste materialen afhankelijk van en tempID
-  juisteMaterialen = [1, 2];
+  juisteMaterialen: any = [];
 
   // Logic om alle materialen op te halen
   AllMaterials : any = [
@@ -98,6 +101,10 @@ export class MatTempOefeningPage {
   ];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, public alertCtrl: AlertController, private dragulaService : DragulaService) {
+    this.templates = navParams.data.templates;
+
+    this.juisteMaterialen = this.templates[0].juisteMaterialen;
+    
     this.tempID = navParams.data.tempID;
 
     this.dragulaService.drop.subscribe((val) =>
@@ -116,7 +123,7 @@ export class MatTempOefeningPage {
    }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MatTempOefeningPage');
+    console.log(this.templates);
   }
 
   showAlert() {
@@ -181,7 +188,23 @@ export class MatTempOefeningPage {
 
     if(ok){
       this.showAlertJuist();
-      this.navCtrl.setRoot(HermaakOefeningPage);
+      this.templates.shift();
+
+      switch(this.templates[0].soort){
+        case "materialTemplate":{
+          this.navCtrl.setRoot(MatTempOefeningPage, {
+            templates: this.templates
+          });
+          break;
+        }
+        case "verwijzingstemplate":{
+          this.navCtrl.setRoot(VerwijzingsTempOefeningPage);
+          break;
+        }
+        default:{
+          this.navCtrl.setRoot(HomePage);
+        }
+      }
     }
     else{
       this.aantalKeerFout++;
