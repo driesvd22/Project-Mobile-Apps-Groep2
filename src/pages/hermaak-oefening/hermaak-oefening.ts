@@ -6,6 +6,8 @@ import { VerwijzingsTempOefeningPage } from '../verwijzings-temp-oefening/verwij
 import { AfvalTempOefeningPage } from '../afval-temp-oefening/afval-temp-oefening';
 import { AlertController } from 'ionic-angular';
 import { WerkwijzeTempOefeningPage } from '../werkwijze-temp-oefening/werkwijze-temp-oefening';
+import { KkTempOefeningPage } from '../kk-temp-oefening/kk-temp-oefening';
+import { SplitterPage } from '../splitter/splitter';
 
 /**
  * Generated class for the HermaakOefeningPage page.
@@ -27,11 +29,41 @@ export class HermaakOefeningPage {
     let RightMats: number[];
   }
 
+  // Logic om te hermaken oefeningen op te halen
+  teHermakenOefeningen : any = [
+    {
+      laboNaam: "Labo 1",
+      inleverDatum: "22/05/18",
+      oefeningen: 
+      [
+        {
+          oefeningNaam: "Oefening 1",
+          templates: 
+          [
+            {
+              soort: "kkTemplateOefening"
+            }, 
+            {
+              soort: "materialTemplate",
+              uitleg: "Zorg ervoor dat je de juiste materialen gebruikt om een oplossing te kunnen maken",
+              hint: "Gewoon slepen",
+              juisteMaterialen: [1,2,3,4]
+            }
+          ]
+        },
+        {
+          oefeningNaam: "Oefening 2",
+          templates: null
+        }
+      ]
+    }
+  ];
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad HermaakOefeningPage');
   }
 
-  showConfirm(pageName, tempID) {
+  showConfirm(pageName, templates) {
     let confirm = this.alertCtrl.create({
       title: 'Are You Sure?',
       message: 'You can not go back when starting this exercise!',
@@ -47,7 +79,7 @@ export class HermaakOefeningPage {
           handler: () => {
             console.log('Agree clicked');
             this.navCtrl.setRoot(pageName, {
-              tempID: tempID
+              templates: templates
             });
           }
         }
@@ -56,42 +88,8 @@ export class HermaakOefeningPage {
     confirm.present();
   }
 
-  openOefening(id){
-    
-    // Hier staat logic die bepaald welke template er gebruikt moet worden afhankelijk van de meegegeven ID:
-    // materialTemplate = 1
-    // verwijzingsTemplate = 2
-    // afvalTemplate = 3
-    // werkwijzeTemplate = 4
-
-    // Hier staat de logic die de ID van de template bepaald (dit kan matTempID, verTempID, afvalTempID of werkTempID zijn)
-    
-    // Volgende gegevens zijn dummies vanuit deze logic:
-    let temp = id; //Het soort template
-    let tempID = 2; //De scecifieke id van de template
-
-    switch(temp){
-      case 1:{
-        this.showConfirm(MatTempOefeningPage, tempID);
-        break;
-      }
-      case 2:{
-        this.showConfirm(VerwijzingsTempOefeningPage, tempID);
-        break;
-      }
-      case 3:{
-        this.showConfirm(AfvalTempOefeningPage, tempID);
-        break;
-      }
-      case 4:{
-        this.showConfirm(WerkwijzeTempOefeningPage, tempID);
-        break;
-      }
-      default:{
-        this.navCtrl.setRoot(HomePage);
-      }
-
-    }
+  openOefening(oefening){
+    this.showConfirm(SplitterPage, oefening.templates);
   }
 
   checkWithRightMats(testMats: number[]){

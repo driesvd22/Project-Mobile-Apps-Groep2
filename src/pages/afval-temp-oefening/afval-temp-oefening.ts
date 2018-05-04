@@ -20,10 +20,13 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
 })
 export class AfvalTempOefeningPage {
 
-  tempID: any;
   aantalKeerFout : number = 0;
+  templates: any = [];
+
+  stoffen: any = [];
 
   // logic om gevraagde stoffen op te halen naar gelang de tempID
+  /*
   stoffen: any = [
     {
       id: 1,
@@ -46,6 +49,7 @@ export class AfvalTempOefeningPage {
       afval: 6
     }
   ];
+  */
 
   cat1: any = [];// id 1
   cat2: any = []; // id 2
@@ -56,7 +60,6 @@ export class AfvalTempOefeningPage {
   gootsteen: any = []; // id 7
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, public alertCtrl: AlertController, private dragulaService : DragulaService) {
-    this.tempID = navParams.data.tempID;
     
     this.dragulaService.drop.subscribe((val) =>
     {

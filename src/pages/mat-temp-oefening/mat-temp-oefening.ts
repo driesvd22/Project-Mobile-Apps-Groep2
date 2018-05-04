@@ -27,13 +27,12 @@ export class MatTempOefeningPage {
   templates: any = [];
   uitleg: any = [];
   hint: any = [];
+  juisteMaterialen: any = [];
   
   // De tweede div waar de antwoorden in worden geplaatst
   q2: any = [];
 
   aantalKeerFout : number = 0;
-
-  juisteMaterialen: any = [];
 
   // Logic om alle materialen op te halen
   AllMaterials : any = [
@@ -71,6 +70,8 @@ export class MatTempOefeningPage {
     this.uitleg = this.templates[0].uitleg;
     this.juisteMaterialen = this.templates[0].juisteMaterialen;
     this.hint = this.templates[0].hint;
+
+    console.log(this.juisteMaterialen);
 
     this.dragulaService.drop.subscribe((val) =>
     {

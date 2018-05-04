@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>kkTempOefening</ion-title>
+    <ion-title>Maken</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,4 +15,42 @@
 
 <ion-content padding>
 
+    <ion-card>
+        <ion-card-header>
+          Sleep het juiste materiaal op de tafel
+        </ion-card-header>
+      
+        <ion-card-content>
+          Er zal hier steeds dezelfde uitleg gegeven 
+        </ion-card-content>
+      </ion-card>
+
+      <ion-list [dragula]="'my-bag'" [dragulaModel]="kkMaterials" class="stoffen">
+          <div ion-button clear color="secondary" *ngFor="let item of kkMaterials">
+            <img src="{{item.afbeelding}}" width="48" height="48">
+            {{item.name}}
+          </div>
+      </ion-list>
+
+      <ion-row>
+            <ion-col width-50 class="left">
+              <p>Kwantitietieve Materialen</p>
+              <ion-list [dragula]="'my-bag'" [dragulaModel]="kwanMaterials" class="cat">
+                <div ion-button clear color="secondary" *ngFor="let item of kwanMaterials">
+                  <img src="{{item.afbeelding}}" width="48" height="48">
+                </div>
+              </ion-list>
+            </ion-col>
+      
+            <ion-col width-50 class="right">
+              <p>Kwalitatieve Materialen</p>
+              <ion-list [dragula]="'my-bag'" [dragulaModel]="kwalMaterials" class="cat">
+                <div ion-button clear color="secondary" *ngFor="let item of kwalMaterials">
+                  <img src="{{item.afbeelding}}" width="48" height="48">
+                </div>
+              </ion-list>
+            </ion-col>
+      </ion-row>
+
+      <button ion-button round (click)="check()">Submit</button>
 </ion-content>
