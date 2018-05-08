@@ -9,21 +9,15 @@ import "rxjs/add/operator/map";
 */
 @Injectable()
 export class ProvDataProvider {
-  el = [];
-  json: any;
-  item: any; 
+  url:string = "https://jsonplaceholder.typicode.com/posts";
+  users:any = [];
   constructor(public http: HttpClient) {
     console.log('The provider has been created(constructor)');
   }
   getRemoteData(){
-    this.http.get("https://api.myjson.com/bins/ph9ob").subscribe(data => {
-       this.json = data;
+    this.http.get(this.url).subscribe(data => {
+      this.users = data;
     });
   }
-  convertToArray(json){
-    for(let i of json.data){
-      this.el.push(i.widget.debug);
-    }
-    this.item = json;
-  }
+
 }

@@ -15,12 +15,14 @@ import { ProvDataProvider } from '../../providers/prov-data/prov-data';
   templateUrl: 'test-data.html',
 })
 export class TestDataPage {
-
+  users = [];
+  json: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public data: ProvDataProvider) {
   }
 
   ionViewDidLoad() {
-    this.data.getRemoteData();
+    this.json = this.data.getRemoteData();
   }
+
 
 }
