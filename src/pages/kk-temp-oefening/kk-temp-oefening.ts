@@ -170,11 +170,11 @@ export class KkTempOefeningPage {
     if(ok){
       this.showAlertJuist();
       
-        this.templates.shift();
+      this.templates.shift();
 
-        this.navCtrl.setRoot(SplitterPage, {
-          templates: this.templates
-        });
+      this.navCtrl.setRoot(SplitterPage, {
+        templates: this.templates
+      });
     }
     else{
       this.aantalKeerFout++;

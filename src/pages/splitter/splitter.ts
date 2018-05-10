@@ -5,6 +5,8 @@ import { VerwijzingsTempOefeningPage } from '../verwijzings-temp-oefening/verwij
 import { HomePage } from '../home/home';
 import { TeMakenOefeningenPage } from '../te-maken-oefeningen/te-maken-oefeningen';
 import { KkTempOefeningPage } from '../kk-temp-oefening/kk-temp-oefening';
+import { AfvalTempOefeningPage } from '../afval-temp-oefening/afval-temp-oefening';
+import { WerkwijzeTempOefeningPage } from '../werkwijze-temp-oefening/werkwijze-temp-oefening';
 
 /**
  * Generated class for the SplitterPage page.
@@ -27,8 +29,6 @@ export class SplitterPage {
   }
 
   ionViewDidLoad() {
-    
-    console.log(this.templates);
 
     if(this.templates == null){
       this.navCtrl.setRoot(HomePage);
@@ -55,6 +55,18 @@ export class SplitterPage {
         }
         case "kkTemplateOefening":{
           this.navCtrl.setRoot(KkTempOefeningPage, {
+            templates: this.templates
+          });
+          break;
+        }
+        case "afvalTemplate":{
+          this.navCtrl.setRoot(AfvalTempOefeningPage, {
+            templates: this.templates
+          });
+          break;
+        }
+        case "werkwijzeTemplate":{
+          this.navCtrl.setRoot(WerkwijzeTempOefeningPage, {
             templates: this.templates
           });
           break;

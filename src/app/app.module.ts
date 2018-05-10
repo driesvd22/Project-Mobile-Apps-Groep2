@@ -15,6 +15,7 @@ import { AfvalTempOefeningPage } from '../pages/afval-temp-oefening/afval-temp-o
 import { WerkwijzeTempOefeningPage } from '../pages/werkwijze-temp-oefening/werkwijze-temp-oefening';
 import { SplitterPage } from '../pages/splitter/splitter';
 import { KkTempOefeningPage } from '../pages/kk-temp-oefening/kk-temp-oefening';
+import { MidStepPage } from '../pages/mid-step/mid-step';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -36,7 +37,8 @@ import { DragulaModule } from '../../node_modules/ng2-dragula';
     AfvalTempOefeningPage,
     WerkwijzeTempOefeningPage,
     SplitterPage, 
-    KkTempOefeningPage 
+    KkTempOefeningPage,
+    MidStepPage 
   ],
   imports: [
     BrowserModule,
@@ -57,7 +59,8 @@ import { DragulaModule } from '../../node_modules/ng2-dragula';
     AfvalTempOefeningPage,
     WerkwijzeTempOefeningPage,
     SplitterPage, 
-    KkTempOefeningPage
+    KkTempOefeningPage,
+    MidStepPage
   ],
   providers: [
     StatusBar,

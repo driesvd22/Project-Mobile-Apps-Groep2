@@ -3,8 +3,9 @@ import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angul
 import { HermaakOefeningPage } from '../hermaak-oefening/hermaak-oefening';
 import { LoginPage } from '../login/login';
 import { AlertController } from 'ionic-angular';
-
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
+import { SplitterPage } from '../splitter/splitter';
+import { MidStepPage } from '../mid-step/mid-step';
 
 /**
  * Generated class for the WerkwijzeTempOefeningPage page.
@@ -20,42 +21,13 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
 })
 export class WerkwijzeTempOefeningPage {
 
-  tempID: any;
+  templates: any = [];
+  stappen: any = [];
+  hint: any;
+
   aantalKeerFout : number = 0;
 
-  stappen : any = [
-    {
-      id: 1,
-      step: 'Dit is stap 1',
-      midsteps: [
-        {
-          step: "Dit is de tussenstap 1 van stap 1",
-          question: "Dit is de vraag",
-          answer: "juist"
-        },
-        {
-          step: "Dit is de tussenstap 2 van stap 1",
-          question: "Dit is de tweede vraag",
-          answer: "juist"
-        }
-      ]
-    },
-    {
-      id: 2,
-      step: 'Dit is stap 2',
-      midsteps: null
-    },
-    { 
-      id: 3,
-      step: 'Dit is stap 3',
-      midsteps: null
-    },
-    {
-      id: 4,
-      step: 'Dit is stap 4',
-      midsteps: null
-    }
-  ];
+  stappenMetMidsteps: any = [];
 
   juisteVolgorde : any = [];
 
@@ -64,17 +36,22 @@ export class WerkwijzeTempOefeningPage {
   gekozenVolgorde : any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, public alertCtrl: AlertController, private dragulaService : DragulaService) {
-    this.tempID = navParams.data.tempID;
+    this.templates = navParams.data.templates;
+    this.stappen = this.templates[0].stappen;
+    this.hint = this.templates[0].hint;
 
     this.stappen.forEach(stap => {
       this.juisteVolgorde.push(stap.id);
+      
+      if(!(stap.midsteps == null || stap.midsteps.length == 0)){
+        this.stappenMetMidsteps.push(stap.midsteps);
+      }
     });
 
     this.gegevenVolgorde = this.shuffle(this.stappen);
 
-    this.dragulaService.drop.subscribe((val) =>
-    {
-        console.log('Item Moved');
+    dragulaService.drop.subscribe((value) => {
+      console.log("Object moved");
     });
   }
 
@@ -101,7 +78,6 @@ export class WerkwijzeTempOefeningPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WerkwijzeTempOefeningPage');
-    console.log(this.juisteVolgorde);
   }
 
   showAlert() {
@@ -114,12 +90,9 @@ export class WerkwijzeTempOefeningPage {
   }
 
   showHint() {
-    // logic om hint te gaan ophalen afhankelijk van de tempID
-    let hint: any = "Dit is de hint";
-
     let alert = this.alertCtrl.create({
       title: 'Hint',
-      subTitle: hint,
+      subTitle: this.hint,
       buttons: ['OK']
     });
     alert.present();
@@ -161,7 +134,20 @@ export class WerkwijzeTempOefeningPage {
 
     if(ok){
       this.showAlertJuist();
-      this.navCtrl.setRoot(HermaakOefeningPage);
+
+      if(this.stappenMetMidsteps.length == 0 || this.stappenMetMidsteps == null){
+        this.templates.shift();
+
+        this.navCtrl.setRoot(SplitterPage, {
+          templates: this.templates
+        });
+      }
+      else {
+        this.navCtrl.setRoot(MidStepPage, {
+          templates: this.templates,
+          steps: this.gekozenVolgorde
+        });
+      }
     }
     else{
       this.aantalKeerFout++;
@@ -178,5 +164,4 @@ export class WerkwijzeTempOefeningPage {
       }
     }
   }
-
 }
