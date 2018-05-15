@@ -17,7 +17,7 @@ import { LoginPage } from '../login/login';
   templateUrl: 'mid-step.html',
 })
 export class MidStepPage {
-
+//test
   aantalKeerFout: any = 0;
   templates: any = [];
   steps: any = [];
