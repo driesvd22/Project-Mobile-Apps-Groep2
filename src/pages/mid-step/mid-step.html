@@ -15,13 +15,13 @@
 
 <ion-content padding>
 
-  <ion-list ion-item *ngFor="let midStep of allMidSteps" detail-none>
-    <ion-item>
-      {{midStep.step}}
-    </ion-item>
+  
 
-    
+  <ion-list *ngFor="let midStep of allMidSteps; let i = index">
+          <ion-label>{{midStep.step}}</ion-label>
+          <ion-label>{{midStep.question}}</ion-label>
+          <ion-input type="text" [(ngModel)]="answersByUser[i]" placeholder="Antwoord"></ion-input>
   </ion-list>
-  <button ion-button round (click)="check()">Submit</button>
-
+  
+  <button ion-button type="submit" block (click)="check()">CHECK</button>
 </ion-content>

@@ -22,6 +22,7 @@ export class MidStepPage {
   templates: any = [];
   steps: any = [];
   allMidSteps: any = [];
+  answersByUser: any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, public alertCtrl: AlertController) {
     this.templates = navParams.data.templates;
@@ -88,8 +89,16 @@ export class MidStepPage {
   }
 
   check(){
+    console.log(this.answersByUser);
+    
     let ok: boolean = true;
 
+    for(let i=0; i<this.allMidSteps.length; i++){
+      if(!(this.allMidSteps[i].answer == this.answersByUser[i])){
+        ok = false;
+      }
+    }
+    
     if(ok){
       this.showAlertJuist();
 

@@ -35,49 +35,49 @@ export class KkTempOefeningPage {
     {
       id: 1,
       name: 'Maatkolf',
-      afbeelding: '../../assets/imgs/erlemeyer.png',
+      afbeelding: '../../assets/imgs/Maatkolf.png',
       soort: 'kwan'
     },
     {
       id: 2,
       name: 'Volpipet',
-      afbeelding: '../../assets/imgs/erlemeyer.png',
+      afbeelding: '../../assets/imgs/Volpipet.png',
       soort: 'kwan'
     },
     { 
       id: 3,
       name: 'Buret',
-      afbeelding: '../../assets/imgs/erlemeyer.png',
+      afbeelding: '../../assets/imgs/Buret.png',
       soort: 'kwan'
     },
     {
       id: 4,
       name: 'Analytische balans',
-      afbeelding: '../../assets/imgs/erlemeyer.png',
+      afbeelding: '../../assets/imgs/AnalytischBalans.png',
       soort: 'kwan'
     },
     { 
       id: 5,
       name: 'Maatbeker',
-      afbeelding: '../../assets/imgs/erlemeyer.png',
+      afbeelding: '../../assets/imgs/Maatbeker.png',
       soort: 'kwal'
     },
     { 
       id: 6,
       name: 'Erlenmeyer',
-      afbeelding: '../../assets/imgs/erlemeyer.png',
+      afbeelding: '../../assets/imgs/Erlenmeyer.png',
       soort: 'kwal'
     },
     { 
       id: 7,
       name: 'Reageerbuis',
-      afbeelding: '../../assets/imgs/erlemeyer.png',
+      afbeelding: '../../assets/imgs/Reageerbuis.png',
       soort: 'kwal'
     },
     { 
       id: 8,
       name: 'Bovenweger',
-      afbeelding: '../../assets/imgs/erlemeyer.png',
+      afbeelding: '../../assets/imgs/Bovenweger.png',
       soort: 'kwal'
     }
   ];

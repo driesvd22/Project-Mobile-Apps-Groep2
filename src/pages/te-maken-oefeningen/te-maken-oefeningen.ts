@@ -26,7 +26,7 @@ export class TeMakenOefeningenPage {
       oefeningen: 
       [
         {
-          oefeningNaam: "Oefening 1",
+          oefeningNaam: "Alle soorten templates achter elkaar",
           templates: 
           [
             {
@@ -69,6 +69,43 @@ export class TeMakenOefeningenPage {
               ],
               uitleg: "Het is hierbij de bedoeling dat je alle soorten afval in de juiste vuilbak zet",
               hint: "Let goed voor de giftige stof!"
+            }, 
+            {
+              soort: "werkwijzeTemplate",
+              stappen: [
+                {
+                  id: 1,
+                  step: 'Dit is stap 1',
+                  midsteps: [
+                    {
+                      step: "Dit is de tussenstap 1 van stap 1",
+                      question: "Dit is de vraag",
+                      answer: "juist"
+                    },
+                    {
+                      step: "Dit is de tussenstap 2 van stap 1",
+                      question: "Dit is de tweede vraag",
+                      answer: "juist"
+                    }
+                  ]
+                },
+                {
+                  id: 2,
+                  step: 'Dit is stap 2',
+                  midsteps: null
+                },
+                {
+                  id: 3,
+                  step: 'Dit is stap 3',
+                  midsteps: null
+                },
+                {
+                  id: 4,
+                  step: 'Dit is stap 4',
+                  midsteps: null
+                }
+              ],
+              hint: "Zet het in de juiste volgorde"
             }
           ]
         },
