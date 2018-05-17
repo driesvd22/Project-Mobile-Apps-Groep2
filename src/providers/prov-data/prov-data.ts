@@ -10,7 +10,8 @@ import "rxjs/add/operator/map";
 @Injectable()
 export class ProvDataProvider {
   url:string = "https://jsonplaceholder.typicode.com/posts";
-  users:any = [];
+  users:any = [];$
+  path:string = "../../../users.json";
   constructor(public http: HttpClient) {
     console.log('The provider has been created(constructor)');
   }
@@ -18,6 +19,11 @@ export class ProvDataProvider {
     this.http.get(this.url).subscribe(data => {
       this.users = data;
     });
+  }
+  getLocalData(){
+    this.http.get(this.path).subscribe(data => {
+      console.log(data);
+    })
   }
 
 }

@@ -21,7 +21,8 @@ export class TestDataPage {
   }
 
   ionViewDidLoad() {
-    this.json = this.data.getRemoteData();
+    this.data.getLocalData();
+    //how to access data of observable and put in extern file
   }
 
 
