@@ -1,15 +1,17 @@
 .stoffen{
-    min-height: 3em;
-    max-height: 30em;
+    //min-height: 3em;
+    //max-height: 30em;
+    height: 20em;
     overflow-y: scroll;
     border:1px solid black;
 }
 
 .cat{
-    min-height: 10em;
-    max-height: 30em;
+    //min-height: 10em;
+    //max-height: 30em;
+    height: 20em;
     border:1px solid black;
-    background-color: #d0d3d8;
+    background-color: white;
 }
 
 .material{

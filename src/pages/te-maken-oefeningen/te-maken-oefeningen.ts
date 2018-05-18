@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SplitterPage } from '../splitter/splitter';
+import { AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the TeMakenOefeningenPage page.
@@ -110,7 +111,72 @@ export class TeMakenOefeningenPage {
           ]
         },
         {
-          oefeningNaam: "Oefening 2",
+          oefeningNaam: "Enkel KKTemplateOefening",
+          templates: 
+          [
+            {
+              soort: "kkTemplateOefening"
+            }
+          ]
+        },
+        {
+          oefeningNaam: "Enkel MaterialTemplateOefening",
+          templates: 
+          [
+            {
+              soort: "materialTemplate",
+              uitleg: "Het is hier de bedoeling dat je de juiste materialen op tafel sleept om een filtratie toe te passen",
+              hint: "Je moet gewoon slepen",
+              juisteMaterialen: [1,2,3]
+            }
+          ]
+        },
+        {
+          oefeningNaam: "Enkel VerwijzingsTemplateOefening",
+          templates: 
+          [
+            {
+              soort: "verwijzingstemplate",
+              uitleg: "Klik op onderstaande link om naar de leerstof te gaan",
+              link: "http://www.google.com"
+            }
+          ]
+        },
+        {
+          oefeningNaam: "Enkel AfvalTemplateOefening",
+          templates: 
+          [
+            {
+              soort: "afvalTemplate",
+              stoffen: [
+                {
+                  id: 1,
+                  naam: "Zout",
+                  afval: 1
+                },
+                {
+                  id: 2,
+                  naam: "Peper",
+                  afval: 1
+                },
+                {
+                  id: 3,
+                  naam: "Water",
+                  afval: 7
+                },
+                {
+                  id: 4,
+                  naam: "Giftige stof",
+                  afval: 6
+                }
+              ],
+              uitleg: "Het is hierbij de bedoeling dat je alle soorten afval in de juiste vuilbak zet",
+              hint: "Let goed voor de giftige stof!"
+            }
+          ]
+        },
+        {
+          oefeningNaam: "Enkel WerkwijzeTemplateOefening",
           templates: 
           [
             {
@@ -156,9 +222,33 @@ export class TeMakenOefeningenPage {
     }
   ];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
+  
   }
 
+  showConfirm(oefening) {
+    let confirm = this.alertCtrl.create({
+      title: 'Bent u zeker?',
+      message: 'U kunt niet terug naar het menu indien u deze oefening start!',
+      buttons: [
+        {
+          text: 'Neen',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Ja',
+          handler: () => {
+            console.log('Agree clicked');
+            this.openOefening(oefening);
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+  
   openOefening(oefening){
     this.navCtrl.setRoot(SplitterPage, {
       templates: oefening.templates

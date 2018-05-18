@@ -12,7 +12,7 @@
     <ion-item-group *ngFor="let labo of openLabos" no-lines>
       <ion-item-divider color="light">{{labo.laboNaam}} - tegen: {{labo.inleverDatum}}</ion-item-divider>
       <ion-item *ngFor="let oefening of labo.oefeningen" no-lines>
-        <a (click)="openOefening(oefening)">{{oefening.oefeningNaam}}</a>
+        <a (click)="showConfirm(oefening)">{{oefening.oefeningNaam}}</a>
       </ion-item>
     </ion-item-group>
     
