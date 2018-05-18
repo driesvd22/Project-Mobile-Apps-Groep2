@@ -15,15 +15,18 @@ import { ProvDataProvider } from '../../providers/prov-data/prov-data';
   templateUrl: 'test-data.html',
 })
 export class TestDataPage {
-  users = [];
+  users: any;
+  post: any;
   json: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public data: ProvDataProvider) {
   }
 
   ionViewDidLoad() {
-    this.data.getLocalData();
-    //how to access data of observable and put in extern file
+    this.data.getRemoteData().subscribe(data => {
+      this.users = data;      
+    });
+    this.data.postRemoteData().subscribe(data => {
+      this.post = data;
+    });
   }
-
-
 }
