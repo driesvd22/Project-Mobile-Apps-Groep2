@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { HermaakOefeningPage } from '../hermaak-oefening/hermaak-oefening';
+import { SplitterPage } from '../splitter/splitter';
 
 
 /**
@@ -17,14 +18,21 @@ import { HermaakOefeningPage } from '../hermaak-oefening/hermaak-oefening';
 })
 export class VerwijzingsTempOefeningPage {
 
-  tempID: any;
+
+  templates: any = [];
+
+  uitleg: any;
+  link: any;
 
   // Logic om uitleg en link te gaan ophalen
-  uitleg: String = "Dit is de uitleg die de docent meegeeft";
-  link: String="https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+  //uitleg: String = "Dit is de uitleg die de docent meegeeft";
+  //link: String="https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController) {
-    this.tempID = navParams.data.tempID;
+    this.templates = navParams.data.templates;
+    
+    this.uitleg = this.templates[0].uitleg;
+    this.link = this.templates[0].link;
   }
 
   //https://stackoverflow.com/questions/38652827/disable-swipe-to-view-sidemenu-ionic-2/38654644?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
@@ -41,7 +49,9 @@ export class VerwijzingsTempOefeningPage {
   }
 
   goBack(){
-    this.navCtrl.setRoot(HermaakOefeningPage);
+    this.templates.shift();
+    this.navCtrl.setRoot(SplitterPage, {
+      templates: this.templates
+    });
   }
-
 }

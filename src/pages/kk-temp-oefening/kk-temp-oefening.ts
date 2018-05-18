@@ -3,12 +3,15 @@ import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angul
 import { HermaakOefeningPage } from '../hermaak-oefening/hermaak-oefening';
 import { LoginPage } from '../login/login';
 import { AlertController } from 'ionic-angular';
+
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
+import { VerwijzingsTempOefeningPage } from '../verwijzings-temp-oefening/verwijzings-temp-oefening';
+import { HomePage } from '../home/home';
 import { SplitterPage } from '../splitter/splitter';
-import { MidStepPage } from '../mid-step/mid-step';
+import { TeMakenOefeningenPage } from '../te-maken-oefeningen/te-maken-oefeningen';
 
 /**
- * Generated class for the WerkwijzeTempOefeningPage page.
+ * Generated class for the KkTempOefeningPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -16,72 +19,82 @@ import { MidStepPage } from '../mid-step/mid-step';
 
 @IonicPage()
 @Component({
-  selector: 'page-werkwijze-temp-oefening',
-  templateUrl: 'werkwijze-temp-oefening.html',
+  selector: 'page-kk-temp-oefening',
+  templateUrl: 'kk-temp-oefening.html',
 })
-export class WerkwijzeTempOefeningPage {
+export class KkTempOefeningPage {
 
+  // Templates vanuit de splitterPage
   templates: any = [];
-  stappen: any = [];
   hint: any;
 
   aantalKeerFout : number = 0;
 
-  stappenMetMidsteps: any = [];
+  // Logic om alle (nodige) materialen op het halen
+  kkMaterials : any = [
+    {
+      id: 1,
+      name: 'Maatkolf',
+      afbeelding: '../../assets/imgs/Maatkolf.png',
+      soort: 'kwan'
+    },
+    {
+      id: 2,
+      name: 'Volpipet',
+      afbeelding: '../../assets/imgs/Volpipet.png',
+      soort: 'kwan'
+    },
+    { 
+      id: 3,
+      name: 'Buret',
+      afbeelding: '../../assets/imgs/Buret.png',
+      soort: 'kwan'
+    },
+    {
+      id: 4,
+      name: 'Analytische balans',
+      afbeelding: '../../assets/imgs/AnalytischBalans.png',
+      soort: 'kwan'
+    },
+    { 
+      id: 5,
+      name: 'Maatbeker',
+      afbeelding: '../../assets/imgs/Maatbeker.png',
+      soort: 'kwal'
+    },
+    { 
+      id: 6,
+      name: 'Erlenmeyer',
+      afbeelding: '../../assets/imgs/Erlenmeyer.png',
+      soort: 'kwal'
+    },
+    { 
+      id: 7,
+      name: 'Reageerbuis',
+      afbeelding: '../../assets/imgs/Reageerbuis.png',
+      soort: 'kwal'
+    },
+    { 
+      id: 8,
+      name: 'Bovenweger',
+      afbeelding: '../../assets/imgs/Bovenweger.png',
+      soort: 'kwal'
+    }
+  ];
 
-  juisteVolgorde : any = [];
-
-  gegevenVolgorde : any = [];
-
-  gekozenVolgorde : any = [];
+  kwanMaterials: any = [];
+  kwalMaterials: any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, public alertCtrl: AlertController, private dragulaService : DragulaService) {
     this.templates = navParams.data.templates;
-    this.stappen = this.templates[0].stappen;
-    this.hint = this.templates[0].hint;
 
-    this.stappen.forEach(stap => {
-      this.juisteVolgorde.push(stap.id);
-      
-      if(!(stap.midsteps == null || stap.midsteps.length == 0)){
-        this.stappenMetMidsteps.push(stap.midsteps);
-      }
-    });
-
-    this.gegevenVolgorde = this.shuffle(this.stappen);
-
-
-    dragulaService.drop.subscribe((value) => {
-      console.log("Object moved");
-    this.stappen.forEach(stap => {
-      this.juisteVolgorde.push(stap.id);
-    });
-
-    this.gegevenVolgorde = this.shuffle(this.stappen);
+    this.hint = "Dit is de hint die altijd zal weergegeven worden";
 
     this.dragulaService.drop.subscribe((val) =>
     {
-        console.log("Object Moved");
+        console.log('Item Moved');
     });
   }
-
-  getVolgorde(){
-    this.stappen.forEach(stap => {
-        this.juisteVolgorde.push(stap.id);      
-    });
-  }
-
-  /**
-    * Shuffles array in place. ES6 version
-    * items An array containing the items.
-  */
-  shuffle(a) {
-    for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  };
 
   //https://stackoverflow.com/questions/38652827/disable-swipe-to-view-sidemenu-ionic-2/38654644?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
   ionViewDidEnter() {
@@ -90,10 +103,10 @@ export class WerkwijzeTempOefeningPage {
   //https://stackoverflow.com/questions/38652827/disable-swipe-to-view-sidemenu-ionic-2/38654644?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
   ionViewWillLeave() {
     this.menu.swipeEnable(true);
-   }
+  }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad WerkwijzeTempOefeningPage');
+    console.log('ionViewDidLoad KkTempOefeningPage');
   }
 
   showAlert() {
@@ -106,6 +119,9 @@ export class WerkwijzeTempOefeningPage {
   }
 
   showHint() {
+    // logic om hint te gaan ophalen afhankelijk van de tempID
+    let hint: any = "Dit is de hint";
+
     let alert = this.alertCtrl.create({
       title: 'Hint',
       subTitle: this.hint,
@@ -133,37 +149,32 @@ export class WerkwijzeTempOefeningPage {
   }
 
   check(){
-    
     let ok: boolean = true;
 
-    let antwoord = [];
-
-    this.gekozenVolgorde.forEach(stap => {
-      antwoord.push(stap.id);
-    });
-    
-    for (let i in this.juisteVolgorde) {
-      if(antwoord[i] !== this.juisteVolgorde[i] || antwoord[i] == null){
-        ok = false;
+    if(this.kkMaterials.length == 0){
+      for (let material of this.kwanMaterials){
+        if(!(material.soort == "kwan")){
+          ok = false;
+        }
       }
+      for (let material of this.kwalMaterials){
+        if(!(material.soort == "kwal")){
+          ok = false;
+        }
+      }
+    }
+    else{
+      ok = false;
     }
 
     if(ok){
       this.showAlertJuist();
+      
+      this.templates.shift();
 
-      if(this.stappenMetMidsteps.length == 0 || this.stappenMetMidsteps == null){
-        this.templates.shift();
-
-        this.navCtrl.setRoot(SplitterPage, {
-          templates: this.templates
-        });
-      }
-      else {
-        this.navCtrl.setRoot(MidStepPage, {
-          templates: this.templates,
-          steps: this.gekozenVolgorde
-        });
-      }
+      this.navCtrl.setRoot(SplitterPage, {
+        templates: this.templates
+      });
     }
     else{
       this.aantalKeerFout++;
