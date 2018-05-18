@@ -47,16 +47,7 @@ export class WerkwijzeTempOefeningPage {
         this.stappenMetMidsteps.push(stap.midsteps);
       }
     });
-
-    this.gegevenVolgorde = this.shuffle(this.stappen);
-
-
-    dragulaService.drop.subscribe((value) => {
-      console.log("Object moved");
-    this.stappen.forEach(stap => {
-      this.juisteVolgorde.push(stap.id);
-    });
-
+  
     this.gegevenVolgorde = this.shuffle(this.stappen);
 
     this.dragulaService.drop.subscribe((val) =>

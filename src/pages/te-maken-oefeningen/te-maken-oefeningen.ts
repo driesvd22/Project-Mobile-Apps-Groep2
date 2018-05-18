@@ -35,9 +35,9 @@ export class TeMakenOefeningenPage {
             }, 
             {
               soort: "materialTemplate",
-              uitleg: "Het is hier de bedoeling dat je de juiste materialen op tafel sleept om een filtratie toe te passen",
-              hint: "Je moet gewoon slepen",
-              juisteMaterialen: [1,2,3]
+              uitleg: "Het is hier de bedoeling dat je de juiste materialen op tafel sleept om een oplossing te passen",
+              hint: "om een oplossing te maken ga je kwantitatief te werk",
+              juisteMaterialen: [12,21,24,15,1]
             },
             {
               soort: "verwijzingstemplate",

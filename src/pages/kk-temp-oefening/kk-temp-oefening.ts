@@ -88,7 +88,7 @@ export class KkTempOefeningPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, public alertCtrl: AlertController, private dragulaService : DragulaService) {
     this.templates = navParams.data.templates;
 
-    this.hint = "Dit is de hint die altijd zal weergegeven worden";
+    this.hint = "kwantitatief is zeer nauwkeurig, analytisch glaswerk om bv. een concentratie te bepalen. Kwalitatief glaswerk is minder nauwkeurig, niet analytisch glaswerk om bv. een identificatiereactie (om na te gaan welke stof aanwezig is) uit te voeren.";
 
     this.dragulaService.drop.subscribe((val) =>
     {
