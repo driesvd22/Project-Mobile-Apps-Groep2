@@ -22,6 +22,7 @@ import { MidStepPage } from '../mid-step/mid-step';
 export class WerkwijzeTempOefeningPage {
 
   templates: any = [];
+  listIndex: any;
   stappen: any = [];
   hint: any;
 
@@ -37,7 +38,9 @@ export class WerkwijzeTempOefeningPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, public alertCtrl: AlertController, private dragulaService : DragulaService) {
     this.templates = navParams.data.templates;
-    this.stappen = this.templates[0].stappen;
+    this.listIndex = navParams.data.listIndex;
+
+    this.stappen = this.templates[0].lijsten[this.listIndex].stappen;
     this.hint = this.templates[0].hint;
 
     this.stappen.forEach(stap => {

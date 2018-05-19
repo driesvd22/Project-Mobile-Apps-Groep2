@@ -87,6 +87,7 @@ export class KkTempOefeningPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, public alertCtrl: AlertController, private dragulaService : DragulaService) {
     this.templates = navParams.data.templates;
+    this.shuffle(this.kkMaterials);
 
     this.hint = "kwantitatief is zeer nauwkeurig, analytisch glaswerk om bv. een concentratie te bepalen. Kwalitatief glaswerk is minder nauwkeurig, niet analytisch glaswerk om bv. een identificatiereactie (om na te gaan welke stof aanwezig is) uit te voeren.";
 
@@ -108,6 +109,18 @@ export class KkTempOefeningPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad KkTempOefeningPage');
   }
+
+  /**
+    * Shuffles array in place. ES6 version
+    * items An array containing the items.
+  */
+ shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
 
   showAlert() {
     let alert = this.alertCtrl.create({

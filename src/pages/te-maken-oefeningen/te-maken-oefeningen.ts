@@ -27,7 +27,7 @@ export class TeMakenOefeningenPage {
       oefeningen: 
       [
         {
-          oefeningNaam: "Alle soorten templates achter elkaar",
+          oefeningNaam: "Maken van een oplossing",
           templates: 
           [
             {
@@ -35,81 +35,213 @@ export class TeMakenOefeningenPage {
             }, 
             {
               soort: "materialTemplate",
-              uitleg: "Het is hier de bedoeling dat je de juiste materialen op tafel sleept om een oplossing te passen",
+              uitleg: "Het is hier de bedoeling dat je de juiste materialen op tafel sleept om een oplossing toe te passen",
               hint: "om een oplossing te maken ga je kwantitatief te werk",
               juisteMaterialen: [12,21,24,15,1]
+            },
+            {
+              soort: "werkwijzeTemplate",
+              lijsten: [
+                {
+                  lijstNaam: "Goed Oplosbaar",
+                  stappen: [
+                    {
+                      id: 1,
+                      step: 'Weeg de gewenste hoeveelheid poeder af.',
+                      midsteps: null
+                    },
+                    {
+                      id: 2,
+                      step: 'Spoel de maatkolf met gedestilleerd water.',
+                      midsteps: null
+                    },
+                    {
+                      id: 3,
+                      step: 'Plaats een droge trechter op de maatkolf.',
+                      midsteps: null
+                    },
+                    {
+                      id: 4,
+                      step: 'Breng het poeder in de maatkolf.',
+                      midsteps: null
+                    },
+                    {
+                      id: 5,
+                      step: 'Spoel het weegrecipiënt grondig na.',
+                      midsteps: null
+                    },
+                    {
+                      id: 6,
+                      step: 'Vul de maatkolf ongeveer voor de helft met het oplosmiddel.',
+                      midsteps: null
+                    },
+                    {
+                      id: 7,
+                      step: 'Laat de vaste stof oplossen door de kolf om te zwenken.',
+                      midsteps: null
+                    },
+                    {
+                      id: 8,
+                      step: 'Als alles is opgelost mag de maatkolf worden aangevuld met spuitfles tot aan de meniscus.',
+                      midsteps: null
+                    },
+                    {
+                      id: 9,
+                      step: 'Plaats parafilm op de maatkolf en homogeniseer door om te zwenken.',
+                      midsteps: null
+                    }
+                  ]
+                },
+                {
+                  lijstNaam: "Slecht Oplosbaar",
+                  stappen: [
+                    {
+                      id: 1,
+                      step: 'Weeg de gewenste hoeveelheid poeder af.',
+                      midsteps: null
+                    },
+                    {
+                      id: 2,
+                      step: 'Spoel de maatbeker met gedestilleerd water.',
+                      midsteps: null
+                    },
+                    {
+                      id: 3,
+                      step: 'Breng het poeder in een beker.',
+                      midsteps: null
+                    },
+                    {
+                      id: 4,
+                      step: 'Voeg oplosmiddel toe.',
+                      midsteps: null
+                    },
+                    {
+                      id: 5,
+                      step: 'Als het poeder is opgelost, breng deze oplossing over in de maatkolf eventueel adhv een trechter.',
+                      midsteps: null
+                    },
+                    {
+                      id: 6,
+                      step: 'Leng aan met spuitfles tot aan de meniscus.',
+                      midsteps: null
+                    },
+                    {
+                      id: 7,
+                      step: 'Plaats parafilm op de maatkolf en homogeniseer door om te zwenken.',
+                      midsteps: null
+                    }
+                  ]
+                }
+              ],
+              hint: "poeder – oplossen – aanvullen"
             },
             {
               soort: "verwijzingstemplate",
               uitleg: "Klik op onderstaande link om naar de leerstof te gaan",
               link: "http://www.google.com"
+            }
+          ]
+        },
+        {
+          oefeningNaam: "Oplossing maken van NaCl",
+          templates: [
+            {
+              soort: "werkwijzeTemplate",
+              lijsten: [
+                {
+                  lijstNaam: "Maak een 100 ml NaCl (MM: 58,4 g/mol) oplossing met concentratie 0,1M.",
+                  stappen: [
+                    {
+                      id: 1,
+                      step: 'Weeg de gewenste hoeveelheid poeder af op de correcte balans.',
+                      midsteps: [
+                        {
+                          step: "Vraag 1 bij het afwegen van het poeder",
+                          question: "Hoeveel poeder werd er afgewogen (in gram)",
+                          answer: "0,584"
+                        },
+                        {
+                          step: "Vraag 2 bij het afwegen van het poeder",
+                          question: "Maakte je gebruik van een BOVENWEGER of een ANALYTISCHE BALANS? (geef jouw antwoord in zoals in de vraag)",
+                          answer: "ANALYTISCHE BALANS"
+                        },
+                        {
+                          step: "Vraag 3 bij het afwegen van het poeder",
+                          question: "Is NaCl goed of slecht oplosbaar? (JA of NEEN)",
+                          answer: "JA"
+                        }
+                      ]
+                    },
+                    {
+                      id: 2,
+                      step: 'Spoel de maatkolf met gedestilleerd water.',
+                      midsteps: null
+                    },
+                    {
+                      id: 3,
+                      step: 'Plaats een droge trechter op de maatkolf.',
+                      midsteps: null
+                    },
+                    {
+                      id: 4,
+                      step: 'Breng het poeder in de maatkolf.',
+                      midsteps: null
+                    },
+                    {
+                      id: 5,
+                      step: 'Spoel het weegrecipiënt grondig na.',
+                      midsteps: null
+                    },
+                    {
+                      id: 6,
+                      step: 'Vul de maatkolf ongeveer voor de helft met het oplosmiddel.',
+                      midsteps: null
+                    },
+                    {
+                      id: 7,
+                      step: 'Laat de vaste stof oplossen door de kolf om te zwenken.',
+                      midsteps: null
+                    },
+                    {
+                      id: 8,
+                      step: 'Als alles is opgelost mag de maatkolf worden aangevuld met spuitfles tot aan de meniscus.',
+                      midsteps: null
+                    },
+                    {
+                      id: 9,
+                      step: 'Plaats parafilm op de maatkolf en homogeniseer door om te zwenken.',
+                      midsteps: null
+                    }
+                  ]
+                }
+              ],
+              hint: "m = n . MM en n = C . V  /  om een oplossing te maken ga je kwantitatief te werk.  /  zoek de oplosbaarheid op van NaCl."
+            },
+            {
+              soort: "verwijzingstemplate",
+              uitleg: "Meet de geleidbaarheid met de geleidbaarheidsmeter door volgende link te gebruiken",
+              link: "https://ehb.instructure.com/courses/4446/files/folder/Kwaliteitszorg%20in%20het%20labo/SOP's"
             },
             {
               soort: "afvalTemplate",
               stoffen: [
                 {
                   id: 1,
-                  naam: "Zout",
-                  afval: 1
-                },
-                {
-                  id: 2,
-                  naam: "Peper",
-                  afval: 1
-                },
-                {
-                  id: 3,
-                  naam: "Water",
+                  naam: "NaCl-oplossing",
                   afval: 7
-                },
-                {
-                  id: 4,
-                  naam: "Giftige stof",
-                  afval: 6
                 }
               ],
               uitleg: "Het is hierbij de bedoeling dat je alle soorten afval in de juiste vuilbak zet",
-              hint: "Let goed voor de giftige stof!"
-            }, 
-            {
-              soort: "werkwijzeTemplate",
-              stappen: [
-                {
-                  id: 1,
-                  step: 'Dit is stap 1',
-                  midsteps: [
-                    {
-                      step: "Dit is de tussenstap 1 van stap 1",
-                      question: "Dit is de vraag",
-                      answer: "juist"
-                    },
-                    {
-                      step: "Dit is de tussenstap 2 van stap 1",
-                      question: "Dit is de tweede vraag",
-                      answer: "juist"
-                    }
-                  ]
-                },
-                {
-                  id: 2,
-                  step: 'Dit is stap 2',
-                  midsteps: null
-                },
-                {
-                  id: 3,
-                  step: 'Dit is stap 3',
-                  midsteps: null
-                },
-                {
-                  id: 4,
-                  step: 'Dit is stap 4',
-                  midsteps: null
-                }
-              ],
-              hint: "Zet het in de juiste volgorde"
+              hint: "Raadpleeg het afvalverwerkingsdocument"
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      laboNaam: "Labo 2",
+      inleverDatum: "30/05/18",
+      oefeningen: [
         {
           oefeningNaam: "Enkel KKTemplateOefening",
           templates: 
@@ -177,50 +309,109 @@ export class TeMakenOefeningenPage {
         },
         {
           oefeningNaam: "Enkel WerkwijzeTemplateOefening",
-          templates: 
+          templates:
           [
             {
               soort: "werkwijzeTemplate",
-              stappen: [
+              lijsten: [
                 {
-                  id: 1,
-                  step: 'Dit is stap 1',
-                  midsteps: [
+                  lijstNaam: "Goed Oplosbaar",
+                  stappen: [
                     {
-                      step: "Dit is de tussenstap 1 van stap 1",
-                      question: "Dit is de vraag",
-                      answer: "juist"
+                      id: 1,
+                      step: 'Weeg de gewenste hoeveelheid poeder af.',
+                      midsteps: null
                     },
                     {
-                      step: "Dit is de tussenstap 2 van stap 1",
-                      question: "Dit is de tweede vraag",
-                      answer: "juist"
+                      id: 2,
+                      step: 'Spoel de maatkolf met gedestilleerd water.',
+                      midsteps: null
+                    },
+                    {
+                      id: 3,
+                      step: 'Plaats een droge trechter op de maatkolf.',
+                      midsteps: null
+                    },
+                    {
+                      id: 4,
+                      step: 'Breng het poeder in de maatkolf.',
+                      midsteps: null
+                    },
+                    {
+                      id: 5,
+                      step: 'Spoel het weegrecipiënt grondig na.',
+                      midsteps: null
+                    },
+                    {
+                      id: 6,
+                      step: 'Vul de maatkolf ongeveer voor de helft met het oplosmiddel.',
+                      midsteps: null
+                    },
+                    {
+                      id: 7,
+                      step: 'Laat de vaste stof oplossen door de kolf om te zwenken.',
+                      midsteps: null
+                    },
+                    {
+                      id: 8,
+                      step: 'Als alles is opgelost mag de maatkolf worden aangevuld met spuitfles tot aan de meniscus.',
+                      midsteps: null
+                    },
+                    {
+                      id: 9,
+                      step: 'Plaats parafilm op de maatkolf en homogeniseer door om te zwenken.',
+                      midsteps: null
                     }
                   ]
                 },
                 {
-                  id: 2,
-                  step: 'Dit is stap 2',
-                  midsteps: null
-                },
-                {
-                  id: 3,
-                  step: 'Dit is stap 3',
-                  midsteps: null
-                },
-                {
-                  id: 4,
-                  step: 'Dit is stap 4',
-                  midsteps: null
+                  lijstNaam: "Slecht Oplosbaar",
+                  stappen: [
+                    {
+                      id: 1,
+                      step: 'Weeg de gewenste hoeveelheid poeder af.',
+                      midsteps: null
+                    },
+                    {
+                      id: 2,
+                      step: 'Spoel de maatbeker met gedestilleerd water.',
+                      midsteps: null
+                    },
+                    {
+                      id: 3,
+                      step: 'Breng het poeder in een beker.',
+                      midsteps: null
+                    },
+                    {
+                      id: 4,
+                      step: 'Voeg oplosmiddel toe.',
+                      midsteps: null
+                    },
+                    {
+                      id: 5,
+                      step: 'Als het poeder is opgelost, breng deze oplossing over in de maatkolf eventueel adhv een trechter.',
+                      midsteps: null
+                    },
+                    {
+                      id: 6,
+                      step: 'Leng aan met spuitfles tot aan de meniscus.',
+                      midsteps: null
+                    },
+                    {
+                      id: 7,
+                      step: 'Plaats parafilm op de maatkolf en homogeniseer door om te zwenken.',
+                      midsteps: null
+                    }
+                  ]
                 }
               ],
-              hint: "Zet het in de juiste volgorde"
+              hint: "poeder – oplossen – aanvullen"
             }
           ]
         }
       ]
     }
-  ];
+  ]
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
   

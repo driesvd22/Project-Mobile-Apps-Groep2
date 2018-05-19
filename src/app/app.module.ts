@@ -16,6 +16,7 @@ import { WerkwijzeTempOefeningPage } from '../pages/werkwijze-temp-oefening/werk
 import { SplitterPage } from '../pages/splitter/splitter';
 import { KkTempOefeningPage } from '../pages/kk-temp-oefening/kk-temp-oefening';
 import { MidStepPage } from '../pages/mid-step/mid-step';
+import { ChooseListPage } from '../pages/choose-list/choose-list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -38,7 +39,8 @@ import { DragulaModule } from '../../node_modules/ng2-dragula';
     WerkwijzeTempOefeningPage,
     SplitterPage, 
     KkTempOefeningPage,
-    MidStepPage 
+    MidStepPage,
+    ChooseListPage 
   ],
   imports: [
     BrowserModule,
@@ -60,7 +62,8 @@ import { DragulaModule } from '../../node_modules/ng2-dragula';
     WerkwijzeTempOefeningPage,
     SplitterPage, 
     KkTempOefeningPage,
-    MidStepPage
+    MidStepPage,
+    ChooseListPage
   ],
   providers: [
     StatusBar,
