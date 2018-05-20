@@ -17,6 +17,7 @@ import { SplitterPage } from '../pages/splitter/splitter';
 import { KkTempOefeningPage } from '../pages/kk-temp-oefening/kk-temp-oefening';
 import { MidStepPage } from '../pages/mid-step/mid-step';
 import { ChooseListPage } from '../pages/choose-list/choose-list';
+import { FullMatPage } from '../pages/full-mat/full-mat';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -40,7 +41,8 @@ import { DragulaModule } from '../../node_modules/ng2-dragula';
     SplitterPage, 
     KkTempOefeningPage,
     MidStepPage,
-    ChooseListPage 
+    ChooseListPage,
+    FullMatPage 
   ],
   imports: [
     BrowserModule,
@@ -63,7 +65,8 @@ import { DragulaModule } from '../../node_modules/ng2-dragula';
     SplitterPage, 
     KkTempOefeningPage,
     MidStepPage,
-    ChooseListPage
+    ChooseListPage,
+    FullMatPage
   ],
   providers: [
     StatusBar,

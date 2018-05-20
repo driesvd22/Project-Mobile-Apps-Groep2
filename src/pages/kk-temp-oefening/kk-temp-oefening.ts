@@ -1,14 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
-import { HermaakOefeningPage } from '../hermaak-oefening/hermaak-oefening';
 import { LoginPage } from '../login/login';
 import { AlertController } from 'ionic-angular';
 
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
-import { VerwijzingsTempOefeningPage } from '../verwijzings-temp-oefening/verwijzings-temp-oefening';
-import { HomePage } from '../home/home';
 import { SplitterPage } from '../splitter/splitter';
-import { TeMakenOefeningenPage } from '../te-maken-oefeningen/te-maken-oefeningen';
 
 /**
  * Generated class for the KkTempOefeningPage page.
@@ -132,9 +128,6 @@ export class KkTempOefeningPage {
   }
 
   showHint() {
-    // logic om hint te gaan ophalen afhankelijk van de tempID
-    let hint: any = "Dit is de hint";
-
     let alert = this.alertCtrl.create({
       title: 'Hint',
       subTitle: this.hint,

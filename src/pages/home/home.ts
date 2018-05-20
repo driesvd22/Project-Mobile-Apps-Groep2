@@ -11,7 +11,7 @@ import { SettingsPage } from '../settings/settings';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, private viewCtrl: ViewController) {
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController) {
 
   }
 

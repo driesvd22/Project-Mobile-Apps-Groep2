@@ -9,6 +9,7 @@ import { TeMakenOefeningenPage } from '../pages/te-maken-oefeningen/te-maken-oef
 import { HermaakOefeningPage } from '../pages/hermaak-oefening/hermaak-oefening';
 import { SettingsPage } from '../pages/settings/settings';
 import { LoginPage } from '../pages/login/login';
+import { FullMatPage } from '../pages/full-mat/full-mat';
 
 @Component({
   templateUrl: 'app.html'

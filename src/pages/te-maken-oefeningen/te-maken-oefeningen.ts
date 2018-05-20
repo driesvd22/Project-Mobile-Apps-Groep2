@@ -16,9 +16,7 @@ import { AlertController } from 'ionic-angular';
   templateUrl: 'te-maken-oefeningen.html',
 })
 export class TeMakenOefeningenPage {
-
-  test: String;
-
+  
   // Logic om alle open labo's binnen te trekken uit json-file
   openLabos : any = [
     {
