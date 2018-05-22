@@ -31,49 +31,49 @@ export class KkTempOefeningPage {
     {
       id: 1,
       name: 'Maatkolf',
-      afbeelding: '../../assets/imgs/Maatkolf.png',
+      afbeelding: 'assets/imgs/Maatkolf.png',
       soort: 'kwan'
     },
     {
       id: 2,
       name: 'Volpipet',
-      afbeelding: '../../assets/imgs/Volpipet.png',
+      afbeelding: 'assets/imgs/Volpipet.png',
       soort: 'kwan'
     },
     { 
       id: 3,
       name: 'Buret',
-      afbeelding: '../../assets/imgs/Buret.png',
+      afbeelding: 'assets/imgs/Buret.png',
       soort: 'kwan'
     },
     {
       id: 4,
       name: 'Analytische balans',
-      afbeelding: '../../assets/imgs/AnalytischBalans.png',
+      afbeelding: 'assets/imgs/AnalytischBalans.png',
       soort: 'kwan'
     },
     { 
       id: 5,
       name: 'Maatbeker',
-      afbeelding: '../../assets/imgs/Maatbeker.png',
+      afbeelding: 'assets/imgs/Maatbeker.png',
       soort: 'kwal'
     },
     { 
       id: 6,
       name: 'Erlenmeyer',
-      afbeelding: '../../assets/imgs/Erlenmeyer.png',
+      afbeelding: 'assets/imgs/Erlenmeyer.png',
       soort: 'kwal'
     },
     { 
       id: 7,
       name: 'Reageerbuis',
-      afbeelding: '../../assets/imgs/Reageerbuis.png',
+      afbeelding: 'assets/imgs/Reageerbuis.png',
       soort: 'kwal'
     },
     { 
       id: 8,
       name: 'Bovenweger',
-      afbeelding: '../../assets/imgs/Bovenweger.png',
+      afbeelding: 'assets/imgs/Bovenweger.png',
       soort: 'kwal'
     }
   ];
