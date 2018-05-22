@@ -13,8 +13,8 @@
 </ion-header>
 
 
-<ion-content padding>
-  <ion-card>
+<ion-content padding class="no-scroll">
+  <div>
       <ion-card-header>
         Sleep de stoffen naar de juiste afvalbak
       </ion-card-header>
@@ -22,8 +22,9 @@
       <ion-card-content>
         {{this.uitleg}}
       </ion-card-content>
-    </ion-card>
+    </div>
     
+    <button ion-button round (click)="check()">Submit</button>
     <ion-list [dragula]="'my-bag'" [dragulaModel]="stoffen" class="afvalStoffen">
         <div ion-button clear color="secondary" *ngFor="let item of stoffen">
           {{item.naam}}
@@ -84,15 +85,16 @@
               </div>
             </ion-list>
         </ion-col>
-    </ion-row>
-        
 
-      <p>Gootsteen</p>
-      <ion-list [dragula]="'my-bag'" [dragulaModel]="gootsteen" class="categorie">
-          <div ion-button clear color="secondary" *ngFor="let item of gootsteen">
-            {{item.naam}}
-          </div>
-      </ion-list>
+        <ion-col width-50 class="right">
+          <p>Gootsteen</p>
+            <ion-list [dragula]="'my-bag'" [dragulaModel]="gootsteen" class="categorie">
+              <div ion-button clear color="secondary" *ngFor="let item of gootsteen">
+                {{item.naam}}
+              </div>
+            </ion-list>
+        </ion-col>
+    </ion-row>
       
-    <button ion-button round (click)="check()">Submit</button>
+    
 </ion-content>

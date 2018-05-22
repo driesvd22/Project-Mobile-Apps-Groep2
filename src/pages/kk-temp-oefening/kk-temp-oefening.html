@@ -13,9 +13,9 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding class="no-scroll">
 
-    <ion-card>
+      <div>
         <ion-card-header>
           Plaats de gegevens materialen op de juiste plaats
         </ion-card-header>
@@ -23,34 +23,28 @@
         <ion-card-content>
           Het is hierbij de bedoeling dat je een onderscheid maakt tussen kwalitatieve en kwantitatieve materialen. 
         </ion-card-content>
-      </ion-card>
+      </div>
 
-      <ion-list [dragula]="'my-bag'" [dragulaModel]="kkMaterials" class="stoffen">
+      <ion-list [dragula]="'my-bag'" [dragulaModel]="kkMaterials" class="stoffen" >
           <div ion-button clear color="secondary" *ngFor="let item of kkMaterials" class="material">
             <img src="{{item.afbeelding}}" width="80" height="80">
             {{item.name}}
           </div>
       </ion-list>
 
-      <ion-row>
-            <ion-col width-50 class="left">
-              <p>Kwantitietieve Materialen</p>
-              <ion-list [dragula]="'my-bag'" [dragulaModel]="kwanMaterials" class="cat">
-                <div ion-button clear color="secondary" *ngFor="let item of kwanMaterials" class="material">
-                  <img src="{{item.afbeelding}}" width="50" height="50">
-                </div>
-              </ion-list>
-            </ion-col>
-      
-            <ion-col width-50 class="right">
-              <p>Kwalitatieve Materialen</p>
-              <ion-list [dragula]="'my-bag'" [dragulaModel]="kwalMaterials" class="cat">
-                <div ion-button clear color="secondary" *ngFor="let item of kwalMaterials" class="material">
-                  <img src="{{item.afbeelding}}" width="50" height="50">
-                </div>
-              </ion-list>
-            </ion-col>
-      </ion-row>
+      <p>Kwantitietieve Materialen</p>
+      <ion-list [dragula]="'my-bag'" [dragulaModel]="kwanMaterials" class="stoffen">
+        <div ion-button clear color="secondary" *ngFor="let item of kwanMaterials" class="material">
+          <img src="{{item.afbeelding}}" width="80" height="80">
+        </div>
+      </ion-list>
 
+      <p>Kwalitatieve Materialen</p>
+      <ion-list [dragula]="'my-bag'" [dragulaModel]="kwalMaterials" class="stoffen">
+        <div ion-button clear color="secondary" *ngFor="let item of kwalMaterials" class="material">
+          <img src="{{item.afbeelding}}" width="80" height="80">
+        </div>
+      </ion-list>
       <button ion-button round (click)="check()">Submit</button>
+      
 </ion-content>
