@@ -16,15 +16,16 @@
 
 <ion-content padding>
 
-        
-        <ion-card-content>
-          <ion-card-title>
-            {{this.material.name}}
-            </ion-card-title>
-          <p>
-           {{this.material.soort}}
-          </p>
-        </ion-card-content>
-        <img src="{{this.material.afbeelding}}"/>
+        <ion-card>
+          <ion-card-content>
+            <ion-card-title>
+              {{this.material.name}}
+              </ion-card-title>
+            <p>
+              {{this.soort}}
+            </p>
+          </ion-card-content>
+          <ion-img width="150" height="150" src="{{this.material.afbeelding}}"></ion-img>
+        </ion-card>
 
 </ion-content>

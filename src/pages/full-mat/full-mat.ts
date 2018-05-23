@@ -16,9 +16,20 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class FullMatPage {
 
   material: any = [];
+  soort: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.material = navParams.data.material;
+    if(this.material.soort == "kwan"){
+      this.soort = "kwantitatief materiaal";
+    }
+    else if (this.material.soort == "kwal"){
+      this.soort = "kwalitatief materiaal";
+    }
+    else{
+      this.soort = "";
+    }
+
   }
 
   ionViewDidLoad() {
