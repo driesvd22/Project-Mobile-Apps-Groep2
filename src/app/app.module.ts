@@ -24,6 +24,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 // http://masteringionic.com/blog/2017-12-15-creating-a-sortable-list-with-ionic-and-dragula/
 import { DragulaModule } from '../../node_modules/ng2-dragula';
+import { ProvDataProvider } from '../providers/prov-data/prov-data';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,7 @@ import { DragulaModule } from '../../node_modules/ng2-dragula';
     BrowserModule,
     DragulaModule,
     IonicModule.forRoot(MyApp),
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -71,7 +74,8 @@ import { DragulaModule } from '../../node_modules/ng2-dragula';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ProvDataProvider
   ]
 })
 export class AppModule {}

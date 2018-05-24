@@ -160,6 +160,7 @@ export class AfvalTempOefeningPage {
       if(this.aantalKeerFout >= 5){
         this.showAlertBan();
         this.navCtrl.setRoot(LoginPage);
+        //
       }
       else if(this.aantalKeerFout >= 3){
         this.showHint();

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, LoadingController } from 'ionic-angular';
 import { HomePage } from '../home/home';
+import { Observer } from 'rxjs/Observer';
+import { ProvDataProvider } from '../../providers/prov-data/prov-data';
 
 /**
  * Generated class for the LoginPage page.
@@ -16,7 +18,11 @@ import { HomePage } from '../home/home';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController) {
+  username: String
+  password: String
+
+  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public data: ProvDataProvider) {
+    
   }
 
   ionViewDidLoad() {
@@ -25,10 +31,24 @@ export class LoginPage {
 
   checkLogin(){
     
-    //Hier gebeurt controle
-  
+    // Logica van filebeat deze geeft email addres en naam terug
+    let naam = "test"
+    let email = "test.test@yahoo.com";
+    let id = 3;
+
+    let newPersoon = {
+      id: id,
+      naam: naam,
+      email: email,
+      completions: []
+    }
+
+    let test = this.data.postRemoteData(newPersoon);
+    test.subscribe(data =>{
+      console.log(data);
+    });
+
     return true;
-    
   }
 
   login(){

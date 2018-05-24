@@ -8,14 +8,19 @@
 
 
 <ion-content padding>
-    <ion-list>
+
         <img src="assets/imgs/erasmus_logo.jpg" alt="Logo" height="120" width="146"> 
-        <ion-item>
-          <ion-input id="username" type="text" placeholder="Gebruikersnaam"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input id="password" type="password" placeholder="Paswoord"></ion-input>
-        </ion-item>
-        <button ion-button color="secondary" round (click)="login()">Login</button>
-      </ion-list>
+        
+        <form (ngSubmit)="checkLogin()">
+          <ion-item>
+            <ion-label>Username</ion-label>
+            <ion-input type="text" [(ngModel)]="username" name="username"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Password</ion-label>
+            <ion-input type="password" [(ngModel)]="password" name="password"></ion-input>
+          </ion-item>
+          <button ion-button type="submit" block>Login</button>
+        </form>
+
 </ion-content>
