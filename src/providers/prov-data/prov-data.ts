@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from "rxjs/Observable";
+import { Http } from '@angular/http';
 import "rxjs/add/operator/map";
 
 /*
@@ -12,19 +13,22 @@ import "rxjs/add/operator/map";
 @Injectable()
 export class ProvDataProvider {
 
-  url: string = "https://httpbin.org/post";
+  // Dit is momenteel de URL die verwijst naar een zelfgemaakt JSON-document
+  url: string = "https://api.myjson.com/bins/ubl82";
 
-  constructor(public http: HttpClient) {
-    console.log('Hello ProvDataProvider Provider');
+  constructor(public http: HttpClient, public http2: Http) {
+
   }
 
-  getRemoteData(){
-    return this.http.get(this.url);
+  // Algemene GET Request dat de volledige JSON-file ophaald
+  getAllRemoteData(){
+    //return this.http.get(this.url);
+    return this.http2.get(this.url).map(res => res.json());
   }
 
+  
   postRemoteData(body){
     let i = JSON.stringify(body).length;
     return this.http.post(this.url, JSON.stringify(body), {headers: {"Content-Type": "application/json"}});
   }
-
 }
