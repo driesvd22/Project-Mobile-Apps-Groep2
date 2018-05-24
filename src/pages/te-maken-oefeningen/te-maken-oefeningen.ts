@@ -21,40 +21,24 @@ export class TeMakenOefeningenPage {
   userId: number;
   
   // Logic om alle open labo's binnen te trekken uit json-file
-  AllLabos : any 
-  AllLabosFiter1: any;
+  AllLabos : any
+  AllGebruikers : any
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public prov: ProvDataProvider) {
+    
     let temp = this.prov.getAllRemoteData();
     temp.subscribe(data => {
       this.AllLabos = data.Labos;
 
-      //console.log(new Date(this.AllLabos[1].eindDatum).getTime())
-      console.log(new Date().getTime());
-
-      //console.log(new Date(this.AllLabos[1].eindDatum).getTime() - new Date().getTime());
-
+      // Filter om te zien welke oefeningen er moeten weergegeven worden a.d.h.v. datum
       for (var i=0; i<this.AllLabos.length; i++){
-
-        console.log(new Date(this.AllLabos[i].eindDatum).getTime() - new Date().getTime());
-        
-        this.AllLabos.splice(i, 1);
-        
-        i++;
-        /*
-        if (new Date(this.AllLabos[i].eindDatum).getTime() - new Date().getTime() >= 0){
-          console.log("if");
-          i++;
-        }
-        else{
-          console.log("else");
+        if(new Date(this.AllLabos[i].eindDatum).getTime() - new Date().getTime() <= 0){
           this.AllLabos.splice(i, 1);
           i--;
         }
-        */
       }
 
-      console.log(this.AllLabos);
+      // Check met completions nog niet gevonden
 
     });
     this.userId = this.navParams.data.userId;

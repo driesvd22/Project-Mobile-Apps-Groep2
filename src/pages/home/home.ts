@@ -32,7 +32,9 @@ export class HomePage {
 
   openHermaakOefeningPage(){
     this.toonLoading();
-    this.navCtrl.push(HermaakOefeningPage);
+    this.navCtrl.push(HermaakOefeningPage, {
+      userId: this.userId
+    });
   }
 
   openSettingsPage(){

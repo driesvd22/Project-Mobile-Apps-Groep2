@@ -18,11 +18,16 @@ export class ChooseListPage {
 
   templates: any = [];
   lijsten: any = [];
+  userId: number;
+  exerciseId: number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController) {
     this.templates = navParams.data.templates;
 
     this.lijsten = this.templates[0].lijsten;
+
+    this.userId = this.navParams.data.userId;
+    this.exerciseId = this.navParams.data.exerciseId;
   }
 
   ionViewDidLoad() {
@@ -43,7 +48,9 @@ export class ChooseListPage {
   goToWerkwijzeTemplate(i){
     this.navCtrl.setRoot(WerkwijzeTempOefeningPage, {
       templates: this.templates,
-      listIndex: i
+      listIndex: i,
+      userId: this.userId,
+      exerciseId: this.exerciseId
     });
   }
 

@@ -20,6 +20,9 @@ import { MidStepPage } from '../mid-step/mid-step';
 })
 export class WerkwijzeTempOefeningPage {
 
+  userId: number;
+  exerciseId: number;
+
   templates: any = [];
   listIndex: any;
   stappen: any = [];
@@ -41,6 +44,9 @@ export class WerkwijzeTempOefeningPage {
 
     this.stappen = this.templates[0].lijsten[this.listIndex].stappen;
     this.hint = this.templates[0].hint;
+
+    this.userId = this.navParams.data.userId;
+    this.exerciseId = this.navParams.data.exerciseId;
 
     this.stappen.forEach(stap => {
       this.juisteVolgorde.push(stap.id);
@@ -163,6 +169,25 @@ export class WerkwijzeTempOefeningPage {
 
       if(this.aantalKeerFout >= 5){
         this.showAlertBan();
+
+        // POST van een ban op de oefening van de gebruiker in de JSON-file
+        // Waarden die meegegeven worden:
+        // - userId
+        // - oefeningId
+        // - eindeBan
+
+        // In JSON-file wordt in dit geval het volgende ingevoerd:
+        // - id: ...
+        // - naam: "..."
+        // - email: "..."
+        // - completions: ...
+        // - bans: [
+        //  {
+        //     "oefeningId": ...
+        //     "eindeVanBan": ...      
+        //  }
+        // ]
+
         this.navCtrl.setRoot(LoginPage);
       }
       else if(this.aantalKeerFout >= 3){

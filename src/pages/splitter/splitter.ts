@@ -21,10 +21,15 @@ import { ChooseListPage } from '../choose-list/choose-list';
 })
 export class SplitterPage {
 
+  userId: number;
+  exerciseId: number;
+  
   templates: any = [];
   
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.templates = navParams.data.templates;
+    this.userId = this.navParams.data.userId;
+    this.exerciseId = this.navParams.data.exerciseId;
   }
 
   ionViewDidLoad() {
@@ -42,35 +47,60 @@ export class SplitterPage {
         
         case "materialTemplate":{
           this.navCtrl.setRoot(MatTempOefeningPage, {
-            templates: this.templates
+            templates: this.templates,
+            userId: this.userId,
+            exerciseId: this.exerciseId
           });
           break;
         }
         case "verwijzingstemplate":{
           this.navCtrl.setRoot(VerwijzingsTempOefeningPage, {
-            templates: this.templates
+            templates: this.templates,
+            userId: this.userId,
+            exerciseId: this.exerciseId
           });
           break;
         }
         case "kkTemplateOefening":{
           this.navCtrl.setRoot(KkTempOefeningPage, {
-            templates: this.templates
+            templates: this.templates,
+            userId: this.userId,
+            exerciseId: this.exerciseId
           });
           break;
         }
         case "afvalTemplate":{
           this.navCtrl.setRoot(AfvalTempOefeningPage, {
-            templates: this.templates
+            templates: this.templates,
+            userId: this.userId,
+            exerciseId: this.exerciseId
           });
           break;
         }
         case "werkwijzeTemplate":{
           this.navCtrl.setRoot(ChooseListPage, {
-            templates: this.templates
+            templates: this.templates,
+            userId: this.userId,
+            exerciseId: this.exerciseId
           });
           break;
         }
         default:{
+          
+          //COMPLETION
+          
+          // POST van een nieuwe completion in de JSON-file
+          // Waarden die meegegeven worden:
+          // - userId
+          // - oefeningId
+
+          // In JSON-file wordt in dit geval het volgende ingevoerd:
+          // - id: ...
+          // - naam: "..."
+          // - email: "..."
+          // - completions: [1] (de exerciceId komt hier)
+          // - bans: ...
+
           this.navCtrl.setRoot(HomePage);
         }
       }

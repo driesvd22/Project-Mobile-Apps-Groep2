@@ -9,10 +9,10 @@
       
       <ion-content padding>
       
-        <ion-item-group *ngFor="let labo of TeHermakenLabos" no-lines>
+        <ion-item-group *ngFor="let labo of AllLabos" no-lines>
           <ion-item-divider color="light">{{labo.laboNaam}}</ion-item-divider>
           <ion-item *ngFor="let oefening of labo.oefeningen" no-lines>
-            <a (click)="showConfirm(oefening)">{{oefening.oefeningNaam}}</a>
+            <a (click)="showConfirm(oefening)">{{oefening.exerciseNaam}}</a>
           </ion-item>
         </ion-item-group>
         
