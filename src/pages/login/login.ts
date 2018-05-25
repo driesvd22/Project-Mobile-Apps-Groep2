@@ -59,8 +59,8 @@ export class LoginPage {
 
     // 1. de logica van FireBase dat zal nagaan of username en password valid zijn
     // Indien het valide credantials zijn stuurt FireBase het volgende terug (nu is dit nog hardcoded data)
-    let userId = this.fire.auth.currentUser.uid
-    let email = this.username
+    let userId = this.fire.auth.currentUser.uid;
+    let email = this.username;
 
 
     // 2. Nakijken of deze gebruiker al bestaat in de huidige JSON-file
