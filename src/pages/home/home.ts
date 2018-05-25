@@ -12,8 +12,12 @@ import { AngularFireAuth} from 'angularfire2/auth'
   templateUrl: 'home.html'
 })
 export class HomePage {
-
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
   userId: number;
+  email: string;
+  greeting: string;
 
   constructor(private fire: AngularFireAuth,public navCtrl: NavController, public viewCtrl: ViewController, public loadingCtrl: LoadingController, public navParams: NavParams) {
     this.userId = navParams.data.userId;
@@ -42,8 +46,27 @@ export class HomePage {
   ionViewDidLoad() {
     //this.toonLoading();
     //User waarmee je inlogt zijn email
-    let email = this.fire.auth.currentUser.email.substring(0, this.fire.auth.currentUser.email.indexOf("."));
-    console.log(email);
+    this.email = this.fire.auth.currentUser.email.substring(0, this.fire.auth.currentUser.email.indexOf("."));
+    this.email = this.capitalizeFirstLetter(this.email);
+    console.log(this.email);
+    var d = new Date();
+    var time = d.getHours();
+    if (time >= 5 && time <= 11 ) 
+    {
+      this.greeting = "Good morning ";   
+    }
+    if (time > 11 && time < 14) {
+      this.greeting = "It's lunchtime ";
+    }
+    if (time >= 14 && time < 18) {
+      this.greeting = "Good afternoon ";
+    }
+    if (time >= 18 && time <= 23) {
+      this.greeting = "Good evening ";
+    }
+    if (time > 23 && time < 5) {
+      this.greeting = "Please get some sleep ";
+    }
   }
   
   toonLoading() {
