@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
-import { HermaakOefeningPage } from '../hermaak-oefening/hermaak-oefening';
 import { LoginPage } from '../login/login';
 import { AlertController } from 'ionic-angular';
 
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
+import { SplitterPage } from '../splitter/splitter';
+import { ProvDataProvider } from '../../providers/prov-data/prov-data';
 
 /**
  * Generated class for the MatTempOefeningPage page.
@@ -20,90 +21,42 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
 })
 export class MatTempOefeningPage {
 
+  userId: number;
+  exerciseId: number;
+
+  // Templates vanuit de splitterPage
+  templates: any = [];
+  uitleg: any;
+  hint: any;
+  juisteMaterialen: any = [];
+  
+  // De tweede div waar de antwoorden in worden geplaatst
   q2: any = [];
 
-  tempID: any;
   aantalKeerFout : number = 0;
 
-  // Logic dat een array terug geeft met de ID's van de juiste materialen afhankelijk van en tempID
-  juisteMaterialen = [1, 2];
+  AllMaterials : any; 
 
-  // Logic om alle materialen op te halen
-  AllMaterials : any = [
-    {
-      id: 1,
-      name: 'erlemeyer',
-      afbeelding: '../../assets/imgs/erlemeyer.png'
-    },
-    {
-      id: 2,
-      name: 'logo',
-      afbeelding: '../../assets/imgs/logo.png'
-    },
-    { 
-      id: 3,
-      name: 'erasmus_logo',
-      afbeelding: '../../assets/imgs/erasmus_logo.jpg'
-    },
-    {
-      id: 4,
-      name: 'pasOp',
-      afbeelding: '../../assets/imgs/pasOp.png'
-    },
-    { 
-      id: 5,
-      name: 'tandwiel',
-      afbeelding: '../../assets/imgs/tandwiel.png'
-    },
-    { 
-      id: 6,
-      name: 'tandwiel',
-      afbeelding: '../../assets/imgs/tandwiel.png'
-    },
-    { 
-      id: 7,
-      name: 'tandwiel',
-      afbeelding: '../../assets/imgs/tandwiel.png'
-    },
-    { 
-      id: 8,
-      name: 'tandwiel',
-      afbeelding: '../../assets/imgs/tandwiel.png'
-    },
-    { 
-      id: 9,
-      name: 'tandwiel',
-      afbeelding: '../../assets/imgs/tandwiel.png'
-    },
-    { 
-      id: 10,
-      name: 'tandwiel',
-      afbeelding: '../../assets/imgs/tandwiel.png'
-    },
-    { 
-      id: 11,
-      name: 'tandwiel',
-      afbeelding: '../../assets/imgs/tandwiel.png'
-    },
-    { 
-      id: 12,
-      name: 'tandwiel',
-      afbeelding: '../../assets/imgs/tandwiel.png'
-    },
-    { 
-      id: 13,
-      name: 'tandwiel',
-      afbeelding: '../../assets/imgs/tandwiel.png'
-    }
-  ];
+  constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, public alertCtrl: AlertController, private dragulaService : DragulaService, public prov: ProvDataProvider) {
+    
+    this.templates = navParams.data.templates;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, public alertCtrl: AlertController, private dragulaService : DragulaService) {
-    this.tempID = navParams.data.tempID;
+    this.uitleg = this.templates[0].uitleg;
+    this.juisteMaterialen = this.templates[0].juisteMaterialen;
+    this.hint = this.templates[0].hint;
 
     this.dragulaService.drop.subscribe((val) =>
     {
         console.log('Item Moved');
     });
+
+    let temp = this.prov.getAllRemoteData();
+    temp.subscribe(data => {
+      this.AllMaterials = data.materialen;
+    });
+
+    this.userId = this.navParams.data.userId;
+    this.exerciseId = this.navParams.data.exerciseId;
   }
 
   //https://stackoverflow.com/questions/38652827/disable-swipe-to-view-sidemenu-ionic-2/38654644?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
@@ -113,10 +66,10 @@ export class MatTempOefeningPage {
   //https://stackoverflow.com/questions/38652827/disable-swipe-to-view-sidemenu-ionic-2/38654644?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
   ionViewWillLeave() {
     this.menu.swipeEnable(true);
-   }
+  }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MatTempOefeningPage');
+    console.log(this.templates);
   }
 
   showAlert() {
@@ -129,12 +82,9 @@ export class MatTempOefeningPage {
   }
 
   showHint() {
-    // logic om hint te gaan ophalen afhankelijk van de tempID
-    let hint: any = "Dit is de hint";
-
     let alert = this.alertCtrl.create({
       title: 'Hint',
-      subTitle: hint,
+      subTitle: this.hint,
       buttons: ['OK']
     });
     alert.present();
@@ -164,8 +114,6 @@ export class MatTempOefeningPage {
     let amountOfJuisteMaterialen: number = this.juisteMaterialen.length;
     let ok: boolean = true;
 
-    console.log(this.juisteMaterialen);
-
     if(amountOfChoosenItems == amountOfJuisteMaterialen){
       
       for (let materiaal of this.q2) {
@@ -173,7 +121,6 @@ export class MatTempOefeningPage {
           ok = false;
         }
       };
-
     }
     else{
       ok = false;
@@ -181,13 +128,36 @@ export class MatTempOefeningPage {
 
     if(ok){
       this.showAlertJuist();
-      this.navCtrl.setRoot(HermaakOefeningPage);
+      this.templates.shift();
+
+      this.navCtrl.setRoot(SplitterPage, {
+        templates: this.templates
+      });
     }
     else{
       this.aantalKeerFout++;
 
       if(this.aantalKeerFout >= 5){
         this.showAlertBan();
+
+        // POST van een ban op de oefening van de gebruiker in de JSON-file
+        // Waarden die meegegeven worden:
+        // - userId
+        // - oefeningId
+        // - eindeBan
+
+        // In JSON-file wordt in dit geval het volgende ingevoerd:
+        // - id: ...
+        // - naam: "..."
+        // - email: "..."
+        // - completions: ...
+        // - bans: [
+        //  {
+        //     "oefeningId": ...
+        //     "eindeVanBan": ...      
+        //  }
+        // ]
+
         this.navCtrl.setRoot(LoginPage);
       }
       else if(this.aantalKeerFout >= 3){

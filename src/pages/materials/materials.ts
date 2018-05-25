@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { FullMatPage } from '../full-mat/full-mat';
+import { ProvDataProvider } from '../../providers/prov-data/prov-data';
 
 /**
  * Generated class for the MaterialsPage page.
@@ -15,15 +17,22 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class MaterialsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  AllMaterialen: any;
+  
+  constructor(public navCtrl: NavController, public navParams: NavParams, public prov: ProvDataProvider) {
+    let temp = this.prov.getAllRemoteData();
+    temp.subscribe(data => {
+      this.AllMaterialen = data.materialen;
+    });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MaterialsPage');
   }
 
-  moreInfo(materiaal){
-    alert("Dit is een "+ materiaal);
+  goToMatPage(material){
+    this.navCtrl.push(FullMatPage, {
+      material: material
+    });
   }
-
 }

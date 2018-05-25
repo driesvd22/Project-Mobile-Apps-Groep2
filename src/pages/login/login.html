@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!--  Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
         See LICENSE in the source repository root for complete license information. -->
         <ion-header>
@@ -30,3 +31,31 @@
         </ion-content>
         
     
+=======
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Login</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+        <img src="assets/imgs/erasmus_logo.jpg" alt="Logo" height="120" width="146"> 
+        
+        <form (ngSubmit)="checkLogin()">
+          <ion-item>
+            <ion-label>Username</ion-label>
+            <ion-input type="text" [(ngModel)]="username" name="username"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Password</ion-label>
+            <ion-input type="password" [(ngModel)]="password" name="password"></ion-input>
+          </ion-item>
+          <button ion-button type="submit" block>Login</button>
+        </form>
+
+</ion-content>
+>>>>>>> master
