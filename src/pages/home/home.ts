@@ -5,6 +5,7 @@ import { TeMakenOefeningenPage } from '../te-maken-oefeningen/te-maken-oefeninge
 import { HermaakOefeningPage } from '../hermaak-oefening/hermaak-oefening';
 import { SettingsPage } from '../settings/settings';
 import { LoadingController } from 'ionic-angular';
+import { AngularFireAuth} from 'angularfire2/auth'
 
 @Component({
   selector: 'page-home',
@@ -14,7 +15,7 @@ export class HomePage {
 
   userId: number;
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public loadingCtrl: LoadingController, public navParams: NavParams) {
+  constructor(private fire: AngularFireAuth,public navCtrl: NavController, public viewCtrl: ViewController, public loadingCtrl: LoadingController, public navParams: NavParams) {
     this.userId = navParams.data.userId;
   }
 
@@ -39,12 +40,15 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-    this.toonLoading();
+    //this.toonLoading();
+    //User waarmee je inlogt zijn email
+    let email = this.fire.auth.currentUser.email.substring(0, this.fire.auth.currentUser.email.indexOf("."));
+    console.log(email);
   }
   
   toonLoading() {
     let loader = this.loadingCtrl.create({
-      content: "Even geduld...",
+      content: "Even Geduld...",
       duration: 1000
     });
     loader.present();
