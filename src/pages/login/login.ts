@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, LoadingController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, LoadingController, AlertController } from 'ionic-angular';
 import { HomePage } from '../home/home';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { ProvDataProvider } from '../../providers/prov-data/prov-data';
 
 /**
@@ -19,10 +20,10 @@ export class LoginPage {
 
   AllGebruikers: any;
   
-  username: String
-  password: String
+  @ViewChild('username') username;
+  @ViewChild('password') password;
 
-  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public prov: ProvDataProvider) {
+  constructor(private alertCtrl: AlertController, private fire: AngularFireAuth,public navCtrl: NavController, public loadingCtrl: LoadingController, public prov: ProvDataProvider) {
     let temp = this.prov.getAllRemoteData();
     temp.subscribe(data => {
       this.AllGebruikers = data.Gebruikers;
@@ -50,13 +51,13 @@ export class LoginPage {
 
     // 1. de logica van FireBase dat zal nagaan of username en password valid zijn
     // Indien het valide credantials zijn stuurt FireBase het volgende terug (nu is dit nog hardcoded data)
-    let userId = 1
-    let email = "test.email@outlook.com"
+    let userId = this.fire.auth.currentUser.uid
+    let email = this.username
 
 
     // 2. Nakijken of deze gebruiker al bestaat in de huidige JSON-file
     if(this.checkIfUserExist(userId)){
-      this.login(userId);
+      this.login();
     }
     else {
       // POST van een nieuwe user in de JSON-file
@@ -73,13 +74,29 @@ export class LoginPage {
       // - bans: (lege array)
 
       // Vervolgens kan de gebruiker zich inloggen
-      this.login(userId);
+      this.login();
     }
   }
 
-  login(userId){
-    this.navCtrl.setRoot(HomePage, {
-      userId: userId
-    });
+  alert(message: string){
+    this.alertCtrl.create({
+      title: 'Info!',
+      subTitle: message,
+      buttons: ['OK']
+    }).present();
+  }
+
+  login()
+  {
+    this.fire.auth.signInWithEmailAndPassword(this.username.value, this.password.value)
+    .then(data=>{
+      console.log('got some data', this.fire.auth.currentUser.email);
+      this.alert('Success! You\'re logged in ');
+      this.navCtrl.setRoot(HomePage);
+    })
+    .catch(error =>{
+      console.log('got an error', error);
+      this.alert('Try again, maybe fill in Username and/or Password');
+    })
   }
 }
