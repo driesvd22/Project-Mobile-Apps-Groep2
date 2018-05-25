@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { SplitterPage } from '../splitter/splitter';
 import { ProvDataProvider } from '../../providers/prov-data/prov-data';
+import { LoadingController } from 'ionic-angular';
 
 /**
  * Generated class for the HermaakOefeningPage page.
@@ -21,7 +22,7 @@ export class HermaakOefeningPage {
   userId: any;
   AllLabos : any; 
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public prov: ProvDataProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public prov: ProvDataProvider, public loadingCtrl: LoadingController) {
     let temp = this.prov.getAllRemoteData();
     temp.subscribe(data => {
       this.AllLabos = data.Labos;
@@ -42,6 +43,15 @@ export class HermaakOefeningPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad HermaakOefeningPage');
     console.log(this.userId);
+    this.toonLoading();
+  }
+
+  toonLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Even geduld...",
+      duration: 1000
+    });
+    loader.present();
   }
 
   showConfirm(oefening) {

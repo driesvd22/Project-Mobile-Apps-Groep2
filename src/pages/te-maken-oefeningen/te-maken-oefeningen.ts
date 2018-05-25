@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SplitterPage } from '../splitter/splitter';
 import { AlertController } from 'ionic-angular';
 import { ProvDataProvider } from '../../providers/prov-data/prov-data';
+import { LoadingController } from 'ionic-angular';
 
 /**
  * Generated class for the TeMakenOefeningenPage page.
@@ -24,7 +25,7 @@ export class TeMakenOefeningenPage {
   AllLabos : any
   AllGebruikers : any
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public prov: ProvDataProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public prov: ProvDataProvider, public loadingCtrl: LoadingController) {
     
     let temp = this.prov.getAllRemoteData();
     temp.subscribe(data => {
@@ -75,6 +76,15 @@ export class TeMakenOefeningenPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TeMakenOefeningenPage');
+    this.toonLoading();
+  }
+
+  toonLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Even geduld...",
+      duration: 1000
+    });
+    loader.present();
   }
 
 }

@@ -19,29 +19,29 @@ export class HomePage {
   }
 
   openMaterialPage(){
-    this.toonLoading();
     this.navCtrl.push(MaterialsPage);
   }
 
   openTeMakenOefeningenPage(){
-    this.toonLoading();
     this.navCtrl.push(TeMakenOefeningenPage, {
       userId: this.userId
     });
   }
 
   openHermaakOefeningPage(){
-    this.toonLoading();
     this.navCtrl.push(HermaakOefeningPage, {
       userId: this.userId
     });
   }
 
   openSettingsPage(){
-    this.toonLoading();
     this.navCtrl.push(SettingsPage);
   }
 
+  ionViewDidLoad() {
+    this.toonLoading();
+  }
+  
   toonLoading() {
     let loader = this.loadingCtrl.create({
       content: "Even geduld...",
@@ -49,4 +49,5 @@ export class HomePage {
     });
     loader.present();
   }
+  
 }
