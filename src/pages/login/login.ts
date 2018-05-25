@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, LoadingController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, LoadingController, AlertController, MenuController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { ProvDataProvider } from '../../providers/prov-data/prov-data';
@@ -18,12 +18,20 @@ import { ProvDataProvider } from '../../providers/prov-data/prov-data';
 })
 export class LoginPage {
 
+  ionViewDidEnter(){
+    this.menu.swipeEnable(false);
+  }
+
+  ionViewWillLeave(){
+    this.menu.swipeEnable(true);
+  }
+
   AllGebruikers: any;
   
   @ViewChild('username') username;
   @ViewChild('password') password;
 
-  constructor(private alertCtrl: AlertController, private fire: AngularFireAuth,public navCtrl: NavController, public loadingCtrl: LoadingController, public prov: ProvDataProvider) {
+  constructor(private menu: MenuController,private alertCtrl: AlertController, private fire: AngularFireAuth,public navCtrl: NavController, public loadingCtrl: LoadingController, public prov: ProvDataProvider) {
     let temp = this.prov.getAllRemoteData();
     temp.subscribe(data => {
       this.AllGebruikers = data.Gebruikers;
