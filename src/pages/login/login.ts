@@ -31,23 +31,28 @@ export class LoginPage {
   @ViewChild('username') username;
   @ViewChild('password') password;
 
+  userid : string;
+  email: string;
+
   constructor(private menu: MenuController,private alertCtrl: AlertController, private fire: AngularFireAuth,public navCtrl: NavController, public loadingCtrl: LoadingController, public prov: ProvDataProvider) {
     let temp = this.prov.getAllRemoteData();
     temp.subscribe(data => {
       this.AllGebruikers = data.Gebruikers;
     });
+    this.userid = null;
+    this.email = null;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
 
-  checkIfUserExist(userId){
+  checkIfUserExist(userid){
     
     var ok: boolean = false
     
     this.AllGebruikers.forEach(gebruiker => {
-      if(gebruiker.id == userId){
+      if(gebruiker.id == userid){
         ok = true;
       }
     });
@@ -55,17 +60,23 @@ export class LoginPage {
     return ok;
   }
 
-  checkLogin(){
+  alert(message: string){
+    this.alertCtrl.create({
+      title: 'Info!',
+      subTitle: message,
+      buttons: ['OK']
+    }).present();
+  }
 
-    // 1. de logica van FireBase dat zal nagaan of username en password valid zijn
-    // Indien het valide credantials zijn stuurt FireBase het volgende terug (nu is dit nog hardcoded data)
-    let userId = this.fire.auth.currentUser.uid
-    let email = this.username
-
-
-    // 2. Nakijken of deze gebruiker al bestaat in de huidige JSON-file
-    if(this.checkIfUserExist(userId)){
-      this.login();
+  login()
+  {
+    this.fire.auth.signInWithEmailAndPassword(this.username.value, this.password.value)
+    .then(data=>{
+      // 2. Nakijken of deze gebruiker al bestaat in de huidige JSON-file
+    if(this.checkIfUserExist(this.fire.auth.currentUser.uid)){
+      console.log('got some data', this.fire.auth.currentUser.email);
+      this.alert('Success! You\'re logged in ');
+      this.navCtrl.setRoot(HomePage);
     }
     else {
       // POST van een nieuwe user in de JSON-file
@@ -82,25 +93,13 @@ export class LoginPage {
       // - bans: (lege array)
 
       // Vervolgens kan de gebruiker zich inloggen
-      this.login();
-    }
-  }
-
-  alert(message: string){
-    this.alertCtrl.create({
-      title: 'Info!',
-      subTitle: message,
-      buttons: ['OK']
-    }).present();
-  }
-
-  login()
-  {
-    this.fire.auth.signInWithEmailAndPassword(this.username.value, this.password.value)
-    .then(data=>{
       console.log('got some data', this.fire.auth.currentUser.email);
       this.alert('Success! You\'re logged in ');
       this.navCtrl.setRoot(HomePage);
+      console.log(this.fire.auth.currentUser.email);
+      console.log(this.fire.auth.currentUser.uid);
+    }
+      
     })
     .catch(error =>{
       console.log('got an error', error);
