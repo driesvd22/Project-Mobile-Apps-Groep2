@@ -48,10 +48,9 @@ export class LoginPage {
 
   checkLogin(){
 
-    // 1. de logica van Filebeat dat zal nagaan of username en password valid zijn
-    // Indien het valide credantials zijn stuurt filebeat het volgende terug (nu is dit nog hardcoded data)
+    // 1. de logica van FireBase dat zal nagaan of username en password valid zijn
+    // Indien het valide credantials zijn stuurt FireBase het volgende terug (nu is dit nog hardcoded data)
     let userId = 1
-    let naam = "Test"
     let email = "test.email@outlook.com"
 
 

@@ -23,25 +23,31 @@ export class TeMakenOefeningenPage {
   
   // Logic om alle open labo's binnen te trekken uit json-file
   AllLabos : any
-  AllGebruikers : any
+  CompletionsOfUser: any;
+  BansOfUser: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public prov: ProvDataProvider, public loadingCtrl: LoadingController) {
     
-    let temp = this.prov.getAllRemoteData();
-    temp.subscribe(data => {
-      this.AllLabos = data.Labos;
+    let temp1 = this.prov.getAllRemoteData();
+    
+      let temp = this.prov.getAllRemoteData();
+      temp.subscribe(data => {
+        this.AllLabos = data.Labos;
 
-      // Filter om te zien welke oefeningen er moeten weergegeven worden a.d.h.v. datum
-      for (var i=0; i<this.AllLabos.length; i++){
-        if(new Date(this.AllLabos[i].eindDatum).getTime() - new Date().getTime() <= 0){
-          this.AllLabos.splice(i, 1);
-          i--;
+        // Filter om te zien welke oefeningen er moeten weergegeven worden a.d.h.v. datum
+        for (var i=0; i<this.AllLabos.length; i++){
+          if(new Date(this.AllLabos[i].eindDatum).getTime() - new Date().getTime() <= 0){
+            this.AllLabos.splice(i, 1);
+            i--;
+          }
+          else{
+            for (var y=0; y<this.AllLabos[i].oefeningen.length; y++){
+            
+          } 
         }
       }
-
-      // Check met completions nog niet gevonden
-
     });
+    
     this.userId = this.navParams.data.userId;
   }
 
@@ -85,6 +91,15 @@ export class TeMakenOefeningenPage {
       duration: 1000
     });
     loader.present();
+  }
+
+  checkIfUserIsBannedFromExercise(oefening){
+    let temp1 = this.prov.getAllRemoteData();
+    temp1.subscribe(data => {
+
+      
+
+    });
   }
 
 }
