@@ -51,21 +51,21 @@ export class HomePage {
     console.log(this.email);
     var d = new Date();
     var time = d.getHours();
-    if (time >= 5 && time <= 11 ) 
+    if (time >= 5 && time < 11 ) 
     {
       this.greeting = "Good morning ";   
     }
-    if (time > 11 && time < 14) {
+    if (time >= 11 && time < 14) {
       this.greeting = "It's lunchtime ";
     }
     if (time >= 14 && time < 18) {
       this.greeting = "Good afternoon ";
     }
-    if (time >= 18 && time <= 23) {
+    if (time >= 18 && time < 23) {
       this.greeting = "Good evening ";
     }
-    if (time > 23 && time < 5) {
-      this.greeting = "Please get some sleep ";
+    if (time >= 23 || time < 5) {
+      this.greeting = "Go get some sleep ";
     }
   }
   

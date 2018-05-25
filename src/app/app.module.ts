@@ -28,7 +28,7 @@ import { ProvDataProvider } from '../providers/prov-data/prov-data';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import {AngularFireModule} from 'angularfire2';
-import {AngularFireAuthModule } from 'angularfire2/auth'
+import {AngularFireAuthModule } from 'angularfire2/auth';
 
 const firebaseAuth = {
   apiKey: "AIzaSyCKyG8wOBJDzjjTcWsCCZ0ZKApN3OPBxOk",

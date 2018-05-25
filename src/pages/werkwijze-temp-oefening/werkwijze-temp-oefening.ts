@@ -19,7 +19,7 @@ import { MidStepPage } from '../mid-step/mid-step';
   templateUrl: 'werkwijze-temp-oefening.html',
 })
 export class WerkwijzeTempOefeningPage {
-
+  
   userId: number;
   exerciseId: number;
 
@@ -149,7 +149,7 @@ export class WerkwijzeTempOefeningPage {
 
     if(ok){
       this.showAlertJuist();
-
+      
       if(this.stappenMetMidsteps.length == 0 || this.stappenMetMidsteps == null){
         this.templates.shift();
 
