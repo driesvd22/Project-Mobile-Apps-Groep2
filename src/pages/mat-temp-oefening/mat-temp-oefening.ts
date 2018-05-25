@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
-import { HermaakOefeningPage } from '../hermaak-oefening/hermaak-oefening';
 import { LoginPage } from '../login/login';
 import { AlertController } from 'ionic-angular';
 
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
-import { VerwijzingsTempOefeningPage } from '../verwijzings-temp-oefening/verwijzings-temp-oefening';
-import { HomePage } from '../home/home';
 import { SplitterPage } from '../splitter/splitter';
+import { ProvDataProvider } from '../../providers/prov-data/prov-data';
 
 /**
  * Generated class for the MatTempOefeningPage page.
@@ -23,6 +21,9 @@ import { SplitterPage } from '../splitter/splitter';
 })
 export class MatTempOefeningPage {
 
+  userId: number;
+  exerciseId: number;
+
   // Templates vanuit de splitterPage
   templates: any = [];
   uitleg: any;
@@ -34,36 +35,9 @@ export class MatTempOefeningPage {
 
   aantalKeerFout : number = 0;
 
-  // Logic om alle materialen op te halen
-  AllMaterials : any = [
-    {
-      id: 1,
-      name: 'erlemeyer',
-      afbeelding: '../../assets/imgs/erlemeyer.png'
-    },
-    {
-      id: 2,
-      name: 'logo',
-      afbeelding: '../../assets/imgs/logo.png'
-    },
-    { 
-      id: 3,
-      name: 'erasmus_logo',
-      afbeelding: '../../assets/imgs/erasmus_logo.jpg'
-    },
-    {
-      id: 4,
-      name: 'pasOp',
-      afbeelding: '../../assets/imgs/pasOp.png'
-    },
-    { 
-      id: 5,
-      name: 'tandwiel',
-      afbeelding: '../../assets/imgs/tandwiel.png'
-    }
-  ];
+  AllMaterials : any; 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, public alertCtrl: AlertController, private dragulaService : DragulaService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, public alertCtrl: AlertController, private dragulaService : DragulaService, public prov: ProvDataProvider) {
     
     this.templates = navParams.data.templates;
 
@@ -75,6 +49,14 @@ export class MatTempOefeningPage {
     {
         console.log('Item Moved');
     });
+
+    let temp = this.prov.getAllRemoteData();
+    temp.subscribe(data => {
+      this.AllMaterials = data.materialen;
+    });
+
+    this.userId = this.navParams.data.userId;
+    this.exerciseId = this.navParams.data.exerciseId;
   }
 
   //https://stackoverflow.com/questions/38652827/disable-swipe-to-view-sidemenu-ionic-2/38654644?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
@@ -100,9 +82,6 @@ export class MatTempOefeningPage {
   }
 
   showHint() {
-    // logic om hint te gaan ophalen afhankelijk van de tempID
-    let hint: any = "Dit is de hint";
-
     let alert = this.alertCtrl.create({
       title: 'Hint',
       subTitle: this.hint,
@@ -160,6 +139,25 @@ export class MatTempOefeningPage {
 
       if(this.aantalKeerFout >= 5){
         this.showAlertBan();
+
+        // POST van een ban op de oefening van de gebruiker in de JSON-file
+        // Waarden die meegegeven worden:
+        // - userId
+        // - oefeningId
+        // - eindeBan
+
+        // In JSON-file wordt in dit geval het volgende ingevoerd:
+        // - id: ...
+        // - naam: "..."
+        // - email: "..."
+        // - completions: ...
+        // - bans: [
+        //  {
+        //     "oefeningId": ...
+        //     "eindeVanBan": ...      
+        //  }
+        // ]
+
         this.navCtrl.setRoot(LoginPage);
       }
       else if(this.aantalKeerFout >= 3){

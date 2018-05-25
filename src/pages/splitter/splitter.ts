@@ -3,10 +3,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MatTempOefeningPage } from '../mat-temp-oefening/mat-temp-oefening';
 import { VerwijzingsTempOefeningPage } from '../verwijzings-temp-oefening/verwijzings-temp-oefening';
 import { HomePage } from '../home/home';
-import { TeMakenOefeningenPage } from '../te-maken-oefeningen/te-maken-oefeningen';
 import { KkTempOefeningPage } from '../kk-temp-oefening/kk-temp-oefening';
 import { AfvalTempOefeningPage } from '../afval-temp-oefening/afval-temp-oefening';
-import { WerkwijzeTempOefeningPage } from '../werkwijze-temp-oefening/werkwijze-temp-oefening';
+import { ChooseListPage } from '../choose-list/choose-list';
 
 /**
  * Generated class for the SplitterPage page.
@@ -22,10 +21,15 @@ import { WerkwijzeTempOefeningPage } from '../werkwijze-temp-oefening/werkwijze-
 })
 export class SplitterPage {
 
+  userId: number;
+  exerciseId: number;
+  
   templates: any = [];
   
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.templates = navParams.data.templates;
+    this.userId = this.navParams.data.userId;
+    this.exerciseId = this.navParams.data.exerciseId;
   }
 
   ionViewDidLoad() {
@@ -43,35 +47,60 @@ export class SplitterPage {
         
         case "materialTemplate":{
           this.navCtrl.setRoot(MatTempOefeningPage, {
-            templates: this.templates
+            templates: this.templates,
+            userId: this.userId,
+            exerciseId: this.exerciseId
           });
           break;
         }
         case "verwijzingstemplate":{
           this.navCtrl.setRoot(VerwijzingsTempOefeningPage, {
-            templates: this.templates
+            templates: this.templates,
+            userId: this.userId,
+            exerciseId: this.exerciseId
           });
           break;
         }
         case "kkTemplateOefening":{
           this.navCtrl.setRoot(KkTempOefeningPage, {
-            templates: this.templates
+            templates: this.templates,
+            userId: this.userId,
+            exerciseId: this.exerciseId
           });
           break;
         }
         case "afvalTemplate":{
           this.navCtrl.setRoot(AfvalTempOefeningPage, {
-            templates: this.templates
+            templates: this.templates,
+            userId: this.userId,
+            exerciseId: this.exerciseId
           });
           break;
         }
         case "werkwijzeTemplate":{
-          this.navCtrl.setRoot(WerkwijzeTempOefeningPage, {
-            templates: this.templates
+          this.navCtrl.setRoot(ChooseListPage, {
+            templates: this.templates,
+            userId: this.userId,
+            exerciseId: this.exerciseId
           });
           break;
         }
         default:{
+          
+          //COMPLETION
+          
+          // POST van een nieuwe completion in de JSON-file
+          // Waarden die meegegeven worden:
+          // - userId
+          // - oefeningId
+
+          // In JSON-file wordt in dit geval het volgende ingevoerd:
+          // - id: ...
+          // - naam: "..."
+          // - email: "..."
+          // - completions: [1] (de exerciceId komt hier)
+          // - bans: ...
+
           this.navCtrl.setRoot(HomePage);
         }
       }

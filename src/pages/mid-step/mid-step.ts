@@ -17,7 +17,10 @@ import { LoginPage } from '../login/login';
   templateUrl: 'mid-step.html',
 })
 export class MidStepPage {
-//test
+  
+  userId: number;
+  exerciseId: number;
+  
   aantalKeerFout: any = 0;
   templates: any = [];
   steps: any = [];
@@ -27,6 +30,8 @@ export class MidStepPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, public alertCtrl: AlertController) {
     this.templates = navParams.data.templates;
     this.steps = navParams.data.steps;
+    this.userId = this.navParams.data.userId;
+    this.exerciseId = this.navParams.data.exerciseId;
 
     for (let i=0; i<this.steps.length; i++){
       if(this.steps[i].midsteps != null){
@@ -113,6 +118,25 @@ export class MidStepPage {
 
       if(this.aantalKeerFout >= 5){
         this.showAlertBan();
+
+        // POST van een ban op de oefening van de gebruiker in de JSON-file
+        // Waarden die meegegeven worden:
+        // - userId
+        // - oefeningId
+        // - eindeBan
+
+        // In JSON-file wordt in dit geval het volgende ingevoerd:
+        // - id: ...
+        // - naam: "..."
+        // - email: "..."
+        // - completions: ...
+        // - bans: [
+        //  {
+        //     "oefeningId": ...
+        //     "eindeVanBan": ...      
+        //  }
+        // ]
+
         this.navCtrl.setRoot(LoginPage);
       }
       else if(this.aantalKeerFout >= 3){

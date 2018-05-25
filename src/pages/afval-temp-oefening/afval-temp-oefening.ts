@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
-import { HermaakOefeningPage } from '../hermaak-oefening/hermaak-oefening';
 import { LoginPage } from '../login/login';
 import { AlertController } from 'ionic-angular';
 
@@ -21,6 +20,9 @@ import { SplitterPage } from '../splitter/splitter';
 })
 export class AfvalTempOefeningPage {
 
+  userId: number;
+  exerciseId: number;
+  
   aantalKeerFout : number = 0;
   
   templates: any = [];
@@ -43,6 +45,8 @@ export class AfvalTempOefeningPage {
     this.stoffen = this.templates[0].stoffen;
     this.uitleg = this.templates[0].uitleg;
     this.hint = this.templates[0].hint;
+    this.userId = this.navParams.data.userId;
+    this.exerciseId = this.navParams.data.exerciseId;
     
     this.dragulaService.drop.subscribe((val) =>
     {
@@ -160,6 +164,25 @@ export class AfvalTempOefeningPage {
 
       if(this.aantalKeerFout >= 5){
         this.showAlertBan();
+
+        // POST van een ban op de oefening van de gebruiker in de JSON-file
+        // Waarden die meegegeven worden:
+        // - userId
+        // - oefeningId
+        // - eindeBan
+
+        // In JSON-file wordt in dit geval het volgende ingevoerd:
+        // - id: ...
+        // - naam: "..."
+        // - email: "..."
+        // - completions: ...
+        // - bans: [
+        //  {
+        //     "oefeningId": ...
+        //     "eindeVanBan": ...      
+        //  }
+        // ]
+
         this.navCtrl.setRoot(LoginPage);
       }
       else if(this.aantalKeerFout >= 3){
