@@ -49,5 +49,4 @@ export class HomePage {
     });
     loader.present();
   }
-  
 }
