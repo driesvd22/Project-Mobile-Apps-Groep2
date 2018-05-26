@@ -14,7 +14,7 @@ import "rxjs/add/operator/map";
 export class ProvDataProvider {
 
   // Dit is momenteel de URL die verwijst naar een zelfgemaakt JSON-document
-  url: string = "https://api.myjson.com/bins/ubl82";
+  url: string = "https://api.myjson.com/bins/dnpme";
 
   constructor(public http: HttpClient, public http2: Http) {
 

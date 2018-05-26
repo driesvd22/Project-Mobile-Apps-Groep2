@@ -74,11 +74,11 @@ export class LoginPage {
     .then(data=>{
       // 2. Nakijken of deze gebruiker al bestaat in de huidige JSON-file
     if(this.checkIfUserExist(this.fire.auth.currentUser.uid)){
-      console.log('got some data', this.fire.auth.currentUser.email);
-      this.alert('Success! You\'re logged in ');
+      this.alert('U bent succesvol ingelogd!');
       this.navCtrl.setRoot(HomePage);
     }
     else {
+      console.log("POST nieuwe gebruiker");
       // POST van een nieuwe user in de JSON-file
       // Waarden die meegegeven worden:
       // - userId
@@ -93,17 +93,13 @@ export class LoginPage {
       // - bans: (lege array)
 
       // Vervolgens kan de gebruiker zich inloggen
-      console.log('got some data', this.fire.auth.currentUser.email);
-      this.alert('Success! You\'re logged in ');
+      this.alert('U bent succesvol ingelogd!');
       this.navCtrl.setRoot(HomePage);
-      console.log(this.fire.auth.currentUser.email);
-      console.log(this.fire.auth.currentUser.uid);
     }
       
     })
     .catch(error =>{
-      console.log('got an error', error);
-      this.alert('Try again, maybe fill in Username and/or Password');
+      this.alert('Incorrecte gebruikersnaam en/of passwoord!');
     })
   }
 }

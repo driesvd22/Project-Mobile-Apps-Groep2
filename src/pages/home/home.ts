@@ -15,12 +15,13 @@ export class HomePage {
   capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
-  userId: number;
+  userId: String;
   email: string;
   greeting: string;
 
   constructor(private fire: AngularFireAuth,public navCtrl: NavController, public viewCtrl: ViewController, public loadingCtrl: LoadingController, public navParams: NavParams) {
-    this.userId = navParams.data.userId;
+    this.userId = this.fire.auth.currentUser.uid;
+    this.email = this.fire.auth.currentUser.email;
   }
 
   openMaterialPage(){
@@ -28,9 +29,7 @@ export class HomePage {
   }
 
   openTeMakenOefeningenPage(){
-    this.navCtrl.push(TeMakenOefeningenPage, {
-      userId: this.userId
-    });
+    this.navCtrl.push(TeMakenOefeningenPage);
   }
 
   openHermaakOefeningPage(){
@@ -46,9 +45,8 @@ export class HomePage {
   ionViewDidLoad() {
     //this.toonLoading();
     //User waarmee je inlogt zijn email
-    this.email = this.fire.auth.currentUser.email.substring(0, this.fire.auth.currentUser.email.indexOf("."));
+    this.email = this.email.substring(0, this.fire.auth.currentUser.email.indexOf("."));
     this.email = this.capitalizeFirstLetter(this.email);
-    console.log(this.email);
     var d = new Date();
     var time = d.getHours();
     if (time >= 5 && time < 11 ) 
