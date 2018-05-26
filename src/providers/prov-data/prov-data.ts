@@ -14,9 +14,9 @@ import "rxjs/add/operator/map";
 export class ProvDataProvider {
 
   // Dit is momenteel de URL die verwijst naar een zelfgemaakt JSON-document
-  urlUsers: string = "http://192.168.0.205:8000/api/users";
-  urlLabos: string = "http://192.168.0.205:8000/api/labs";
-  urlAllMaterials: string = "http://192.168.0.205:8000/api/materials"
+  urlUsers: string = "http://localhost:8000/api/users";
+  urlLabos: string = "http://localhost:8000/api/labs";
+  urlAllMaterials: string = "http://localhost:8000/api/materials"
   url: string = "https://api.myjson.com/bins/m4a4m";
 
   constructor(public http: HttpClient, public http2: Http) {
@@ -41,8 +41,10 @@ export class ProvDataProvider {
     return this.http2.get(this.url).map(res => res.json());
   }
   
+  /*
   postRemoteData(body){
     let i = JSON.stringify(body).length;
     return this.http.post(this.url, JSON.stringify(body), {headers: {"Content-Type": "application/json"}});
   }
+  */
 }
