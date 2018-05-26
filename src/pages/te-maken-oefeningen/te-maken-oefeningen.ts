@@ -20,7 +20,9 @@ import { AngularFireAuth} from 'angularfire2/auth'
 })
 export class TeMakenOefeningenPage {
   
-  userId: String;
+  email: String;
+
+  erIsEenBan: boolean = false;
   
   AllLabos : any
   AllGebruikers: any;
@@ -28,17 +30,24 @@ export class TeMakenOefeningenPage {
   CompletionsOfUser: any;
   BansOfUser: any;
 
+  BansForView: any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public prov: ProvDataProvider, public loadingCtrl: LoadingController, private fire: AngularFireAuth) {
     
-    this.userId = this.fire.auth.currentUser.uid;
+    // Hardcoded bestaand account for testing
+    this.email = "ionut.alazaroae@pma18.onmicrosoft.com";
 
-    let temp = this.prov.getAllRemoteData();
-    temp.subscribe(data => {
-        this.AllLabos = data.Labos;
-        this.AllGebruikers = data.Gebruikers;
+    let labos = this.prov.getAllLabos()
+    let users = this.prov.getAllUsers();
+    
+    labos.subscribe(labos => {
+      users.subscribe(users => {
+        this.AllLabos = labos;
+        this.AllGebruikers = users;
 
         for (var x=0; x<this.AllGebruikers.length; x++){
-          if(this.AllGebruikers[x].id == this.userId){
+          // AANPASSING HARDCODED
+          if(this.AllGebruikers[x].email == "ionut.alazaroae@pma18.onmicrosoft.com"){
             this.indexOfUser = x;
           }
         }
@@ -50,12 +59,30 @@ export class TeMakenOefeningenPage {
 
         // Filter om te zien welke oefeningen er moeten weergegeven worden a.d.h.v. datum
         for (var i = 0; i<this.AllLabos.length; i++){
-          if(new Date(this.AllLabos[i].eindDatum).getTime() - new Date().getTime() <= 0){
+          
+          //AANPASSING HARDCODED
+          if(new Date(this.AllLabos[i].eindDatum).getTime() - new Date().getTime() >= 0){
             this.AllLabos.splice(i, 1);
             i--;
           }
+          else{
+            var allCompleted: boolean = true;
+            for (var t = 0; t < this.AllLabos[i].oefeningen.length; t++){
+              for (var u = 0; u < this.CompletionsOfUser.length; u++){
+                if(this.CompletionsOfUser[u] == this.AllLabos[i].oefeningen[t].oefeningId){
+                  allCompleted = true;
+                  u = this.CompletionsOfUser.length - 1;
+                }
+                else {
+                  allCompleted = false;
+                }
+              }
+            }
+          }
         }
 
+        /*
+        // Fiters voor weergave van de oefeningen afhankelijk van de gebruiker
         for (var y = 0; y<this.AllLabos.length; y++){
           for( var z = 0; z<this.AllLabos[y].oefeningen.length; z++){
             
@@ -67,10 +94,10 @@ export class TeMakenOefeningenPage {
             }
             // Nagaan of oefening geband is
             else{
-              var banOk = true;
+              var banOk: boolean = true;
               for(var n = 0; n < this.BansOfUser.length; n++){
                 if(this.BansOfUser[n].oefeningId == this.AllLabos[y].oefeningen[z].oefeningId){
-                  if(new Date(this.BansOfUser[n].eindeVanBan).getTime() - new Date().getTime() >= 0){
+                  if(new Date(this.BansOfUser[n].eindeBan).getTime() - new Date().getTime() >= 0){
                     banOk = false;
                   }
                 }
@@ -95,9 +122,11 @@ export class TeMakenOefeningenPage {
             }
           }
         }
-      }
-    );
-    this.userId = this.fire.auth.currentUser.uid;
+        */
+      })
+    })
+
+    this.email = this.fire.auth.currentUser.email;
   }
 
   showConfirm(oefening) {

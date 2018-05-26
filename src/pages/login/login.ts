@@ -31,15 +31,13 @@ export class LoginPage {
   @ViewChild('username') username;
   @ViewChild('password') password;
 
-  userid : string;
   email: string;
 
   constructor(private menu: MenuController,private alertCtrl: AlertController, private fire: AngularFireAuth,public navCtrl: NavController, public loadingCtrl: LoadingController, public prov: ProvDataProvider) {
-    let temp = this.prov.getAllRemoteData();
+    let temp = this.prov.getAllUsers();
     temp.subscribe(data => {
-      this.AllGebruikers = data.Gebruikers;
+      this.AllGebruikers = data;
     });
-    this.userid = null;
     this.email = null;
   }
 
@@ -47,12 +45,12 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
   }
 
-  checkIfUserExist(userid){
+  checkIfUserExist(email){
     
     var ok: boolean = false
     
     this.AllGebruikers.forEach(gebruiker => {
-      if(gebruiker.id == userid){
+      if(gebruiker.email == email){
         ok = true;
       }
     });
@@ -70,19 +68,20 @@ export class LoginPage {
 
   login()
   {
+    
     this.fire.auth.signInWithEmailAndPassword(this.username.value, this.password.value)
     .then(data=>{
       // 2. Nakijken of deze gebruiker al bestaat in de huidige JSON-file
-    if(this.checkIfUserExist(this.fire.auth.currentUser.uid)){
+    
+    if(this.checkIfUserExist("ionut.alazaroae@pma18.onmicrosoft.com")){
       this.alert('U bent succesvol ingelogd!');
       this.navCtrl.setRoot(HomePage);
     }
     else {
-      console.log("POST nieuwe gebruiker");
+      console.log("POST nieuwe gebruiker")
       // POST van een nieuwe user in de JSON-file
       // Waarden die meegegeven worden:
-      // - userId
-      // - naam
+      // - naam (van subtring van email)
       // - email
 
       // In JSON-file wordt in dit geval het volgende ingevoerd:

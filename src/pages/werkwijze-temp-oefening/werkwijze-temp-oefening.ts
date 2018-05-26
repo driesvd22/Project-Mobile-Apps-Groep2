@@ -133,6 +133,8 @@ export class WerkwijzeTempOefeningPage {
 
   check(){
     
+    console.log(this.juisteVolgorde);
+    
     let ok: boolean = true;
 
     let antwoord = [];

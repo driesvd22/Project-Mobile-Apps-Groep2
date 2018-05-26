@@ -15,12 +15,10 @@ export class HomePage {
   capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
-  userId: String;
   email: string;
   greeting: string;
 
   constructor(private fire: AngularFireAuth,public navCtrl: NavController, public viewCtrl: ViewController, public loadingCtrl: LoadingController, public navParams: NavParams) {
-    this.userId = this.fire.auth.currentUser.uid;
     this.email = this.fire.auth.currentUser.email;
   }
 
@@ -33,9 +31,7 @@ export class HomePage {
   }
 
   openHermaakOefeningPage(){
-    this.navCtrl.push(HermaakOefeningPage, {
-      userId: this.userId
-    });
+    this.navCtrl.push(HermaakOefeningPage);
   }
 
   openSettingsPage(){
@@ -43,7 +39,6 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-    //this.toonLoading();
     //User waarmee je inlogt zijn email
     this.email = this.email.substring(0, this.fire.auth.currentUser.email.indexOf("."));
     this.email = this.capitalizeFirstLetter(this.email);

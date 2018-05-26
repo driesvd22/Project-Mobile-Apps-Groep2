@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { AlertController } from 'ionic-angular';
@@ -6,6 +6,7 @@ import { AlertController } from 'ionic-angular';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { SplitterPage } from '../splitter/splitter';
 import { ProvDataProvider } from '../../providers/prov-data/prov-data';
+import { AngularFireAuth} from 'angularfire2/auth'
 
 /**
  * Generated class for the MatTempOefeningPage page.
@@ -21,7 +22,9 @@ import { ProvDataProvider } from '../../providers/prov-data/prov-data';
 })
 export class MatTempOefeningPage {
 
-  userId: number;
+  body = new EventEmitter();
+
+  email: string;
   exerciseId: number;
 
   // Templates vanuit de splitterPage
@@ -35,9 +38,172 @@ export class MatTempOefeningPage {
 
   aantalKeerFout : number = 0;
 
-  AllMaterials : any; 
+  AllMaterials: any = [
+    {
+      id: 1,
+      afbeelding: "assets/imgs/AnalytischBalans.png",
+      name: "Analytisch Balans",
+      soort: null
+    },
+    {
+      id: 2,
+      afbeelding: "assets/imgs/Bovenweger.png",
+      name: "Bovenweger",
+      soort: null 
+    },
+    {
+      id: 3,
+      afbeelding: "assets/imgs/Buret.png",
+      name: "Buret",
+      soort: null 
+    },
+    {
+      id: 4,
+      afbeelding: "assets/imgs/Destillatatieopzetstuk.png",
+      name: "Destillatatieopzetstuk",
+      soort: null 
+    },
+    {
+      id: 5,
+      afbeelding: "assets/imgs/Erlenmeyer.png",
+      name: "Erlenmeyer",
+      soort: null 
+    },
+    {
+      id: 6,
+      afbeelding: "assets/imgs/Filtreerpapier.png",
+      name: "Filtreerpapier",
+      soort: null 
+    },
+    {
+      id: 7,
+      afbeelding: "assets/imgs/GegradPipet.png",
+      name: "GegradPipet",
+      soort: null 
+    },
+    {
+      id: 8,
+      afbeelding: "assets/imgs/Klemburet.png",
+      name: "Klemburet",
+      soort: null 
+    },
+    {
+      id: 9,
+      afbeelding: "assets/imgs/Liebigkoeler.png",
+      name: "Liebigkoeler",
+      soort: null 
+    },
+    {
+      id: 10,
+      afbeelding: "assets/imgs/Maatbeker.png",
+      name: "Maatbeker",
+      soort: null 
+    },
+    {
+      id: 11,
+      afbeelding: "assets/imgs/Maatcilinder.png",
+      name: "Maatcilinder",
+      soort: null 
+    },
+    {
+      id: 12,
+      afbeelding: "assets/imgs/Maatkolf.png",
+      name: "Maatkolf",
+      soort: null 
+    },
+    {
+      id: 13,
+      afbeelding: "assets/imgs/Micropipet.png",
+      name: "Micropipet",
+      soort: null 
+    },
+    {
+      id: 14,
+      afbeelding: "assets/imgs/Ontwikkeltank.png",
+      name: "Ontwikkeltank",
+      soort: null 
+    },
+    {
+      id: 15,
+      afbeelding: "assets/imgs/Parafilm.png",
+      name: "Parafilm",
+      soort: null 
+    },
+    {
+      id: 16,
+      afbeelding: "assets/imgs/Pipetteerballon.png",
+      name: "Pipetteerballon",
+      soort: null 
+    },
+    {
+      id: 17,
+      afbeelding: "assets/imgs/Proefbuisrek.png",
+      name: "Proefbuisrek",
+      soort: null 
+    },
+    {
+      id: 18,
+      afbeelding: "assets/imgs/Reageerbuis.png",
+      name: "Reageerbuis",
+      soort: null 
+    },
+    {
+      id: 19,
+      afbeelding: "assets/imgs/Rondbodemkolf.png",
+      name: "Rondbodemkolf",
+      soort: null 
+    },
+    {
+      id: 20,
+      afbeelding: "assets/imgs/Silicagelplaat.png",
+      name: "Silicagelplaat",
+      soort: null 
+    },
+    {
+      id: 21,
+      afbeelding: "assets/imgs/Spuitfles.png",
+      name: "Spuitfles",
+      soort: null 
+    },
+    {
+      id: 22,
+      afbeelding: "assets/imgs/Statief.png",
+      name: "Statief",
+      soort: null 
+    },
+    {
+      id: 23,
+      afbeelding: "assets/imgs/ThermometerDes.jpg",
+      name: "ThermometerDes",
+      soort: null 
+    },
+    {
+      id: 24,
+      afbeelding: "assets/imgs/Trechter.png",
+      name: "Trechter",
+      soort: null 
+    },
+    {
+      id: 25,
+      afbeelding: "assets/imgs/Volpipet.png",
+      name: "Volpipet",
+      soort: null 
+    },
+    {
+      id: 26,
+      afbeelding: "assets/imgs/Waterslang.png",
+      name: "Waterslang",
+      soort: null 
+    },
+    {
+      id: 27,
+      afbeelding: "assets/imgs/Zuurkast.png",
+      name: "Zuurkast",
+      soort: null 
+    }
+  ]
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, public alertCtrl: AlertController, private dragulaService : DragulaService, public prov: ProvDataProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, public alertCtrl: AlertController, private dragulaService : DragulaService, public prov: ProvDataProvider, private fire: AngularFireAuth) {
     
     this.templates = navParams.data.templates;
 
@@ -50,12 +216,7 @@ export class MatTempOefeningPage {
         console.log('Item Moved');
     });
 
-    let temp = this.prov.getAllRemoteData();
-    temp.subscribe(data => {
-      this.AllMaterials = data.materialen;
-    });
-
-    this.userId = this.navParams.data.userId;
+    this.email = this.fire.auth.currentUser.email;
     this.exerciseId = this.navParams.data.exerciseId;
   }
 
@@ -109,13 +270,11 @@ export class MatTempOefeningPage {
   }
 
   check(){
-    
     let amountOfChoosenItems: number = this.q2.length;
     let amountOfJuisteMaterialen: number = this.juisteMaterialen.length;
     let ok: boolean = true;
 
-    if(amountOfChoosenItems == amountOfJuisteMaterialen){
-      
+    if(this.q2.length > 0){
       for (let materiaal of this.q2) {
         if (!this.juisteMaterialen.find(x => x === materiaal.id)){
           ok = false;
@@ -125,7 +284,7 @@ export class MatTempOefeningPage {
     else{
       ok = false;
     }
-
+    
     if(ok){
       this.showAlertJuist();
       this.templates.shift();
@@ -140,9 +299,10 @@ export class MatTempOefeningPage {
       if(this.aantalKeerFout >= 5){
         this.showAlertBan();
 
+        console.log("POST van een nieuwe ban");
         // POST van een ban op de oefening van de gebruiker in de JSON-file
         // Waarden die meegegeven worden:
-        // - userId
+        // - email
         // - oefeningId
         // - eindeBan
 

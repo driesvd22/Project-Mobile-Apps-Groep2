@@ -24,8 +24,6 @@ export class KkTempOefeningPage {
   userId: number;
   exerciseId: number;
 
-  AllMaterials: any;
-
   // Templates vanuit de splitterPage
   templates: any = [];
   hint: any;
@@ -35,6 +33,57 @@ export class KkTempOefeningPage {
   kwanMaterials: any = [];
   kwalMaterials: any = [];
 
+  kkMaterials: any = [
+    {
+      id: 1,
+      afbeelding: "assets/imgs/AnalytischBalans.png",
+      name: "Analytisch Balans",
+      soort: "kwan"
+    },
+    {
+      id: 2,
+      afbeelding: "assets/imgs/Bovenweger.png",
+      name: "Bovenweger",
+      soort: "kwal"
+    },
+    {
+      id: 3,
+      afbeelding: "assets/imgs/Buret.png",
+      name: "Buret",
+      soort: "kwan"
+    },
+    {
+      id: 5,
+      afbeelding: "assets/imgs/Erlenmeyer.png",
+      name: "Erlenmeyer",
+      soort: "kwal"
+    },
+    {
+      id: 10,
+      afbeelding: "assets/imgs/Maatbeker.png",
+      name: "Maatbeker",
+      soort: "kwal"
+    },
+    {
+      id: 12,
+      afbeelding: "assets/imgs/Maatkolf.png",
+      name: "Maatkolf",
+      soort: "kwan" 
+    },
+    {
+      id: 18,
+      afbeelding: "assets/imgs/Reageerbuis.png",
+      name: "Reageerbuis",
+      soort: "kwal" 
+    },
+    {
+      id: 25,
+      afbeelding: "assets/imgs/Volpipet.png",
+      name: "Volpipet",
+      soort: "kwan"
+    },
+  ]
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, public alertCtrl: AlertController, private dragulaService : DragulaService, public prov: ProvDataProvider) {
     this.templates = navParams.data.templates;
 
@@ -43,21 +92,6 @@ export class KkTempOefeningPage {
     this.dragulaService.drop.subscribe((val) =>
     {
         console.log('Item Moved');
-    });
-
-    let temp = this.prov.getAllRemoteData();
-    temp.subscribe(data => {
-      this.AllMaterials = data.materialen;
-
-      // Filter om te zien welke materialen iets te maken hebben met kwantitatief of kwalitatief
-      for (var i=0; i<this.AllMaterials.length; i++){
-        if(this.AllMaterials[i].soort == undefined){
-          this.AllMaterials.splice(i, 1);
-          i--;
-        }
-      }
-
-      this.shuffle(this.AllMaterials);
     });
 
     this.userId = this.navParams.data.userId;
