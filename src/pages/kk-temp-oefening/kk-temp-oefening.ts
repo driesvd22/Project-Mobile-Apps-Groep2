@@ -165,15 +165,20 @@ export class KkTempOefeningPage {
   check(){
     let ok: boolean = true;
 
-    for (let material of this.kwanMaterials){
-      if(!(material.soort == "kwan")){
-        ok = false;
+    if(this.kkMaterials.length == 0){
+      for (let material of this.kwanMaterials){
+        if(!(material.soort == "kwan")){
+          ok = false;
+        }
+      }
+      for (let material of this.kwalMaterials){
+        if(!(material.soort == "kwal")){
+          ok = false;
+        }
       }
     }
-    for (let material of this.kwalMaterials){
-      if(!(material.soort == "kwal")){
-        ok = false;
-      }
+    else{
+      ok = false;
     }
 
     if(ok){
