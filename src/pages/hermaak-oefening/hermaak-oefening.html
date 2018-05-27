@@ -1,32 +1,27 @@
 <ion-header>
-    <ion-navbar class="pageHeader">
-      <button ion-button menuToggle>
-        <ion-icon name="menu" class="menuIcon"></ion-icon>
-      </button>
-      <ion-title class="pageTitle">Hermaak Oefening</ion-title>
-    </ion-navbar>
-  </ion-header>
-  
-  <ion-content padding>
-      <ion-item-group>
-        <ion-item-divider color="light">Labo 1</ion-item-divider>
-        <ion-item>
-          <a (click)="openOefening(1)">MateriaalTemp oefening</a>
-        </ion-item>
-        <ion-item>
-            <a (click)="openOefening(2)">VerwijzingsTemplate oefening</a>
-        </ion-item>
-        <ion-item>
-            <a (click)="openOefening(3)">AfvalTemplate oefening</a>
-        </ion-item>
-        <ion-item>
-            <a (click)="openOefening(4)">WerkwijzeTemplate oefening</a>
-        </ion-item>
-      </ion-item-group>
-      <ion-item-group>
-          <ion-item-divider color="light">Labo 2</ion-item-divider>
-        </ion-item-group>
-    </ion-content>
+        <ion-navbar class="pageHeader">
+          <button ion-button menuToggle>
+            <ion-icon name="menu" class="menuIcon"></ion-icon>
+          </button>
+          <ion-title class="pageTitle">Hermaak Oefeningen</ion-title>
+        </ion-navbar>
+      </ion-header>
+      
+      <ion-content padding>
 
-    <!-- Id dat wordt meegegeven aan de openOefening functie komt uit de json-file -->
+          <ion-card-header>
+              Woordje uitleg
+            </ion-card-header>
+          
+             <p>Hieronder vindt u een lijst met de labo's en bijhorende oefeningen dat verstreken zijn.</p> 
+             <p><b>U kunt deze oefeningen blijven hermaken zonder rekening te houden met foute antwoorden (of met andere woorden "Banning op oefeningen"). </b></p>
+      
+        <ion-item-group *ngFor="let labo of AllLabos" no-lines>
+          <ion-item-divider color="light">{{labo.laboNaam}}</ion-item-divider>
+          <ion-item *ngFor="let oefening of labo.oefeningen" no-lines>
+            <a (click)="showConfirm(oefening)">{{oefening.exerciseNaam}}</a>
+          </ion-item>
+        </ion-item-group>
+        
+      </ion-content>
   

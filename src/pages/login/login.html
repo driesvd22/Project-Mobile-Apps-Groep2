@@ -1,21 +1,34 @@
-<ion-header>
+<ion-content class="login-content" padding>
+    
+  <ion-row class="logo-row">
+      <ion-col>
+        <img class="logo" src="assets/imgs/index.png"/>
+      </ion-col>
+  </ion-row>
+<div class="login-box">
+ <form>
+ <ion-row>
+   <ion-col>
+      <ion-list inset>
+          <ion-item>
 
-  <ion-navbar>
-    <ion-title>Login</ion-title>
-  </ion-navbar>
+            <ion-input placeholder="Username" type="text" #username aria-required="true"></ion-input>
+          </ion-item>
+        <br>
+          <ion-item>
+            <ion-input placeholder="Password" type="password" #password aria-required="true"></ion-input>
+          </ion-item>
+        
+        </ion-list>
+   </ion-col>
+ </ion-row>
 
-</ion-header>
+<ion-row>
+  <ion-col class="signup-col">
+      <button ion-button class="submit-btn" full (click)="login()">Login</button>
+  </ion-col>
+</ion-row>
+</form>
 
-
-<ion-content padding>
-    <ion-list>
-        <img src="../../assets/imgs/erasmus_logo.jpg" alt="Logo" height="120" width="146"> 
-        <ion-item>
-          <ion-input id="username" type="text" placeholder="Gebruikersnaam"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input id="password" type="password" placeholder="Paswoord"></ion-input>
-        </ion-item>
-        <button ion-button color="secondary" round (click)="login()">Login</button>
-      </ion-list>
+</div> 
 </ion-content>

@@ -9,22 +9,16 @@
   
   <ion-content padding>
       
-      <ion-list>
-          <ion-item (click)="moreInfo('erlemeyer')">
+      <ion-list *ngFor="let material of AllMaterialen">
+          <ion-item>
             <ion-thumbnail item-start>
-              <img src="../../assets/imgs/erlemeyer.png">
+              <img src="{{material.afbeelding}}">
             </ion-thumbnail>
-            <h2>erlemeyer</h2>
+            <h2>{{material.name}}</h2>
+            <p>{{material.soort}}</p>
+            <button ion-button clear item-end (click)="goToMatPage(material)">Bekijk</button>
           </ion-item>
       </ion-list>
 
-      <ion-list>
-          <ion-item (click)="moreInfo('logo')">
-            <ion-thumbnail item-start>
-              <img src="../../assets/imgs/erasmus_logo.jpg">
-            </ion-thumbnail>
-            <h2>Iets anders</h2>
-          </ion-item>
-      </ion-list>
   </ion-content>
   
