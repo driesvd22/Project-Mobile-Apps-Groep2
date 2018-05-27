@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Brightness} from '@ionic-native/brightness';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
@@ -15,11 +16,20 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class SettingsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  brightness: number;
+
+
+  constructor(private bright: Brightness,public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SettingsPage');
+  }
+
+  setBrightness(){
+
+    let newBrightness = this.brightness / 10;
+    this.bright.setBrightness(newBrightness);
   }
 
 }

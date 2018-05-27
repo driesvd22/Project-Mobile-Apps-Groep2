@@ -9,7 +9,7 @@
   
   <ion-content padding>
       <ion-item>
-          <ion-range [(ngModel)]="brightness">
+          <ion-range color="primary" min="0" max="10" step="1" (ionChange)="setBrightness()" [(ngModel)]="brightness" >
             <ion-icon range-left small name="sunny"></ion-icon>
             <ion-icon range-right name="sunny"></ion-icon>
           </ion-range>

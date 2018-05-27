@@ -29,6 +29,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import {AngularFireModule} from 'angularfire2';
 import {AngularFireAuthModule } from 'angularfire2/auth';
+import {Brightness} from '@ionic-native/brightness'
 
 const firebaseAuth = {
   apiKey: "AIzaSyCKyG8wOBJDzjjTcWsCCZ0ZKApN3OPBxOk",
@@ -90,7 +91,8 @@ const firebaseAuth = {
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ProvDataProvider
+    ProvDataProvider,
+    Brightness
   ]
 })
 export class AppModule {}
