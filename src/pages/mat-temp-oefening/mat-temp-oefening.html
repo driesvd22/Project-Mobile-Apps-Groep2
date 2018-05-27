@@ -30,8 +30,8 @@
         </ion-card-content>
       </div>
 
-      <ion-list [dragula]="'my-bag'" [dragulaModel]="AllMaterials" class="allMaterials">
-        <div ion-button clear color="secondary" *ngFor="let item of AllMaterials" class="material">
+      <ion-list [dragula]="'my-bag'" [dragulaModel]="AllMaterialen" class="allMaterials">
+        <div ion-button clear color="secondary" *ngFor="let item of AllMaterialen" class="material">
           <img src="{{item.afbeelding}}" width="48" height="48"> 
           {{item.name}}
         </div>

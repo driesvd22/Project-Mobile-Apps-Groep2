@@ -19,7 +19,7 @@ export class ChooseListPage {
   templates: any = [];
   lijsten: any = [];
   userId: number;
-  exerciseId: number;
+  oefeningId: number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController) {
     this.templates = navParams.data.templates;
@@ -27,7 +27,7 @@ export class ChooseListPage {
     this.lijsten = this.templates[0].lijsten;
 
     this.userId = this.navParams.data.userId;
-    this.exerciseId = this.navParams.data.exerciseId;
+    this.oefeningId = this.navParams.data.oefeningId;
   }
 
   ionViewDidLoad() {
@@ -50,7 +50,7 @@ export class ChooseListPage {
       templates: this.templates,
       listIndex: i,
       userId: this.userId,
-      exerciseId: this.exerciseId
+      oefeningId: this.oefeningId
     });
   }
 

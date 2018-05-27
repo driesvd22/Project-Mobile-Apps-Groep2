@@ -31,35 +31,15 @@ export class LoginPage {
   @ViewChild('username') username;
   @ViewChild('password') password;
 
-  userid : string;
   email: string;
 
   constructor(private menu: MenuController,private alertCtrl: AlertController, private fire: AngularFireAuth,public navCtrl: NavController, public loadingCtrl: LoadingController, public prov: ProvDataProvider) {
-    let temp = this.prov.getAllRemoteData();
-    temp.subscribe(data => {
-      this.AllGebruikers = data.Gebruikers;
-    });
-    this.userid = null;
     this.email = null;
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
   }
-
-  checkIfUserExist(userid){
-    
-    var ok: boolean = false
-    
-    this.AllGebruikers.forEach(gebruiker => {
-      if(gebruiker.id == userid){
-        ok = true;
-      }
-    });
-
-    return ok;
-  }
-
+ 
   alert(message: string){
     this.alertCtrl.create({
       title: 'Info!',
@@ -70,40 +50,40 @@ export class LoginPage {
 
   login()
   {
+    
     this.fire.auth.signInWithEmailAndPassword(this.username.value, this.password.value)
     .then(data=>{
-      // 2. Nakijken of deze gebruiker al bestaat in de huidige JSON-file
-    if(this.checkIfUserExist(this.fire.auth.currentUser.uid)){
-      console.log('got some data', this.fire.auth.currentUser.email);
-      this.alert('Success! You\'re logged in ');
-      this.navCtrl.setRoot(HomePage);
-    }
-    else {
-      // POST van een nieuwe user in de JSON-file
-      // Waarden die meegegeven worden:
-      // - userId
-      // - naam
-      // - email
+    // 2. Nakijken of deze gebruiker al bestaat in de huidige JSON-file
 
-      // In JSON-file wordt in dit geval het volgende ingevoerd:
-      // - id: 1
-      // - naam: "Test"
-      // - email: "test.email@outlook.com"
-      // - completions: (lege array)
-      // - bans: (lege array)
-
-      // Vervolgens kan de gebruiker zich inloggen
-      console.log('got some data', this.fire.auth.currentUser.email);
-      this.alert('Success! You\'re logged in ');
-      this.navCtrl.setRoot(HomePage);
-      console.log(this.fire.auth.currentUser.email);
-      console.log(this.fire.auth.currentUser.uid);
-    }
+    let temp = this.prov.getAllUsers();
+    temp.subscribe(data => {
       
+      this.AllGebruikers = data;
+
+      var ok: boolean = false
+      this.AllGebruikers.forEach(gebruiker => {
+        if(gebruiker.email == this.username.value){
+          ok = true
+        }
+      });
+
+      if(ok){
+        this.alert('U bent succesvol ingelogd!');
+        this.navCtrl.setRoot(HomePage);
+      }
+      else {      
+        // POST van een nieuwe user in de JSON-file
+        this.prov.postNewUser(this.username.value.substring(0, this.username.value.indexOf(".")), this.username.value);
+      
+        // Vervolgens kan de gebruiker zich inloggen
+        this.alert('U bent succesvol ingelogd!');
+        this.navCtrl.setRoot(HomePage);
+      }
+    });
+
     })
     .catch(error =>{
-      console.log('got an error', error);
-      this.alert('Try again, maybe fill in Username and/or Password');
+      this.alert('Incorrecte gebruikersnaam en/of passwoord!');
     })
   }
 }

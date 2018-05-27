@@ -16,7 +16,8 @@ import { SplitterPage } from '../splitter/splitter';
   templateUrl: 'verwijzings-temp-oefening.html',
 })
 export class VerwijzingsTempOefeningPage {
-
+  
+  oefeningId: number;
 
   templates: any = [];
 
@@ -32,6 +33,7 @@ export class VerwijzingsTempOefeningPage {
     
     this.uitleg = this.templates[0].uitleg;
     this.link = this.templates[0].link;
+    this.oefeningId = this.navParams.data.oefeningId;
   }
 
   //https://stackoverflow.com/questions/38652827/disable-swipe-to-view-sidemenu-ionic-2/38654644?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
@@ -50,7 +52,8 @@ export class VerwijzingsTempOefeningPage {
   goBack(){
     this.templates.shift();
     this.navCtrl.setRoot(SplitterPage, {
-      templates: this.templates
+      templates: this.templates,
+      oefeningId: this.oefeningId
     });
   }
 }

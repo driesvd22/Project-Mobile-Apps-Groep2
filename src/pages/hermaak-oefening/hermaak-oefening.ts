@@ -4,6 +4,7 @@ import { AlertController } from 'ionic-angular';
 import { SplitterPage } from '../splitter/splitter';
 import { ProvDataProvider } from '../../providers/prov-data/prov-data';
 import { LoadingController } from 'ionic-angular';
+import { AngularFireAuth} from 'angularfire2/auth'
 
 /**
  * Generated class for the HermaakOefeningPage page.
@@ -19,13 +20,13 @@ import { LoadingController } from 'ionic-angular';
 })
 export class HermaakOefeningPage {
 
-  userId: any;
+  email: string;
   AllLabos : any; 
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public prov: ProvDataProvider, public loadingCtrl: LoadingController) {
-    let temp = this.prov.getAllRemoteData();
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public prov: ProvDataProvider, public loadingCtrl: LoadingController, private fire: AngularFireAuth) {
+    let temp = this.prov.getAllLabos();
     temp.subscribe(data => {
-      this.AllLabos = data.Labos;
+      this.AllLabos = data;
 
       // Filter om te zien welke oefeningen er moeten weergegeven worden a.d.h.v. datum
       for (var i=0; i<this.AllLabos.length; i++){
@@ -34,15 +35,12 @@ export class HermaakOefeningPage {
           i--;
         }
       }
-
       console.log(this.AllLabos);
     });
-    this.userId = this.navParams.data.userId;
+    this.email = this.fire.auth.currentUser.email;
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad HermaakOefeningPage');
-    console.log(this.userId);
     this.toonLoading();
   }
 
