@@ -20,6 +20,8 @@ export class ProvDataProvider {
   urlAllMaterials: string = "http://localhost:8000/api/materials";
 
   urlPostNewUser: string = "http://localhost:8000/api/newuser";
+  urlPostNewBan: string = "http://localhost:8000/api/newban";
+  urlPostNewCompletion: string = "http://localhost:8000/api/newcompletion";
 
   url: string = "https://api.myjson.com/bins/m4a4m";
 
@@ -44,40 +46,68 @@ export class ProvDataProvider {
     //return this.http.get(this.url);
     return this.http2.get(this.url).map(res => res.json());
   }
-  
-  postNewUser() {
-    let body = new FormData();
-    body.append('naam', 'test4');
-    body.append('email', 'test4.test@outlook.com');
-    
+
+  postNewUser(naam, email){
     var headers = new Headers();
-    headers.append("Content-Type", "application/json" );
-    headers.append("Access-Control-Allow-Origin", "*");
-    console.log(headers);
+    headers.append("Accept", 'application/json');
+    headers.append("Access-Control-Allow-Origin","*");
+    headers.append('Content-Type', 'application/json' );
     let options = new RequestOptions({ headers: headers });
-    
-    this.http2
-      .post('http://localhost:8000/api/newuser', body, options)
-      .map(res => res.json())
+
+    var body = 
+    {
+      "naam": naam,
+      "email": email
+    }
+
+    this.http2.post(this.urlPostNewUser, body, options)
       .subscribe(data => {
         console.log(data);
-      },
-      err => {
-        console.log("ERROR!: ", err);
-      })
+       }, error => {
+        console.log(error);// Error getting the data
+      });
   }
 
-  postNewUser2(){
+  postNewBan(userId, oefeningId, eindeBan){
+    var headers = new Headers();
+    headers.append("Accept", 'application/json');
+    headers.append("Access-Control-Allow-Origin","*");
+    headers.append('Content-Type', 'application/json' );
+    let options = new RequestOptions({ headers: headers });
+
     var body = 
-      {
-        "naam": "test4",
-        "email": "test4.test4@outlook.com"
-      }
-    return this.http.post(this.urlPostNewUser, body, {headers: {"Content-Type": "application/json"}});
+    {
+      "userId": userId,
+      "oefeningId": oefeningId,
+      "eindBan": eindeBan
+    }
+
+    this.http2.post(this.urlPostNewBan, body, options)
+      .subscribe(data => {
+        console.log(data);
+       }, error => {
+        console.log(error);// Error getting the data
+      });
   }
 
-  postRemoteData(body){
-    let i = JSON.stringify(body).length;
-    return this.http.post(this.url, JSON.stringify(body), {headers: {"Content-Type": "application/json"}});
+  postNewCompletion(userId, oefeningId){
+    var headers = new Headers();
+    headers.append("Accept", 'application/json');
+    headers.append("Access-Control-Allow-Origin","*");
+    headers.append('Content-Type', 'application/json' );
+    let options = new RequestOptions({ headers: headers });
+
+    var body = 
+    {
+      "userId": userId,
+      "oefeningId": oefeningId
+    }
+
+    this.http2.post(this.urlPostNewCompletion, body, options)
+      .subscribe(data => {
+        console.log(data);
+       }, error => {
+        console.log(error);// Error getting the data
+      });
   }
 }

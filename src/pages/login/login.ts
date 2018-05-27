@@ -34,29 +34,10 @@ export class LoginPage {
   email: string;
 
   constructor(private menu: MenuController,private alertCtrl: AlertController, private fire: AngularFireAuth,public navCtrl: NavController, public loadingCtrl: LoadingController, public prov: ProvDataProvider) {
-    let temp = this.prov.getAllUsers();
-    temp.subscribe(data => {
-      this.AllGebruikers = data;
-    });
     this.email = null;
-
-    this.prov.postNewUser2();
   }
 
   ionViewDidLoad() {
-  }
-
-  checkIfUserExist(email){
-    
-    var ok: boolean = false
-    
-    this.AllGebruikers.forEach(gebruiker => {
-      if(gebruiker.email == email){
-        ok = true;
-      }
-    });
-
-    return ok;
   }
  
   alert(message: string){
@@ -72,31 +53,34 @@ export class LoginPage {
     
     this.fire.auth.signInWithEmailAndPassword(this.username.value, this.password.value)
     .then(data=>{
-      // 2. Nakijken of deze gebruiker al bestaat in de huidige JSON-file
-    
-    if(this.checkIfUserExist("ionut.alazaroae@pma18.onmicrosoft.com")){
-      this.alert('U bent succesvol ingelogd!');
-      this.navCtrl.setRoot(HomePage);
-    }
-    else {
-      console.log("POST nieuwe gebruiker")
-      // POST van een nieuwe user in de JSON-file
-      // Waarden die meegegeven worden:
-      // - naam (van subtring van email)
-      // - email
+    // 2. Nakijken of deze gebruiker al bestaat in de huidige JSON-file
 
-      // In JSON-file wordt in dit geval het volgende ingevoerd:
-      // - id: 1
-      // - naam: "Test"
-      // - email: "test.email@outlook.com"
-      // - completions: (lege array)
-      // - bans: (lege array)
-
-      // Vervolgens kan de gebruiker zich inloggen
-      this.alert('U bent succesvol ingelogd!');
-      this.navCtrl.setRoot(HomePage);
-    }
+    let temp = this.prov.getAllUsers();
+    temp.subscribe(data => {
       
+      this.AllGebruikers = data;
+
+      var ok: boolean = false
+      this.AllGebruikers.forEach(gebruiker => {
+        if(gebruiker.email == this.username.value){
+          ok = true
+        }
+      });
+
+      if(ok){
+        this.alert('U bent succesvol ingelogd!');
+        this.navCtrl.setRoot(HomePage);
+      }
+      else {      
+        // POST van een nieuwe user in de JSON-file
+        this.prov.postNewUser(this.username.value.substring(0, this.username.value.indexOf(".")), this.username.value);
+      
+        // Vervolgens kan de gebruiker zich inloggen
+        this.alert('U bent succesvol ingelogd!');
+        this.navCtrl.setRoot(HomePage);
+      }
+    });
+
     })
     .catch(error =>{
       this.alert('Incorrecte gebruikersnaam en/of passwoord!');

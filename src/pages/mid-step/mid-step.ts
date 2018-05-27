@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angul
 import { AlertController } from 'ionic-angular';
 import { SplitterPage } from '../splitter/splitter';
 import { LoginPage } from '../login/login';
+import { ProvDataProvider } from '../../providers/prov-data/prov-data';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 /**
  * Generated class for the MidStepPage page.
@@ -19,7 +21,8 @@ import { LoginPage } from '../login/login';
 export class MidStepPage {
   
   userId: number;
-  exerciseId: number;
+  oefeningId: number;
+  email: string;
   
   aantalKeerFout: any = 0;
   templates: any = [];
@@ -27,11 +30,12 @@ export class MidStepPage {
   allMidSteps: any = [];
   answersByUser: any = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, public alertCtrl: AlertController, public prov: ProvDataProvider, private fire: AngularFireAuth) {
     this.templates = navParams.data.templates;
     this.steps = navParams.data.steps;
     this.userId = this.navParams.data.userId;
-    this.exerciseId = this.navParams.data.exerciseId;
+    this.oefeningId = this.navParams.data.oefeningId;
+    this.email = this.fire.auth.currentUser.email;
 
     for (let i=0; i<this.steps.length; i++){
       if(this.steps[i].midsteps != null){
@@ -110,7 +114,8 @@ export class MidStepPage {
       this.templates.shift();
 
       this.navCtrl.setRoot(SplitterPage, {
-        templates: this.templates
+        templates: this.templates,
+        oefeningId: this.oefeningId
       });
     }
     else{
@@ -119,23 +124,43 @@ export class MidStepPage {
       if(this.aantalKeerFout >= 5){
         this.showAlertBan();
 
-        // POST van een ban op de oefening van de gebruiker in de JSON-file
-        // Waarden die meegegeven worden:
-        // - userId
-        // - oefeningId
-        // - eindeBan
+        let temp = this.prov.getAllUsers();
+        temp.subscribe(data => {
+          var Allgebruikers = data;
+          var userId
 
-        // In JSON-file wordt in dit geval het volgende ingevoerd:
-        // - id: ...
-        // - naam: "..."
-        // - email: "..."
-        // - completions: ...
-        // - bans: [
-        //  {
-        //     "oefeningId": ...
-        //     "eindeVanBan": ...      
-        //  }
-        // ]
+          Allgebruikers.forEach(gebruiker => {
+            if(this.email == gebruiker.email){
+              userId = gebruiker.id;
+            }
+          });
+
+          console.log("POST van een ban");
+          console.log(userId);
+          console.log(this.oefeningId);
+          var uur = new Date().getUTCHours();
+          console.log(new Date().setUTCHours(uur + 1).toString());
+
+          this.prov.postNewBan(userId, this.oefeningId, new Date().setUTCHours(uur + 1).toString());
+
+          // POST van een ban op de oefening van de gebruiker in de JSON-file
+          // Waarden die meegegeven worden:
+          // - userId
+          // - oefeningId
+          // - eindeBan
+
+          // In JSON-file wordt in dit geval het volgende ingevoerd:
+          // - id: ...
+          // - naam: "..."
+          // - email: "..."
+          // - completions: ...
+          // - bans: [
+          //  {
+          //     "oefeningId": ...
+          //     "eindeVanBan": ...      
+          //  }
+          // ]
+        })
 
         this.navCtrl.setRoot(LoginPage);
       }

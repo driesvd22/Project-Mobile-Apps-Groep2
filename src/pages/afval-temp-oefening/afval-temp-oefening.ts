@@ -2,9 +2,11 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { AlertController } from 'ionic-angular';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { SplitterPage } from '../splitter/splitter';
+import { ProvDataProvider } from '../../providers/prov-data/prov-data';
 
 /**
  * Generated class for the AfvalTempOefeningPage page.
@@ -20,8 +22,8 @@ import { SplitterPage } from '../splitter/splitter';
 })
 export class AfvalTempOefeningPage {
 
-  userId: number;
-  exerciseId: number;
+  email: string;
+  oefeningId: number;
   
   aantalKeerFout : number = 0;
   
@@ -39,14 +41,14 @@ export class AfvalTempOefeningPage {
   bruineFles: any = []; // id 6
   gootsteen: any = []; // id 7
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, public alertCtrl: AlertController, private dragulaService : DragulaService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, public alertCtrl: AlertController, private dragulaService : DragulaService, public prov: ProvDataProvider, private fire: AngularFireAuth) {
     
     this.templates = navParams.data.templates;
     this.stoffen = this.templates[0].stoffen;
     this.uitleg = this.templates[0].uitleg;
     this.hint = this.templates[0].hint;
-    this.userId = this.navParams.data.userId;
-    this.exerciseId = this.navParams.data.exerciseId;
+    this.oefeningId = this.navParams.data.oefeningId;
+    this.email = this.fire.auth.currentUser.email;
     
     this.dragulaService.drop.subscribe((val) =>
     {
@@ -156,7 +158,8 @@ export class AfvalTempOefeningPage {
       this.templates.shift();
 
       this.navCtrl.setRoot(SplitterPage, {
-        templates: this.templates
+        templates: this.templates,
+        oefeningId: this.oefeningId
       });
     }
     else{
@@ -165,23 +168,43 @@ export class AfvalTempOefeningPage {
       if(this.aantalKeerFout >= 5){
         this.showAlertBan();
 
-        // POST van een ban op de oefening van de gebruiker in de JSON-file
-        // Waarden die meegegeven worden:
-        // - userId
-        // - oefeningId
-        // - eindeBan
+        let temp = this.prov.getAllUsers();
+        temp.subscribe(data => {
+          var Allgebruikers = data;
+          var userId
 
-        // In JSON-file wordt in dit geval het volgende ingevoerd:
-        // - id: ...
-        // - naam: "..."
-        // - email: "..."
-        // - completions: ...
-        // - bans: [
-        //  {
-        //     "oefeningId": ...
-        //     "eindeVanBan": ...      
-        //  }
-        // ]
+          Allgebruikers.forEach(gebruiker => {
+            if(this.email == gebruiker.email){
+              userId = gebruiker.id;
+            }
+          });
+
+          console.log("POST van een ban");
+          console.log(userId);
+          console.log(this.oefeningId);
+          var uur = new Date().getUTCHours();
+          console.log(new Date().setUTCHours(uur + 1).toString());
+
+          this.prov.postNewBan(userId, this.oefeningId, new Date().setUTCHours(uur + 1).toString());
+          
+          // POST van een ban op de oefening van de gebruiker in de JSON-file
+          // Waarden die meegegeven worden:
+          // - userId
+          // - oefeningId
+          // - eindeBan
+
+          // In JSON-file wordt in dit geval het volgende ingevoerd:
+          // - id: ...
+          // - naam: "..."
+          // - email: "..."
+          // - completions: ...
+          // - bans: [
+          //  {
+          //     "oefeningId": ...
+          //     "eindeVanBan": ...      
+          //  }
+          // ]
+        })
 
         this.navCtrl.setRoot(LoginPage);
       }

@@ -6,6 +6,8 @@ import { HomePage } from '../home/home';
 import { KkTempOefeningPage } from '../kk-temp-oefening/kk-temp-oefening';
 import { AfvalTempOefeningPage } from '../afval-temp-oefening/afval-temp-oefening';
 import { ChooseListPage } from '../choose-list/choose-list';
+import { ProvDataProvider } from '../../providers/prov-data/prov-data';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 /**
  * Generated class for the SplitterPage page.
@@ -22,24 +24,94 @@ import { ChooseListPage } from '../choose-list/choose-list';
 export class SplitterPage {
 
   userId: number;
-  exerciseId: number;
+  oefeningId: number;
+  email: string;
   
   templates: any = [];
   
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public prov: ProvDataProvider, private fire: AngularFireAuth) {
     this.templates = navParams.data.templates;
     this.userId = this.navParams.data.userId;
-    this.exerciseId = this.navParams.data.exerciseId;
+    this.oefeningId = this.navParams.data.oefeningId;
+    this.email = this.fire.auth.currentUser.email;
   }
 
   ionViewDidLoad() {
 
+    console.log(this.oefeningId);
+    
     if(this.templates == null){
-      this.navCtrl.setRoot(HomePage);
+      console.log("ok");
+          let temp = this.prov.getAllUsers();
+          temp.subscribe(data => {
+            var Allgebruikers = data;
+            var userId
+  
+            Allgebruikers.forEach(gebruiker => {
+              if(this.email == gebruiker.email){
+                userId = gebruiker.id;
+              }
+            });
+  
+            console.log("POST van een Completion");
+            console.log(userId);
+            console.log(this.oefeningId);
+
+            this.prov.postNewCompletion(userId, this.oefeningId);
+  
+            //COMPLETION
+          
+            // POST van een nieuwe completion in de JSON-file
+            // Waarden die meegegeven worden:
+            // - userId
+            // - oefeningId
+
+            // In JSON-file wordt in dit geval het volgende ingevoerd:
+            // - id: ...
+            // - naam: "..."
+            // - email: "..."
+            // - completions: [1] (de exerciceId komt hier)
+            // - bans: ...
+          })
+
+          this.navCtrl.setRoot(HomePage);
     }
     
     else if(this.templates.length == 0){
-      this.navCtrl.setRoot(HomePage);
+      console.log("ok");
+          let temp = this.prov.getAllUsers();
+          temp.subscribe(data => {
+            var Allgebruikers = data;
+            var userId
+  
+            Allgebruikers.forEach(gebruiker => {
+              if(this.email == gebruiker.email){
+                userId = gebruiker.id;
+              }
+            });
+  
+            console.log("POST van een Completion");
+            console.log(userId);
+            console.log(this.oefeningId);
+
+            this.prov.postNewCompletion(userId, this.oefeningId);
+  
+            //COMPLETION
+          
+            // POST van een nieuwe completion in de JSON-file
+            // Waarden die meegegeven worden:
+            // - userId
+            // - oefeningId
+
+            // In JSON-file wordt in dit geval het volgende ingevoerd:
+            // - id: ...
+            // - naam: "..."
+            // - email: "..."
+            // - completions: [1] (de exerciceId komt hier)
+            // - bans: ...
+          })
+
+          this.navCtrl.setRoot(HomePage);
     }
     
     else{
@@ -49,7 +121,7 @@ export class SplitterPage {
           this.navCtrl.setRoot(MatTempOefeningPage, {
             templates: this.templates,
             userId: this.userId,
-            exerciseId: this.exerciseId
+            oefeningId: this.oefeningId
           });
           break;
         }
@@ -57,7 +129,7 @@ export class SplitterPage {
           this.navCtrl.setRoot(VerwijzingsTempOefeningPage, {
             templates: this.templates,
             userId: this.userId,
-            exerciseId: this.exerciseId
+            oefeningId: this.oefeningId
           });
           break;
         }
@@ -65,7 +137,7 @@ export class SplitterPage {
           this.navCtrl.setRoot(KkTempOefeningPage, {
             templates: this.templates,
             userId: this.userId,
-            exerciseId: this.exerciseId
+            oefeningId: this.oefeningId
           });
           break;
         }
@@ -73,7 +145,7 @@ export class SplitterPage {
           this.navCtrl.setRoot(AfvalTempOefeningPage, {
             templates: this.templates,
             userId: this.userId,
-            exerciseId: this.exerciseId
+            oefeningId: this.oefeningId
           });
           break;
         }
@@ -81,25 +153,43 @@ export class SplitterPage {
           this.navCtrl.setRoot(ChooseListPage, {
             templates: this.templates,
             userId: this.userId,
-            exerciseId: this.exerciseId
+            oefeningId: this.oefeningId
           });
           break;
         }
         default:{
-          
-          //COMPLETION
-          
-          // POST van een nieuwe completion in de JSON-file
-          // Waarden die meegegeven worden:
-          // - userId
-          // - oefeningId
+          console.log("ok");
+          let temp = this.prov.getAllUsers();
+          temp.subscribe(data => {
+            var Allgebruikers = data;
+            var userId
+  
+            Allgebruikers.forEach(gebruiker => {
+              if(this.email == gebruiker.email){
+                userId = gebruiker.id;
+              }
+            });
+  
+            console.log("POST van een Completion");
+            console.log(userId);
+            console.log(this.oefeningId);
 
-          // In JSON-file wordt in dit geval het volgende ingevoerd:
-          // - id: ...
-          // - naam: "..."
-          // - email: "..."
-          // - completions: [1] (de exerciceId komt hier)
-          // - bans: ...
+            this.prov.postNewCompletion(userId, this.oefeningId);
+  
+            //COMPLETION
+          
+            // POST van een nieuwe completion in de JSON-file
+            // Waarden die meegegeven worden:
+            // - userId
+            // - oefeningId
+
+            // In JSON-file wordt in dit geval het volgende ingevoerd:
+            // - id: ...
+            // - naam: "..."
+            // - email: "..."
+            // - completions: [1] (de exerciceId komt hier)
+            // - bans: ...
+          })
 
           this.navCtrl.setRoot(HomePage);
         }

@@ -25,7 +25,7 @@ export class MatTempOefeningPage {
   body = new EventEmitter();
 
   email: string;
-  exerciseId: number;
+  oefeningId: number;
 
   // Templates vanuit de splitterPage
   templates: any = [];
@@ -210,6 +210,7 @@ export class MatTempOefeningPage {
     this.uitleg = this.templates[0].uitleg;
     this.juisteMaterialen = this.templates[0].juisteMaterialen;
     this.hint = this.templates[0].hint;
+    this.oefeningId = this.navParams.data.oefeningId;
 
     this.dragulaService.drop.subscribe((val) =>
     {
@@ -217,7 +218,7 @@ export class MatTempOefeningPage {
     });
 
     this.email = this.fire.auth.currentUser.email;
-    this.exerciseId = this.navParams.data.exerciseId;
+    this.oefeningId = this.navParams.data.oefeningId;
   }
 
   //https://stackoverflow.com/questions/38652827/disable-swipe-to-view-sidemenu-ionic-2/38654644?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
@@ -230,6 +231,7 @@ export class MatTempOefeningPage {
   }
 
   ionViewDidLoad() {
+    console.log(this.oefeningId);
     console.log(this.templates);
   }
 
@@ -290,7 +292,8 @@ export class MatTempOefeningPage {
       this.templates.shift();
 
       this.navCtrl.setRoot(SplitterPage, {
-        templates: this.templates
+        templates: this.templates,
+        oefeningId: this.oefeningId
       });
     }
     else{
@@ -299,24 +302,43 @@ export class MatTempOefeningPage {
       if(this.aantalKeerFout >= 5){
         this.showAlertBan();
 
-        console.log("POST van een nieuwe ban");
-        // POST van een ban op de oefening van de gebruiker in de JSON-file
-        // Waarden die meegegeven worden:
-        // - email
-        // - oefeningId
-        // - eindeBan
+        let temp = this.prov.getAllUsers();
+        temp.subscribe(data => {
+          var Allgebruikers = data;
+          var userId
 
-        // In JSON-file wordt in dit geval het volgende ingevoerd:
-        // - id: ...
-        // - naam: "..."
-        // - email: "..."
-        // - completions: ...
-        // - bans: [
-        //  {
-        //     "oefeningId": ...
-        //     "eindeVanBan": ...      
-        //  }
-        // ]
+          Allgebruikers.forEach(gebruiker => {
+            if(this.email == gebruiker.email){
+              userId = gebruiker.id;
+            }
+          });
+
+          console.log("POST van een ban");
+          console.log(userId);
+          console.log(this.oefeningId);
+          var uur = new Date().getUTCHours();
+          console.log(new Date().setUTCHours(uur + 1).toString());
+
+          this.prov.postNewBan(userId, this.oefeningId, new Date().setUTCHours(uur + 1).toString());
+
+          // POST van een ban op de oefening van de gebruiker in de JSON-file
+          // Waarden die meegegeven worden:
+          // - userId
+          // - oefeningId
+          // - eindeBan
+
+          // In JSON-file wordt in dit geval het volgende ingevoerd:
+          // - id: ...
+          // - naam: "..."
+          // - email: "..."
+          // - completions: ...
+          // - bans: [
+          //  {
+          //     "oefeningId": ...
+          //     "eindeVanBan": ...      
+          //  }
+          // ]
+        })
 
         this.navCtrl.setRoot(LoginPage);
       }

@@ -45,8 +45,8 @@ export class TeMakenOefeningenPage {
         this.AllGebruikers = users;
 
         for (var x=0; x<this.AllGebruikers.length; x++){
-          // AANPASSING HARDCODED
-          if(this.AllGebruikers[x].email == "ionut.alazaroae@pma18.onmicrosoft.com"){
+
+          if(this.AllGebruikers[x].email == this.email){
             this.indexOfUser = x;
           }
         }
@@ -59,8 +59,8 @@ export class TeMakenOefeningenPage {
         // Filter om te zien welke oefeningen er moeten weergegeven worden a.d.h.v. datum
         for (var i = 0; i<this.AllLabos.length; i++){
           
-          //AANPASSING HARDCODED
-          if(new Date(this.AllLabos[i].eindDatum).getTime() - new Date().getTime() >= 0){
+          //HARDCODE
+          if(new Date(this.AllLabos[i].eindDatum).getTime() - new Date().getTime() <= 0){
             this.AllLabos.splice(i, 1);
             i--;
           }
@@ -80,7 +80,6 @@ export class TeMakenOefeningenPage {
           }
         }
 
-        /*
         // Fiters voor weergave van de oefeningen afhankelijk van de gebruiker
         for (var y = 0; y<this.AllLabos.length; y++){
           for( var z = 0; z<this.AllLabos[y].oefeningen.length; z++){
@@ -96,7 +95,7 @@ export class TeMakenOefeningenPage {
               var banOk: boolean = true;
               for(var n = 0; n < this.BansOfUser.length; n++){
                 if(this.BansOfUser[n].oefeningId == this.AllLabos[y].oefeningen[z].oefeningId){
-                  if(new Date(this.BansOfUser[n].eindeBan).getTime() - new Date().getTime() >= 0){
+                  if(this.BansOfUser[n].eindeVanBan - new Date().getTime() >= 0){
                     banOk = false;
                   }
                 }
@@ -115,17 +114,12 @@ export class TeMakenOefeningenPage {
                 while (this.AllLabos[y].oefeningen.length > z+1){
                   this.AllLabos[y].oefeningen.pop();
                 }
-                this.AllLabos[y].oefeningen.splice(z, 1);
-                z--;
               }
             }
           }
         }
-        */
       })
     })
-
-    this.email = this.fire.auth.currentUser.email;
   }
 
   showConfirm(oefening) {
@@ -153,7 +147,8 @@ export class TeMakenOefeningenPage {
   
   openOefening(oefening){
     this.navCtrl.setRoot(SplitterPage, {
-      templates: oefening.templates
+      templates: oefening.templates,
+      oefeningId: oefening.oefeningId
     });
   }
 
