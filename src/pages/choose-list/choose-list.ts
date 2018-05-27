@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
-import { SplitterPage } from '../splitter/splitter';
-
+import { WerkwijzeTempOefeningPage } from '../werkwijze-temp-oefening/werkwijze-temp-oefening';
 
 /**
- * Generated class for the VerwijzingsTempOefeningPage page.
+ * Generated class for the ChooseListPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -12,28 +11,29 @@ import { SplitterPage } from '../splitter/splitter';
 
 @IonicPage()
 @Component({
-  selector: 'page-verwijzings-temp-oefening',
-  templateUrl: 'verwijzings-temp-oefening.html',
+  selector: 'page-choose-list',
+  templateUrl: 'choose-list.html',
 })
-export class VerwijzingsTempOefeningPage {
-  
-  oefeningId: number;
+export class ChooseListPage {
 
   templates: any = [];
-
-  uitleg: any;
-  link: any;
-
-  // Logic om uitleg en link te gaan ophalen
-  //uitleg: String = "Dit is de uitleg die de docent meegeeft";
-  //link: String="https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+  lijsten: any = [];
+  userId: number;
+  oefeningId: number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController) {
     this.templates = navParams.data.templates;
-    
-    this.uitleg = this.templates[0].uitleg;
-    this.link = this.templates[0].link;
+
+    this.lijsten = this.templates[0].lijsten;
+
+    this.userId = this.navParams.data.userId;
     this.oefeningId = this.navParams.data.oefeningId;
+  }
+
+  ionViewDidLoad() {
+    this.lijsten.forEach(lijst => {
+      console.log(lijst);
+    });
   }
 
   //https://stackoverflow.com/questions/38652827/disable-swipe-to-view-sidemenu-ionic-2/38654644?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
@@ -45,15 +45,13 @@ export class VerwijzingsTempOefeningPage {
     this.menu.swipeEnable(true);
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad VerwijzingsTempOefeningPage');
-  }
-
-  goBack(){
-    this.templates.shift();
-    this.navCtrl.setRoot(SplitterPage, {
+  goToWerkwijzeTemplate(i){
+    this.navCtrl.setRoot(WerkwijzeTempOefeningPage, {
       templates: this.templates,
+      listIndex: i,
+      userId: this.userId,
       oefeningId: this.oefeningId
     });
   }
+
 }

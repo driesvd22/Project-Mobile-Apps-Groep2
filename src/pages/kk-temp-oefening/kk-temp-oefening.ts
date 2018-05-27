@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { AlertController } from 'ionic-angular';
-import { DragulaService } from 'ng2-dragula/ng2-dragula';
-import { SplitterPage } from '../splitter/splitter';
-import { MidStepPage } from '../mid-step/mid-step';
-import { ProvDataProvider } from '../../providers/prov-data/prov-data';
 import { AngularFireAuth } from 'angularfire2/auth';
 
+import { DragulaService } from 'ng2-dragula/ng2-dragula';
+import { SplitterPage } from '../splitter/splitter';
+import { ProvDataProvider } from '../../providers/prov-data/prov-data';
+
 /**
- * Generated class for the WerkwijzeTempOefeningPage page.
+ * Generated class for the KkTempOefeningPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -17,75 +17,89 @@ import { AngularFireAuth } from 'angularfire2/auth';
 
 @IonicPage()
 @Component({
-  selector: 'page-werkwijze-temp-oefening',
-  templateUrl: 'werkwijze-temp-oefening.html',
+  selector: 'page-kk-temp-oefening',
+  templateUrl: 'kk-temp-oefening.html',
 })
-export class WerkwijzeTempOefeningPage {
-  
+export class KkTempOefeningPage {
+
   userId: number;
   oefeningId: number;
-
-  templates: any = [];
-  listIndex: any;
-  stappen: any = [];
-  hint: any;
-
   email: string;
+
+  // Templates vanuit de splitterPage
+  templates: any = [];
+  hint: any;
 
   aantalKeerFout : number = 0;
 
-  stappenMetMidsteps: any = [];
+  kwanMaterials: any = [];
+  kwalMaterials: any = [];
 
-  juisteVolgorde : any = [];
-
-  gegevenVolgorde : any = [];
-
-  gekozenVolgorde : any = [];
+  kkMaterials: any = [
+    {
+      id: 31,
+      afbeelding: "assets/imgs/AnalytischBalans.png",
+      name: "Analytisch Balans",
+      soort: "kwan"
+    },
+    {
+      id: 30,
+      afbeelding: "assets/imgs/Bovenweger.png",
+      name: "Bovenweger",
+      soort: "kwal"
+    },
+    {
+      id: 29,
+      afbeelding: "assets/imgs/Buret.png",
+      name: "Buret",
+      soort: "kwan"
+    },
+    {
+      id: 27,
+      afbeelding: "assets/imgs/Erlenmeyer.png",
+      name: "Erlenmeyer",
+      soort: "kwal"
+    },
+    {
+      id: 22,
+      afbeelding: "assets/imgs/Maatbeker.png",
+      name: "Maatbeker",
+      soort: "kwal"
+    },
+    {
+      id: 19,
+      afbeelding: "assets/imgs/Maatkolf.png",
+      name: "Maatkolf",
+      soort: "kwan" 
+    },
+    {
+      id: 13,
+      afbeelding: "assets/imgs/Reageerbuis.png",
+      name: "Reageerbuis",
+      soort: "kwal" 
+    },
+    {
+      id: 6,
+      afbeelding: "assets/imgs/Volpipet.png",
+      name: "Volpipet",
+      soort: "kwan"
+    },
+  ]
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, public alertCtrl: AlertController, private dragulaService : DragulaService, public prov: ProvDataProvider, private fire: AngularFireAuth) {
     this.templates = navParams.data.templates;
-    this.listIndex = navParams.data.listIndex;
 
-    this.stappen = this.templates[0].lijsten[this.listIndex].stappen;
-    this.hint = this.templates[0].hint;
+    this.hint = "kwantitatief is zeer nauwkeurig, analytisch glaswerk om bv. een concentratie te bepalen. Kwalitatief glaswerk is minder nauwkeurig, niet analytisch glaswerk om bv. een identificatiereactie (om na te gaan welke stof aanwezig is) uit te voeren.";
+
+    this.dragulaService.drop.subscribe((val) =>
+    {
+        console.log('Item Moved');
+    });
 
     this.userId = this.navParams.data.userId;
     this.oefeningId = this.navParams.data.oefeningId;
     this.email = this.fire.auth.currentUser.email;
-
-    this.stappen.forEach(stap => {
-      this.juisteVolgorde.push(stap.id);
-      
-      if(!(stap.midsteps == null || stap.midsteps.length == 0)){
-        this.stappenMetMidsteps.push(stap.midsteps);
-      }
-    });
-  
-    this.gegevenVolgorde = this.shuffle(this.stappen);
-
-    this.dragulaService.drop.subscribe((val) =>
-    {
-        console.log("Object Moved");
-    });
   }
-
-  getVolgorde(){
-    this.stappen.forEach(stap => {
-        this.juisteVolgorde.push(stap.id);      
-    });
-  }
-
-  /**
-    * Shuffles array in place. ES6 version
-    * items An array containing the items.
-  */
-  shuffle(a) {
-    for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  };
 
   //https://stackoverflow.com/questions/38652827/disable-swipe-to-view-sidemenu-ionic-2/38654644?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
   ionViewDidEnter() {
@@ -94,11 +108,23 @@ export class WerkwijzeTempOefeningPage {
   //https://stackoverflow.com/questions/38652827/disable-swipe-to-view-sidemenu-ionic-2/38654644?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
   ionViewWillLeave() {
     this.menu.swipeEnable(true);
-   }
+  }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad WerkwijzeTempOefeningPage');
+    console.log('ionViewDidLoad KkTempOefeningPage');
   }
+
+  /**
+    * Shuffles array in place. ES6 version
+    * items An array containing the items.
+  */
+ shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
 
   showAlert() {
     let alert = this.alertCtrl.create({
@@ -137,19 +163,15 @@ export class WerkwijzeTempOefeningPage {
   }
 
   check(){
-    
-    console.log(this.juisteVolgorde);
-    
     let ok: boolean = true;
 
-    let antwoord = [];
-
-    this.gekozenVolgorde.forEach(stap => {
-      antwoord.push(stap.id);
-    });
-    
-    for (let i in this.juisteVolgorde) {
-      if(antwoord[i] !== this.juisteVolgorde[i] || antwoord[i] == null){
+    for (let material of this.kwanMaterials){
+      if(!(material.soort == "kwan")){
+        ok = false;
+      }
+    }
+    for (let material of this.kwalMaterials){
+      if(!(material.soort == "kwal")){
         ok = false;
       }
     }
@@ -157,21 +179,12 @@ export class WerkwijzeTempOefeningPage {
     if(ok){
       this.showAlertJuist();
       
-      if(this.stappenMetMidsteps.length == 0 || this.stappenMetMidsteps == null){
-        this.templates.shift();
+      this.templates.shift();
 
-        this.navCtrl.setRoot(SplitterPage, {
-          templates: this.templates,
-          oefeningId: this.oefeningId
-        });
-      }
-      else {
-        this.navCtrl.setRoot(MidStepPage, {
-          templates: this.templates,
-          steps: this.gekozenVolgorde,
-          oefeningId: this.oefeningId
-        });
-      }
+      this.navCtrl.setRoot(SplitterPage, {
+        templates: this.templates,
+        oefeningId: this.oefeningId
+      });
     }
     else{
       this.aantalKeerFout++;
@@ -216,6 +229,7 @@ export class WerkwijzeTempOefeningPage {
           //  }
           // ]
         })
+
         this.navCtrl.setRoot(LoginPage);
       }
       else if(this.aantalKeerFout >= 3){

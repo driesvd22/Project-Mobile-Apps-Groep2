@@ -1,0 +1,15 @@
+.stoffen{
+    height: 20%;
+    overflow-y: scroll;
+    border:1px solid black;
+}
+
+.material{
+    height: 100px;
+}
+
+.no-scroll .scroll-content{
+    overflow: hidden;
+}
+
+

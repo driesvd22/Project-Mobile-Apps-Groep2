@@ -8,12 +8,36 @@
   </ion-header>
   
   <ion-content padding>
+  
+
+      <ion-card-header>
+        Woordje uitleg
+      </ion-card-header>
     
-    <ion-item-group>
-      <ion-item-divider color="light">Open exercises</ion-item-divider>
-      <ion-item>
-        <a (click)="openLabo(1)">Labo X</a>
+       Wanneer je denkt klaar te zijn met de te maken oefeningen kijk dan zeker volgende punten na!
+        <ul>
+          <li>
+            Indien er een oefening wordt weergegeven onder een labo wilt dit zeggen dat je deze zeker nog moet maken!
+            <ul>
+              <li>Na het succesvol afwerken wordt de volgende oefening beschikbaar gesteld.</li>
+            </ul>
+          </li>
+          <li>
+            Indien een labo wordt weergegeven zonder oefeningen kan dit twee zaken betekenen:
+            <ul>
+              <li>Of u bent klaar met alle oefeningen voor dit labo!</li>
+              <li><b>Of indien u gebannen bent uit een oefening (na meermaals te proberen) wordt deze niet meer weergegeven en dient u 1 uur te wachten alvorens deze terug beschikbaar is!</b></li>
+            </ul>
+          </li>
+          <li>Indien er helemaal niets staat op deze pagina wilt dit zeggen dat er momenteel geen te maken oefeningen werden opgegeven door de docent.</li>
+       </ul>
+
+    <ion-item-group *ngFor="let labo of AllLabos" no-lines>
+      <ion-item-divider color="light">{{labo.laboNaam}} - tegen: {{labo.eindDatum.substring(0,10)}} {{labo.eindDatum.substring(11,19)}}</ion-item-divider>
+      <ion-item *ngFor="let oefening of labo.oefeningen" no-lines>
+        <a (click)="showConfirm(oefening)">{{oefening.exerciseNaam}}</a>
       </ion-item>
     </ion-item-group>
+    
   </ion-content>
   
