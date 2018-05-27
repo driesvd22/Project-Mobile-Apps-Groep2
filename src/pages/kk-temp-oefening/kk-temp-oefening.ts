@@ -37,49 +37,49 @@ export class KkTempOefeningPage {
 
   kkMaterials: any = [
     {
-      id: 1,
+      id: 31,
       afbeelding: "assets/imgs/AnalytischBalans.png",
       name: "Analytisch Balans",
       soort: "kwan"
     },
     {
-      id: 2,
+      id: 30,
       afbeelding: "assets/imgs/Bovenweger.png",
       name: "Bovenweger",
       soort: "kwal"
     },
     {
-      id: 3,
+      id: 29,
       afbeelding: "assets/imgs/Buret.png",
       name: "Buret",
       soort: "kwan"
     },
     {
-      id: 5,
+      id: 27,
       afbeelding: "assets/imgs/Erlenmeyer.png",
       name: "Erlenmeyer",
       soort: "kwal"
     },
     {
-      id: 10,
+      id: 22,
       afbeelding: "assets/imgs/Maatbeker.png",
       name: "Maatbeker",
       soort: "kwal"
     },
     {
-      id: 12,
+      id: 19,
       afbeelding: "assets/imgs/Maatkolf.png",
       name: "Maatkolf",
       soort: "kwan" 
     },
     {
-      id: 18,
+      id: 13,
       afbeelding: "assets/imgs/Reageerbuis.png",
       name: "Reageerbuis",
       soort: "kwal" 
     },
     {
-      id: 25,
+      id: 6,
       afbeelding: "assets/imgs/Volpipet.png",
       name: "Volpipet",
       soort: "kwan"
