@@ -1,0 +1,52 @@
+<!--
+  Generated template for the WerkwijzeTempOefeningPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Maken</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="no-scroll">
+    <!--
+      <p>Werkwijze Template Oefening</p>
+      <p>template ID: {{tempID}} </p>
+    -->
+
+    <div>
+      <ion-card-header>
+        Sleep de verschillende stappen in de juiste volgorde
+      </ion-card-header>
+    
+      <ion-card-content>
+      </ion-card-content>
+    </div>
+
+   
+      
+        <ion-list [dragula]='"my-bag"' [dragulaModel]="gegevenVolgorde" class="table1">
+          <button ion-item *ngFor="let item of gegevenVolgorde" detail-none>
+            {{item.step}}
+          </button>
+        </ion-list>
+      
+
+     
+        <ion-list [dragula]='"my-bag"' [dragulaModel]="gekozenVolgorde" class="table2">
+          <button ion-item *ngFor="let item of gekozenVolgorde" detail-none>
+            {{item.step}}
+          </button>
+        </ion-list>
+      
+    
+    
+    <button ion-button round (click)="check()">Submit</button>
+    
+
+</ion-content>

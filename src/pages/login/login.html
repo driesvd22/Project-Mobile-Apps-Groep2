@@ -1,0 +1,34 @@
+<ion-content class="login-content" padding>
+    
+  <ion-row class="logo-row">
+      <ion-col>
+        <img class="logo" src="assets/imgs/index.png"/>
+      </ion-col>
+  </ion-row>
+<div class="login-box">
+ <form>
+ <ion-row>
+   <ion-col>
+      <ion-list inset>
+          <ion-item>
+
+            <ion-input placeholder="Username" type="text" #username aria-required="true"></ion-input>
+          </ion-item>
+        <br>
+          <ion-item>
+            <ion-input placeholder="Password" type="password" #password aria-required="true"></ion-input>
+          </ion-item>
+        
+        </ion-list>
+   </ion-col>
+ </ion-row>
+
+<ion-row>
+  <ion-col class="signup-col">
+      <button ion-button class="submit-btn" full (click)="login()">Login</button>
+  </ion-col>
+</ion-row>
+</form>
+
+</div> 
+</ion-content>

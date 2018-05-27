@@ -1,0 +1,100 @@
+<!--
+  Generated template for the AfvalTempOefeningPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Maken</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="no-scroll">
+  <div>
+      <ion-card-header>
+        Sleep de stoffen naar de juiste afvalbak
+      </ion-card-header>
+    
+      <ion-card-content>
+        {{this.uitleg}}
+      </ion-card-content>
+    </div>
+    
+    <button ion-button round (click)="check()">Submit</button>
+    <ion-list [dragula]="'my-bag'" [dragulaModel]="stoffen" class="afvalStoffen">
+        <div ion-button clear color="secondary" *ngFor="let item of stoffen">
+          {{item.naam}}
+        </div>
+    </ion-list>
+
+    <ion-row>
+      <ion-col width-50 class="left">
+        <p>Categorie 1</p>
+        <ion-list [dragula]="'my-bag'" [dragulaModel]="cat1" class="categorie">
+          <div ion-button clear color="secondary" *ngFor="let item of cat1">
+            {{item.naam}}
+          </div>
+        </ion-list>
+      </ion-col>
+
+      <ion-col width-50 class="right">
+        <p>Categorie 2</p>
+        <ion-list [dragula]="'my-bag'" [dragulaModel]="cat2" class="categorie">
+          <div ion-button clear color="secondary" *ngFor="let item of cat2">
+            {{item.naam}}
+          </div>
+        </ion-list>
+      </ion-col>
+
+      <ion-col width-50 class="right">
+          <p>Categorie 3</p>
+          <ion-list [dragula]="'my-bag'" [dragulaModel]="cat3" class="categorie">
+            <div ion-button clear color="secondary" *ngFor="let item of cat3">
+              {{item.naam}}
+            </div>
+          </ion-list>
+      </ion-col>
+
+      <ion-col width-50 class="left">
+          <p>Categorie 4</p>
+          <ion-list [dragula]="'my-bag'" [dragulaModel]="cat4" class="categorie">
+            <div ion-button clear color="secondary" *ngFor="let item of cat4">
+              {{item.naam}}
+            </div>
+          </ion-list>
+        </ion-col>
+  
+        <ion-col width-50 class="right">
+          <p>Categorie 5</p>
+          <ion-list [dragula]="'my-bag'" [dragulaModel]="cat5" class="categorie">
+            <div ion-button clear color="secondary" *ngFor="let item of cat5">
+              {{item.naam}}
+            </div>
+          </ion-list>
+        </ion-col>
+  
+        <ion-col width-50 class="right">
+            <p>Bruine Fles</p>
+            <ion-list [dragula]="'my-bag'" [dragulaModel]="bruineFles" class="categorie">
+              <div ion-button clear color="secondary" *ngFor="let item of bruineFles">
+                {{item.naam}}
+              </div>
+            </ion-list>
+        </ion-col>
+
+        <ion-col width-50 class="right">
+          <p>Gootsteen</p>
+            <ion-list [dragula]="'my-bag'" [dragulaModel]="gootsteen" class="categorie">
+              <div ion-button clear color="secondary" *ngFor="let item of gootsteen">
+                {{item.naam}}
+              </div>
+            </ion-list>
+        </ion-col>
+    </ion-row>
+      
+    
+</ion-content>

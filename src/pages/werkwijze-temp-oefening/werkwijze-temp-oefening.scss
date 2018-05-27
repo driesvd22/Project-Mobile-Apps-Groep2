@@ -1,0 +1,16 @@
+.table1{
+    height: 20%;
+    overflow-y: scroll;
+}
+
+.table2{
+    height: 50%;
+    overflow-y: scroll;
+    border:1px solid black;
+    background-color: #a7aaaf;
+    margin-bottom: 0em;
+}
+
+.no-scroll .scroll-content{
+    overflow: hidden;
+}
