@@ -3,6 +3,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
+import { TestDataPage } from '../pages/test-data/test-data';
 import { HomePage } from '../pages/home/home';
 import { MaterialsPage } from '../pages/materials/materials';
 import { TeMakenOefeningenPage } from '../pages/te-maken-oefeningen/te-maken-oefeningen';
@@ -26,6 +27,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { DragulaModule } from '../../node_modules/ng2-dragula';
 import { ProvDataProvider } from '../providers/prov-data/prov-data';
 import { HttpClientModule } from '@angular/common/http';
+
 import { HttpModule } from '@angular/http';
 import {AngularFireModule} from 'angularfire2';
 import {AngularFireAuthModule } from 'angularfire2/auth';
@@ -40,10 +42,12 @@ const firebaseAuth = {
   messagingSenderId: "319132470873"
 };
 
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
+    TestDataPage,
     TeMakenOefeningenPage,
     HermaakOefeningPage,
     MaterialsPage, 
@@ -61,6 +65,7 @@ const firebaseAuth = {
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     DragulaModule,
     IonicModule.forRoot(MyApp),
     HttpClientModule,
@@ -72,6 +77,7 @@ const firebaseAuth = {
   entryComponents: [
     MyApp,
     HomePage,
+    TestDataPage,
     TeMakenOefeningenPage,
     HermaakOefeningPage,
     MaterialsPage, 
