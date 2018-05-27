@@ -34,8 +34,7 @@ export class TeMakenOefeningenPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public prov: ProvDataProvider, public loadingCtrl: LoadingController, private fire: AngularFireAuth) {
     
-    // Hardcoded bestaand account for testing
-    this.email = "ionut.alazaroae@pma18.onmicrosoft.com";
+    this.email = this.fire.auth.currentUser.email;
 
     let labos = this.prov.getAllLabos()
     let users = this.prov.getAllUsers();

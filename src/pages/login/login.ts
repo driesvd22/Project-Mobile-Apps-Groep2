@@ -39,10 +39,11 @@ export class LoginPage {
       this.AllGebruikers = data;
     });
     this.email = null;
+
+    this.prov.postNewUser2();
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
   }
 
   checkIfUserExist(email){
