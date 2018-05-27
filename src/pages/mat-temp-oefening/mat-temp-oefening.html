@@ -13,42 +13,38 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding class="no-scroll">
     
   <!--
     <p>Material Template Oefening</p>
     <p>template ID: {{tempID}} </p>
   -->
     
-      <ion-card>
+      <div>
         <ion-card-header>
           Sleep het juiste materiaal op de tafel
         </ion-card-header>
       
         <ion-card-content>
-          "Uitleg over het labo en wat je moet doen, zodat de studenten weten welk materiaal ze moeten nemen"
+          {{this.uitleg}}
         </ion-card-content>
-      </ion-card>
+      </div>
 
-      <ion-row>
-        <ion-col width-50 class="left">
-          <ion-list [dragula]="'my-bag'" [dragulaModel]="AllMaterials" class="allMaterials">
-            <div ion-button clear color="secondary" *ngFor="let item of AllMaterials" class="material">
-              <img src="{{item.afbeelding}}" width="48" height="48"> 
-              {{item.name}}
-            </div>
-          </ion-list>
-          <button ion-button round (click)="check()">Submit</button>
-        </ion-col>
+      <ion-list [dragula]="'my-bag'" [dragulaModel]="AllMaterials" class="allMaterials">
+        <div ion-button clear color="secondary" *ngFor="let item of AllMaterials" class="material">
+          <img src="{{item.afbeelding}}" width="48" height="48"> 
+          {{item.name}}
+        </div>
+      </ion-list>
 
-        <ion-col width-50 class="right">
-          <ion-list [dragula]="'my-bag'" [dragulaModel]="q2" class="choosenMaterials">
-            <div ion-button clear color="secondary" *ngFor="let item of q2" class="material">
-              <img src="{{item.afbeelding}}" width="48" height="48"> 
-            </div>
-          </ion-list>
-          <div class="tafelPoten1"></div>
-          <div class="tafelPoten2"></div>
-        </ion-col>
-      </ion-row>
+      <ion-list [dragula]="'my-bag'" [dragulaModel]="q2" class="choosenMaterials">
+        <div ion-button clear color="secondary" *ngFor="let item of q2" class="material">
+          <img src="{{item.afbeelding}}" width="48" height="48"> 
+        </div>
+        
+      </ion-list>
+      <div class="tafelPoten1"></div>
+      <div class="tafelPoten2"></div>
+      <button ion-button round (click)="check()">Submit</button>
+      
 </ion-content>

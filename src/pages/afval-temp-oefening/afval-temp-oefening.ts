@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
-import { HermaakOefeningPage } from '../hermaak-oefening/hermaak-oefening';
 import { LoginPage } from '../login/login';
 import { AlertController } from 'ionic-angular';
 
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
+import { SplitterPage } from '../splitter/splitter';
 
 /**
  * Generated class for the AfvalTempOefeningPage page.
@@ -20,32 +20,16 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
 })
 export class AfvalTempOefeningPage {
 
-  tempID: any;
+  userId: number;
+  exerciseId: number;
+  
   aantalKeerFout : number = 0;
+  
+  templates: any = [];
+  uitleg: any;
+  hint: any;
 
-  // logic om gevraagde stoffen op te halen naar gelang de tempID
-  stoffen: any = [
-    {
-      id: 1,
-      naam: "zout",
-      afval: 1
-    },
-    {
-      id: 2,
-      naam: "Peper",
-      afval: 1
-    },
-    {
-      id: 3,
-      naam: "Water",
-      afval: 7
-    },
-    {
-      id: 4,
-      naam: "Giftige stof",
-      afval: 6
-    }
-  ];
+  stoffen: any = [];
 
   cat1: any = [];// id 1
   cat2: any = []; // id 2
@@ -56,7 +40,13 @@ export class AfvalTempOefeningPage {
   gootsteen: any = []; // id 7
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, public alertCtrl: AlertController, private dragulaService : DragulaService) {
-    this.tempID = navParams.data.tempID;
+    
+    this.templates = navParams.data.templates;
+    this.stoffen = this.templates[0].stoffen;
+    this.uitleg = this.templates[0].uitleg;
+    this.hint = this.templates[0].hint;
+    this.userId = this.navParams.data.userId;
+    this.exerciseId = this.navParams.data.exerciseId;
     
     this.dragulaService.drop.subscribe((val) =>
     {
@@ -74,7 +64,7 @@ export class AfvalTempOefeningPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AfvalTempOefeningPage');
+    console.log(this.templates);
   }
 
   showAlert() {
@@ -88,11 +78,10 @@ export class AfvalTempOefeningPage {
 
   showHint() {
     // logic om hint te gaan ophalen afhankelijk van de tempID
-    let hint: any = "Dit is de hint";
 
     let alert = this.alertCtrl.create({
       title: 'Hint',
-      subTitle: hint,
+      subTitle: this.hint,
       buttons: ['OK']
     });
     alert.present();
@@ -120,51 +109,80 @@ export class AfvalTempOefeningPage {
     
     let ok: boolean = true;
 
-    for (let stof of this.cat1){
-      if(!(stof.afval == 1)){
-        ok = false;
+    if(this.stoffen.length == 0){
+      for (let stof of this.cat1){
+        if(!(stof.afval == 1)){
+          ok = false;
+        }
+      }
+      for (let stof of this.cat2){
+        if(!(stof.afval == 2)){
+          ok = false;
+        }
+      }
+      for (let stof of this.cat3){
+        if(!(stof.afval == 3)){
+          ok = false;
+        }
+      }
+      for (let stof of this.cat4){
+        if(!(stof.afval == 4)){
+          ok = false;
+        }
+      }
+      for (let stof of this.cat5){
+        if(!(stof.afval == 5)){
+          ok = false;
+        }
+      }
+      for (let stof of this.bruineFles){
+        if(!(stof.afval == 6)){
+          ok = false;
+        }
+      }
+      for (let stof of this.gootsteen){
+        if(!(stof.afval == 7)){
+          ok = false;
+        }
       }
     }
-    for (let stof of this.cat2){
-      if(!(stof.afval == 2)){
-        ok = false;
-      }
-    }
-    for (let stof of this.cat3){
-      if(!(stof.afval == 3)){
-        ok = false;
-      }
-    }
-    for (let stof of this.cat4){
-      if(!(stof.afval == 4)){
-        ok = false;
-      }
-    }
-    for (let stof of this.cat5){
-      if(!(stof.afval == 5)){
-        ok = false;
-      }
-    }
-    for (let stof of this.bruineFles){
-      if(!(stof.afval == 6)){
-        ok = false;
-      }
-    }
-    for (let stof of this.gootsteen){
-      if(!(stof.afval == 7)){
-        ok = false;
-      }
+    else {
+      ok = false;
     }
 
     if(ok){
       this.showAlertJuist();
-      this.navCtrl.setRoot(HermaakOefeningPage);
+      
+      this.templates.shift();
+
+      this.navCtrl.setRoot(SplitterPage, {
+        templates: this.templates
+      });
     }
     else{
       this.aantalKeerFout++;
 
       if(this.aantalKeerFout >= 5){
         this.showAlertBan();
+
+        // POST van een ban op de oefening van de gebruiker in de JSON-file
+        // Waarden die meegegeven worden:
+        // - userId
+        // - oefeningId
+        // - eindeBan
+
+        // In JSON-file wordt in dit geval het volgende ingevoerd:
+        // - id: ...
+        // - naam: "..."
+        // - email: "..."
+        // - completions: ...
+        // - bans: [
+        //  {
+        //     "oefeningId": ...
+        //     "eindeVanBan": ...      
+        //  }
+        // ]
+
         this.navCtrl.setRoot(LoginPage);
       }
       else if(this.aantalKeerFout >= 3){

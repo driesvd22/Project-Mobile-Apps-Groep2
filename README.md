@@ -1,2 +1,5 @@
 # Project-Mobile-Apps-Groep2
-Les gros FDP de putes
+
+In onderstaande vindt u een beschrijving van het opzetten van deze (Ionic) app
+
+...

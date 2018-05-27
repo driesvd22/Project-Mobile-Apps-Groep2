@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
-import { HermaakOefeningPage } from '../hermaak-oefening/hermaak-oefening';
 import { LoginPage } from '../login/login';
 import { AlertController } from 'ionic-angular';
-
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
+import { SplitterPage } from '../splitter/splitter';
+import { MidStepPage } from '../mid-step/mid-step';
 
 /**
  * Generated class for the WerkwijzeTempOefeningPage page.
@@ -19,56 +19,54 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
   templateUrl: 'werkwijze-temp-oefening.html',
 })
 export class WerkwijzeTempOefeningPage {
+  
+  userId: number;
+  exerciseId: number;
 
-  tempID: any;
+  templates: any = [];
+  listIndex: any;
+  stappen: any = [];
+  hint: any;
+
   aantalKeerFout : number = 0;
 
-  stappen : any = [
-    {
-      id: 1,
-      step: 'Dit is stap 1',
-      midsteps: [
-        {
-          step: "Dit is de tussenstap 1 van stap 1",
-          question: "Dit is de vraag",
-          answer: "juist"
-        },
-        {
-          step: "Dit is de tussenstap 2 van stap 1",
-          question: "Dit is de tweede vraag",
-          answer: "juist"
-        }
-      ]
-    },
-    {
-      id: 2,
-      step: 'Dit is stap 2',
-      midsteps: null
-    },
-    { 
-      id: 3,
-      step: 'Dit is stap 3',
-      midsteps: null
-    },
-    {
-      id: 4,
-      step: 'Dit is stap 4',
-      midsteps: null
-    }
-  ];
+  stappenMetMidsteps: any = [];
 
-  juisteVolgorde : any = [1,2,3,4];
+  juisteVolgorde : any = [];
 
-  gegevenVolgorde : any = this.shuffle(this.stappen);
+  gegevenVolgorde : any = [];
 
   gekozenVolgorde : any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, public alertCtrl: AlertController, private dragulaService : DragulaService) {
-    this.tempID = navParams.data.tempID;
+    this.templates = navParams.data.templates;
+    this.listIndex = navParams.data.listIndex;
+
+    this.stappen = this.templates[0].lijsten[this.listIndex].stappen;
+    this.hint = this.templates[0].hint;
+
+    this.userId = this.navParams.data.userId;
+    this.exerciseId = this.navParams.data.exerciseId;
+
+    this.stappen.forEach(stap => {
+      this.juisteVolgorde.push(stap.id);
+      
+      if(!(stap.midsteps == null || stap.midsteps.length == 0)){
+        this.stappenMetMidsteps.push(stap.midsteps);
+      }
+    });
+  
+    this.gegevenVolgorde = this.shuffle(this.stappen);
 
     this.dragulaService.drop.subscribe((val) =>
     {
-        console.log('Item Moved');
+        console.log("Object Moved");
+    });
+  }
+
+  getVolgorde(){
+    this.stappen.forEach(stap => {
+        this.juisteVolgorde.push(stap.id);      
     });
   }
 
@@ -107,12 +105,9 @@ export class WerkwijzeTempOefeningPage {
   }
 
   showHint() {
-    // logic om hint te gaan ophalen afhankelijk van de tempID
-    let hint: any = "Dit is de hint";
-
     let alert = this.alertCtrl.create({
       title: 'Hint',
-      subTitle: hint,
+      subTitle: this.hint,
       buttons: ['OK']
     });
     alert.present();
@@ -154,13 +149,45 @@ export class WerkwijzeTempOefeningPage {
 
     if(ok){
       this.showAlertJuist();
-      this.navCtrl.setRoot(HermaakOefeningPage);
+      
+      if(this.stappenMetMidsteps.length == 0 || this.stappenMetMidsteps == null){
+        this.templates.shift();
+
+        this.navCtrl.setRoot(SplitterPage, {
+          templates: this.templates
+        });
+      }
+      else {
+        this.navCtrl.setRoot(MidStepPage, {
+          templates: this.templates,
+          steps: this.gekozenVolgorde
+        });
+      }
     }
     else{
       this.aantalKeerFout++;
 
       if(this.aantalKeerFout >= 5){
         this.showAlertBan();
+
+        // POST van een ban op de oefening van de gebruiker in de JSON-file
+        // Waarden die meegegeven worden:
+        // - userId
+        // - oefeningId
+        // - eindeBan
+
+        // In JSON-file wordt in dit geval het volgende ingevoerd:
+        // - id: ...
+        // - naam: "..."
+        // - email: "..."
+        // - completions: ...
+        // - bans: [
+        //  {
+        //     "oefeningId": ...
+        //     "eindeVanBan": ...      
+        //  }
+        // ]
+
         this.navCtrl.setRoot(LoginPage);
       }
       else if(this.aantalKeerFout >= 3){
@@ -171,5 +198,4 @@ export class WerkwijzeTempOefeningPage {
       }
     }
   }
-
 }
